@@ -1,0 +1,18 @@
+{
+    "extends": "stylelint-config-sass-guidelines",
+    "rules": {
+        "number-leading-zero": "never",
+        "declaration-empty-line-before": null,
+        "max-nesting-depth": null,
+        "order/properties-alphabetical-order": null,
+        "selector-no-qualifying-type": null,
+        "property-no-vendor-prefix": null,
+        "selector-max-compound-selectors": 10,
+        "indentation": [
+            2,
+            {
+                "indentInsideParens": "once-at-root-twice-in-block"
+            }
+        ]
+    }
+}

@@ -1,0 +1,88 @@
+{
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "requireConfigFile": false,
+    "ecmaFeatures": {
+      "tsx": true,
+      "jsx": true
+    }
+  },
+  "extends": [
+    "prettier",
+    "eslint:recommended",
+    "plugin:react/recommended"
+  ],
+  "plugins": [
+    "react-hooks",
+    "prettier",
+    "react",
+    "@typescript-eslint"
+  ],
+  "globals": {
+    "document": true,
+    "window": true,
+    "localStorage": true,
+    "MutationObserver": true,
+    "fetch": true,
+    "Image": true,
+    "Promise": true,
+    "ReturnType": true,
+    "unknown": true
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "rules": {
+    "no-plusplus": "off",
+    "no-underscore-dangle": "off",
+    "no-param-reassign": [
+      "error",
+      {
+        "props": false
+      }
+    ],
+    "linebreak-style": "off",
+    "class-methods-use-this": "off",
+    "max-len": [
+      "error",
+      {
+        "code": 120
+      }
+    ],
+    "object-curly-newline": "off",
+    "import/prefer-default-export": "off",
+    "import/no-default-import": "off",
+    "react/prop-types": "off",
+    "react/jsx-filename-extension": "off",
+    "react/no-did-mount-set-state": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "error",
+    "@typescript-eslint/no-unused-vars": "error",
+    "react/jsx-curly-brace-presence": [
+      "error",
+      {
+        "props": "never",
+        "children": "ignore"
+      }
+    ],
+    "jsx-a11y/media-has-caption": "off",
+    "jsx-a11y/label-has-for": "off",
+    "prettier/prettier": 1,
+    "spaced-comment": [
+      "error",
+      "always",
+      {
+        "markers": [
+          "/"
+        ]
+      }
+    ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
+}
