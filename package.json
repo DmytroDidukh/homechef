@@ -2,15 +2,6 @@
   "name": "homechef",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "@reduxjs/toolkit": "^1.8.2",
-    "@types/jest": "^27.5.2",
-    "@types/node": "^16.11.41",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
-    "react-scripts": "5.0.1",
-    "typescript": "^4.7.4"
-  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
@@ -56,6 +47,16 @@
   },
   "stylelint": {
     "extends": "./linters/stylelintrc.json"
+  },
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.8.2",
+    "@types/jest": "^27.5.2",
+    "@types/node": "^16.11.41",
+    "classnames": "^2.3.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1",
+    "typescript": "^4.7.4"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.18.2",

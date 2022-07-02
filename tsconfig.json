@@ -29,7 +29,8 @@
   },
   "include": [
     "src",
-    "./src/**/*.module.scss",
+    "./src/**/*",
+    "env.d.ts",
   ],
   "exclude": [
     "node_modules",
