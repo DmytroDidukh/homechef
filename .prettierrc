@@ -1,7 +1,16 @@
 {
-  "tabWidth": 4,
+  "printWidth": 100,
+  "tabWidth": 2,
   "singleQuote": true,
-  "jsxSingleQuote": true,
+  "semi": true,
   "trailingComma": "all",
-  "printWidth": 100
+  "arrowParens": "always",
+  "overrides": [
+    {
+      "files": "*.{js,jsx,tsx,ts,scss,json,html}",
+      "options": {
+        "tabWidth": 4
+      }
+    }
+  ]
 }
