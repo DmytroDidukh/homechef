@@ -55,10 +55,13 @@
     "@types/jest": "^27.5.2",
     "@types/node": "^16.11.41",
     "classnames": "^2.3.1",
+    "connected-react-router": "^6.9.2",
     "firebase": "^9.8.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^8.0.2",
     "react-scripts": "5.0.1",
+    "redux-thunk": "^2.4.1",
     "typescript": "^4.7.4"
   },
   "devDependencies": {

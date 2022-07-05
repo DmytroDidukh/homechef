@@ -32,7 +32,8 @@
     "Promise": true,
     "ReturnType": true,
     "unknown": true,
-    "JSX": true
+    "JSX": true,
+    "google": true
   },
   "env": {
     "browser": true,
