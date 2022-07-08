@@ -1,0 +1,6 @@
+export enum APP_REQUEST_STATUS_ENUM {
+    IDLE = 'IDLE',
+    PENDING = 'PENDING',
+    ERROR = 'ERROR',
+    SUCCESS = 'SUCCESS',
+}
