@@ -1,44 +1,56 @@
-import { createSlice, createAction } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
+
+import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
+import { UserDtoType } from 'typescript/types/auth';
 import type { AppState } from '../store';
 
-// Define a type for the slice state
-interface AuthState {
-    value: number;
+interface LoginInterface {
+    authenticated: boolean | undefined;
+    status: APP_REQUEST_STATUS_ENUM;
+    error: null | string;
 }
 
-// Define the initial state using that type
-export const initialState: AuthState = {
-    value: 0,
-};
+interface UserInterface {
+    id: string | undefined;
+    data: UserDtoType | null;
+}
 
-export const resetState = createAction('reset');
+interface AuthState {
+    login: LoginInterface;
+    user: UserInterface;
+}
+
+export const initialState: AuthState = {
+    login: {
+        authenticated: undefined,
+        status: APP_REQUEST_STATUS_ENUM.IDLE,
+        error: null,
+    },
+    user: {
+        id: undefined,
+        data: null,
+    },
+};
 
 export const authSlice = createSlice({
     name: 'auth',
-    // `createSlice` will infer the state type from the `initialState` argument
     initialState,
     reducers: {
-        increment: (state) => {
-            state.value += 1;
-        },
-        decrement: (state) => {
-            state.value -= 1;
-        },
-        // Use the PayloadAction type to declare the contents of `action.payload`
-        incrementByAmount: (state, action: PayloadAction<number>) => {
-            state.value += action.payload;
+        resetAuth: (state) => {
+            state.login.authenticated = false;
+            state.user.data = null;
         },
     },
 });
 
-export const { increment, decrement, incrementByAmount } = authSlice.actions;
+export const { resetAuth } = authSlice.actions;
 
-// Other code such as selectors can use the imported `RootState` type
-export const selectCount = (state: AppState) => state.counter.value;
+export const selectAuthLogin = (state: AppState) => state.auth.login;
+export const selectAuthenticated = (state: AppState) => state.auth.login.authenticated;
+export const selectUserData = (state: AppState) => state.auth.user.data;
+export const selectUserId = (state: AppState) => state.auth.user.id;
 
 export const authReducer = authSlice.reducer;
 export const authActions = {
     ...authSlice.actions,
-    resetState,
 };

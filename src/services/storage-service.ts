@@ -4,6 +4,7 @@ import { LocalStorageService } from './local-storage-service';
 const items = {
     GOOGLE_TOKEN: STORAGE_KEYS.AUTH_GOOGLE,
     FACEBOOK_TOKEN: STORAGE_KEYS.AUTH_FACEBOOK,
+    AUTHENTICATED_WITH: STORAGE_KEYS.AUTHENTICATED_WITH,
 };
 
 // Local Storage
