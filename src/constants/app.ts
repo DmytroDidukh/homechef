@@ -1,3 +1,5 @@
+export {};
+
 const APP_NAME_UPPERCASE = 'HOMECHEF';
 
 export const STORAGE_KEYS = {

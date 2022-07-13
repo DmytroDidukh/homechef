@@ -1,8 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
 import { UserDtoType } from 'typescript/types/auth';
-import type { AppState } from '../store';
+import type { AppState, AppDispatch } from '../store';
+import { api, db } from '../../api';
+import { collection, getDocs } from 'firebase/firestore';
 
 interface LoginInterface {
     authenticated: boolean | undefined;
@@ -32,6 +34,41 @@ export const initialState: AuthState = {
     },
 };
 
+const signInWithGoogle = createAsyncThunk<
+    // Return type of the payload creator
+    UserDtoType,
+    // First argument to the payload creator
+    undefined,
+    {
+        // Optional fields for defining thunkApi field types
+        dispatch: AppDispatch;
+        state: AppState;
+    }
+    // @ts-ignore
+>('auth/signInWithGoogle', async (_, thunkApi) => {
+    console.log(thunkApi);
+    const user = await api.auth.googleSignIn();
+
+    return user;
+});
+
+const getData = createAsyncThunk<
+    void,
+    undefined,
+    {
+        // Optional fields for defining thunkApi field types
+        dispatch: AppDispatch;
+        state: AppState;
+    }
+    // @ts-ignore
+>('auth/getData', async () => {
+    const querySnapshot = await getDocs(collection(db, 'users'));
+    querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, ' => ', doc.data());
+    });
+});
+
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
@@ -40,6 +77,11 @@ export const authSlice = createSlice({
             state.login.authenticated = false;
             state.user.data = null;
         },
+    },
+    extraReducers: (builder) => {
+        builder.addCase(signInWithGoogle.fulfilled, (state, action) => {
+            state.user.data = action.payload;
+        });
     },
 });
 
@@ -53,4 +95,6 @@ export const selectUserId = (state: AppState) => state.auth.user.id;
 export const authReducer = authSlice.reducer;
 export const authActions = {
     ...authSlice.actions,
+    signInWithGoogle,
+    getData,
 };
