@@ -7,3 +7,10 @@ export const STORAGE_KEYS = {
     AUTH_FACEBOOK: `${APP_NAME_UPPERCASE}_FACEBOOK_AUTH_TOKEN`,
     AUTHENTICATED_WITH: `${APP_NAME_UPPERCASE}_AUTHENTICATED_WITH`,
 };
+
+export const ROUTES = {
+    HOME: '/',
+    PROFILE: '/profile',
+    NOT_FOUND: '/not-found',
+    ERROR: '/error',
+};

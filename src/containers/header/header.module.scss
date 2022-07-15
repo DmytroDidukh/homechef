@@ -1,0 +1,10 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+
+.root {
+  @include width-height(100%, #{$header-height});
+  @include box-shadow();
+
+  border-bottom: 1px solid #efefef;
+}
+

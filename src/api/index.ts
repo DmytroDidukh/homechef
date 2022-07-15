@@ -27,7 +27,10 @@ const app: FirebaseApp = initializeApp(firebaseConfig);
 const db: Firestore = getFirestore(app);
 
 const googleProvider = new GoogleAuthProvider();
-const auth = getAuth(app);
+export const auth = getAuth(app);
+
+console.log(auth);
+console.log(JSON.parse(JSON.stringify(auth)));
 
 interface ApiInterface {
     auth: AuthApiInterface;

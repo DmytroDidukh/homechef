@@ -1,7 +1,11 @@
-export type UserDtoType = {
-    id: number;
-    email: string;
-    fullName: string;
-    createdAt: string;
-    token?: string;
+import { User } from '@firebase/auth';
+
+export type FirebaseUser = User;
+
+export type CurrentUserType = {
+    id: string;
+    email: string | null;
+    emailVerified: boolean;
+    displayName: string | null;
+    photoURL: string | null;
 };

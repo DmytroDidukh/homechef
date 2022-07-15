@@ -1,12 +1,55 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { Route, Routes } from 'react-router';
+import { Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 
-import styles from './app.module.scss';
-import { Auth } from '../auth/auth.component';
+import { RequireAuth } from 'containers/require-auth/require-auth.container';
+import { Layout } from 'containers/app/layout.component';
+
+import { ROUTES } from 'constants/app';
+import { useActions } from 'store/hooks';
+import { auth } from 'api';
+import { currentUserFactory } from 'factory/user';
+import { FirebaseUser } from 'typescript/types/auth';
 
 export const App: React.FC = (): JSX.Element => {
+    const { setCurrentUser } = useActions();
+
+    const [initializing, setInitializing] = useState(true);
+
+    const onAuthStateChanges = (googleUser: FirebaseUser): void => {
+        const currentUser = currentUserFactory(googleUser);
+
+        setCurrentUser(currentUser);
+
+        if (initializing) setInitializing(false);
+        console.log(currentUser);
+    };
+
+    useEffect(() => {
+        // @ts-ignore
+        const subscriber = onAuthStateChanged(auth, onAuthStateChanges);
+
+        return subscriber;
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
-        <div className={styles.root}>
-            <Auth />
-        </div>
+        <Routes>
+            <Route path={ROUTES.HOME} element={<Layout />}>
+                <Route index element={<h1>home</h1>} />
+                <Route
+                    path={ROUTES.PROFILE}
+                    element={
+                        <RequireAuth redirectTo={ROUTES.HOME}>
+                            <h1>Profile</h1>
+                        </RequireAuth>
+                    }
+                />
+            </Route>
+            <Route path={ROUTES.ERROR} element={<h1>error</h1>} />
+            <Route path={ROUTES.NOT_FOUND} element={<h1>not found</h1>} />
+            <Route path="/*" element={<Navigate to={ROUTES.NOT_FOUND} replace />} />
+        </Routes>
     );
 };

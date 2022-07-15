@@ -1,7 +1,8 @@
 import { combineReducers, Action, Reducer } from '@reduxjs/toolkit';
 
 import { authSlice, authReducer, resetAuth, initialState as authInitialState } from './slices/auth';
-import { AppState } from './store';
+
+import type { AppState } from 'typescript/types/app';
 
 const reducer: Reducer<AppState> = combineReducers({
     [authSlice.name]: authReducer,
