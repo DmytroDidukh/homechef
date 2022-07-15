@@ -1,35 +1,30 @@
-import { Auth, GoogleAuthProvider as BaseGoogleAuthProvider } from '@firebase/auth';
-import { signInWithPopup } from 'firebase/auth';
-import { CurrentUserType } from '../typescript/types/auth';
-import { currentUserFactory } from 'factory/user';
+import { Auth, GoogleAuthProvider, FacebookAuthProvider, UserCredential } from '@firebase/auth';
+import { signInWithPopup, signOut } from 'firebase/auth';
 
 export interface AuthApiInterface {
-    googleSignIn(): Promise<CurrentUserType | string>;
+    googleSignIn(): Promise<UserCredential>;
+    facebookSignIn(): Promise<UserCredential>;
+    signOut(): Promise<void>;
 }
 
 export class AuthApi implements AuthApiInterface {
     private auth: Auth;
-    private googleAuthProvider: any;
+    private googleAuthProvider = new GoogleAuthProvider();
+    private facebookAuthProvider = new FacebookAuthProvider();
 
     constructor(auth: Auth) {
         this.auth = auth;
-        this.googleAuthProvider = new BaseGoogleAuthProvider();
     }
 
-    async googleSignIn() {
-        try {
-            const response = await signInWithPopup(this.auth, this.googleAuthProvider);
+    googleSignIn() {
+        return signInWithPopup(this.auth, this.googleAuthProvider);
+    }
 
-            // const credential = GoogleAuthProvider.credentialFromResult(response);
-            // // @ts-ignore
-            // const token = credential.accessToken;
-            // The signed-in user info.
+    facebookSignIn() {
+        return signInWithPopup(this.auth, this.facebookAuthProvider);
+    }
 
-            return currentUserFactory(response.user);
-        } catch (err) {
-            console.log('error: ', err);
-
-            return 'error';
-        }
+    signOut() {
+        return signOut(this.auth);
     }
 }

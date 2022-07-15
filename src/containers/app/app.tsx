@@ -13,17 +13,21 @@ import { currentUserFactory } from 'factory/user';
 import { FirebaseUser } from 'typescript/types/auth';
 
 export const App: React.FC = (): JSX.Element => {
-    const { setCurrentUser } = useActions();
+    const { setCurrentUser, setAuthenticated } = useActions();
 
     const [initializing, setInitializing] = useState(true);
 
-    const onAuthStateChanges = (googleUser: FirebaseUser): void => {
-        const currentUser = currentUserFactory(googleUser);
+    const onAuthStateChanges = (user: FirebaseUser): void => {
+        console.log(user);
+        if (user) {
+            const currentUser = currentUserFactory(user);
 
-        setCurrentUser(currentUser);
+            setCurrentUser(currentUser);
+        } else {
+            setAuthenticated(false);
+        }
 
         if (initializing) setInitializing(false);
-        console.log(currentUser);
     };
 
     useEffect(() => {
