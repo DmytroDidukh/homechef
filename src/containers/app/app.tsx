@@ -5,6 +5,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 
 import { RequireAuth } from 'containers/require-auth/require-auth.container';
 import { Layout } from 'containers/app/layout.component';
+import { Home } from 'pages/home/home.container';
 
 import { ROUTES } from 'constants/app';
 import { useActions } from 'store/hooks';
@@ -41,7 +42,7 @@ export const App: React.FC = (): JSX.Element => {
     return (
         <Routes>
             <Route path={ROUTES.HOME} element={<Layout />}>
-                <Route index element={<h1>home</h1>} />
+                <Route index element={<Home />} />
                 <Route
                     path={ROUTES.PROFILE}
                     element={
