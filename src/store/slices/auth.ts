@@ -5,10 +5,10 @@ import { currentUserFactory } from 'factory/user';
 
 import type { AppState, AppDispatch } from 'typescript/types/app';
 import type { CurrentUserType } from 'typescript/types/auth';
-import type { AuthState, LoginInterface } from 'typescript/interfaces/auth';
+import type { AuthStateInterface, LoginInterface } from 'typescript/interfaces/auth';
 import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
 
-export const initialState: AuthState = {
+export const initialState: AuthStateInterface = {
     login: {
         authenticated: undefined,
         status: APP_REQUEST_STATUS_ENUM.IDLE,
@@ -34,6 +34,7 @@ const signInWithGoogle = createAsyncThunk<
     // @ts-ignore
 >('auth/signInWithGoogle', async () => {
     try {
+        console.log('HELLO');
         const response = await api.auth.googleSignIn();
 
         return currentUserFactory(response.user);

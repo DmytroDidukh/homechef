@@ -2,6 +2,7 @@ import { useSelector, useDispatch, TypedUseSelectorHook } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
 
 import { authActions } from './slices/auth';
+import { ingredientsActions } from './slices/ingredients';
 
 import type { AppDispatch, AppState } from 'typescript/types/app';
 
@@ -10,6 +11,7 @@ export const useAppSelector: TypedUseSelectorHook<AppState> = useSelector;
 
 const allActions = {
     ...authActions,
+    ...ingredientsActions,
 };
 
 export const useActions = () => {

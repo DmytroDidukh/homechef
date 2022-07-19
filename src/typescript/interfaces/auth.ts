@@ -13,7 +13,7 @@ export interface UserInterface {
     data: CurrentUserType | null;
 }
 
-export interface AuthState {
+export interface AuthStateInterface {
     login: LoginInterface;
     user: UserInterface;
 }
