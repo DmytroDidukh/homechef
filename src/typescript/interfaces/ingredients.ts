@@ -1,11 +1,13 @@
-import { IngredientType } from '../types/ingredients';
+import type { IngredientsType, IngredientsGroupsType } from '../types/ingredients';
 
 export interface IngredientsStateInterface {
-    ids: string[] | [];
-    byId: {
-        [key: string]: {
-            data: IngredientType;
-        };
+    ingredients: {
+        ids: string[] | [];
+        byId: IngredientsType;
+    };
+    groups: {
+        ids: string[] | [];
+        byId: IngredientsGroupsType;
     };
     error: string | null;
 }

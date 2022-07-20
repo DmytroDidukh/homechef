@@ -6,9 +6,20 @@ export type IngredientType = {
     description: string | null;
     description_uk: string | null;
     wikipedia_id: string | null;
-    food_group: string;
-    food_group_uk: string;
-    food_subgroup: string;
-    food_subgroup_uk: string;
+    group_id: string;
     image_url: string | null;
+};
+
+export type IngredientGroupType = {
+    id: string;
+    name: string;
+    name_uk: string;
+};
+
+export type IngredientsType = {
+    [ket: string]: IngredientType;
+};
+
+export type IngredientsGroupsType = {
+    [ket: string]: IngredientGroupType;
 };
