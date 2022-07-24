@@ -11,8 +11,9 @@ export const Home: React.FC = (): JSX.Element | null => {
     const ingredients = useAppSelector(selectIngredients);
 
     useEffect(() => {
-        getIngredientsGroups();
-        getIngredients();
+        console.log('ggg ', getIngredients, getIngredientsGroups);
+        // getIngredientsGroups();
+        // getIngredients();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
