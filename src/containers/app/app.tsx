@@ -14,16 +14,16 @@ import { currentUserFactory } from 'factory/user';
 import { FirebaseUser } from 'typescript/types/auth';
 
 export const App: React.FC = (): JSX.Element => {
-    const { setCurrentUser, setAuthenticated } = useActions();
+    const { setCurrentUser, setAuthenticated, setAdminMode } = useActions();
 
     const [initializing, setInitializing] = useState(true);
 
     const onAuthStateChanges = (user: FirebaseUser): void => {
-        console.log(user);
         if (user) {
             const currentUser = currentUserFactory(user);
 
             setCurrentUser(currentUser);
+            setAdminMode(currentUser.id === process.env.REACT_APP_ADMIN_UID);
         } else {
             setAuthenticated(false);
         }
