@@ -1,0 +1,91 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.root {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.spinner {
+  display: inline-block;
+
+  &::after {
+    content: " ";
+    display: block;
+
+    border-style: solid;
+    border-radius: 50%;
+    animation: loader 1.2s linear infinite;
+  }
+}
+
+.spinner.small {
+  @include width-height(20px, 20px);
+
+  &:after {
+    @include width-height(15px, 15px);
+
+    border-width: 4px;
+    margin: 4px;
+  }
+}
+
+.spinner.medium {
+  @include width-height(40px, 40px);
+
+  &:after {
+    @include width-height(30px, 30px);
+
+    border-width: 6px;
+    margin: 6px;
+  }
+}
+
+.spinner.large {
+  @include width-height(60px, 60px);
+
+  &:after {
+    @include width-height(50px, 50px);
+
+    border-width: 6px;
+    margin: 8px;
+  }
+}
+
+.spinner.primary {
+  &:after {
+    border-color: $primary transparent $primary transparent;
+  }
+}
+
+.spinner.secondary {
+  &:after {
+    border-color: $primary-dark transparent $primary-dark transparent;
+  }
+}
+
+.spinner.light {
+  &:after {
+    border-color: $white transparent $white transparent;
+  }
+}
+
+.spinner.dark {
+  &:after {
+    border-color: $dark transparent $dark transparent;
+  }
+}
+
+@keyframes loader {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+

@@ -1,6 +1,6 @@
 import React from 'react';
 import Select, { components, SingleValue } from 'react-select';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { UserAvatar } from 'components/user-avatart/user-avatar.component';
 

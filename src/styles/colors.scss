@@ -1,10 +1,13 @@
 $primary: #a4daf6;
-$secondary: #eafaff;
-$secondary-2: #73a0ac;
+$primary-light: #eafaff;
+$primary-dark: #429cb5;
+
+$white: #fff;
+$dark: #0b1a1e;
 
 $primary-hover: darken($primary, 5%);
-$secondary-hover: darken($secondary, 5%);
-$secondary-2-hover: darken($secondary-2, 5%);
+$primary-light: darken($primary-light, 5%);
+$primary-dark-hover: darken($primary-dark, 5%);
 
 $text-primary: #161e21;
 $text-secondary: #434e53;
