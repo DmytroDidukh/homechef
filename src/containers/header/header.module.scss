@@ -8,3 +8,25 @@
   border-bottom: 1px solid #efefef;
 }
 
+.select {
+  [class$="-control"] {
+    border-color: transparent;
+    outline: none;
+
+    &:hover,
+    &:focus {
+      border-color: transparent;
+      outline: none;
+    }
+  }
+
+  [class$="-menu"] {
+    background-color: salmon;
+    width: 300px;
+  }
+
+  [class$="-ValueContainer"] {
+    @include width-height(40px, 40px);
+
+  }
+}

@@ -1,18 +1,23 @@
 import React from 'react';
+import Select, { components, SingleValue } from 'react-select';
+
+import { UserAvatar } from 'components/user-avatart/user-avatar.component';
 
 import { useActions } from 'store/hooks';
 import { useAuth } from 'hooks/useAuth';
 
+import type { ValueContainerProps } from 'react-select/dist/declarations/src/components/containers';
+import type { SelectOption } from 'typescript/interfaces/common';
+
 import styles from './header.module.scss';
-import Select, { components } from 'react-select';
 
-const Avatar = () => {
-    return <div style={{ width: 40, height: 40, backgroundColor: '#fffaaa' }} />;
-};
+interface ValueContainerInterface extends ValueContainerProps {
+    photoURL: string;
+}
 
-const ValueContainer = ({ children, ...props }) => (
+const ValueContainer: React.FC<ValueContainerInterface> = ({ children, photoURL, ...props }) => (
     <components.ValueContainer {...props}>
-        <Avatar />
+        <UserAvatar photoURL={photoURL} />
         {children}
     </components.ValueContainer>
 );
@@ -21,32 +26,38 @@ export const Header: React.FC = (): JSX.Element => {
     const { authenticated, user } = useAuth();
     const { signInWithGoogle, signInWithFacebook, signOut } = useActions();
 
-    const foo = (props) => {
-        console.log('OPEN: ', props);
+    const foo = (option: SingleValue<SelectOption>) => {
+        console.log('OPEN: ', option);
     };
     const options = [
         { label: 'Profile', value: 'profile' },
         { label: 'Logout', value: 'logout' },
     ];
 
-    const options2 = [
-        { value: 'aa', label: 'Dmytro Didukh' },
-        { value: 'chocolate', label: 'Chocolate' },
-        { value: 'strawberry', label: 'Strawberry' },
-        { value: 'vanilla', label: 'Vanilla' },
-    ];
-
+    // @ts-ignore
     return (
         <div className={styles.root}>
-            <Select
-              delimiter={false}
-                options={options2}
-                defaultValue={{ value: 'aa', label: 'Dmytro Didukh' }}
-                components={{
-                    ValueContainer,
-                }}
-              onChange={foo}
-            />
+            {authenticated && (
+                <div style={{ width: 50 }}>
+                    <Select
+                        options={options}
+                        className={styles.select}
+                        // defaultValue={{ value: 'aa', label: 'Dmytro Didukh' }}
+                        components={{
+                            ValueContainer: (props) => (
+                                // @ts-ignore
+                                <ValueContainer {...props} photoURL={user.photoURL || ''} />
+                            ),
+                            IndicatorsContainer: () => null,
+                            Placeholder: () => null,
+                            SingleValue: () => null,
+                        }}
+                        onChange={foo}
+                        isSearchable={false}
+                    />
+                </div>
+            )}
+
             {authenticated === false && (
                 <div>
                     <button onClick={signInWithGoogle}>signin Google</button>
