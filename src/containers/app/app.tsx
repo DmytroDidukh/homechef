@@ -51,6 +51,22 @@ export const App: React.FC = (): JSX.Element => {
                         </RequireAuth>
                     }
                 />
+                <Route
+                    path={ROUTES.SHOPPING_LIST}
+                    element={
+                        <RequireAuth redirectTo={ROUTES.HOME}>
+                            <h1>Shopping List</h1>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path={ROUTES.FAVORITES}
+                    element={
+                        <RequireAuth redirectTo={ROUTES.HOME}>
+                            <h1>Favorites</h1>
+                        </RequireAuth>
+                    }
+                />
             </Route>
             <Route path={ROUTES.ERROR} element={<h1>error</h1>} />
             <Route path={ROUTES.NOT_FOUND} element={<h1>not found</h1>} />

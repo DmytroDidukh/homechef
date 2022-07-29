@@ -11,6 +11,13 @@ export const STORAGE_KEYS = {
 export const ROUTES = {
     HOME: '/',
     PROFILE: '/profile',
+    SHOPPING_LIST: '/shopping-list',
+    FAVORITES: '/favorites',
     NOT_FOUND: '/not-found',
     ERROR: '/error',
+};
+
+export const THEME = {
+    PRIMARY: '#a4daf6',
+    SECONDARY: '#eafaff',
 };
