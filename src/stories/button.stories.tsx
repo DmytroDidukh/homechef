@@ -53,6 +53,13 @@ Dark.args = {
     style: BUTTON_STYLE_ENUM.DARK,
 };
 
+export const Transparent: any = Template.bind({});
+Transparent.args = {
+    label: 'X',
+    style: BUTTON_STYLE_ENUM.TRANSPARENT,
+    border: false,
+};
+
 export const Large: any = Template.bind({});
 Large.args = {
     size: COMPONENTS_SIZE_ENUM.LARGE,

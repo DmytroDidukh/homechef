@@ -25,7 +25,7 @@
   }
 }
 
-.root.primary {
+.primary {
   color: $text-light;
   background-color: $primary;
   border-color: $border-primary;
@@ -36,7 +36,7 @@
   }
 }
 
-.root.primary-reversed {
+.primary-reversed {
   color: $text-primary;
   background-color: $white;
   border-color: $primary;
@@ -48,7 +48,7 @@
   }
 }
 
-.root.primary-light {
+.primary-light {
   color: $text-light;
   background-color: $primary-light;
   border-color: $primary-light;
@@ -58,7 +58,7 @@
   }
 }
 
-.root.primary-dark {
+.primary-dark {
   color: $text-light;
   background-color: $primary-dark;
   border-color: $primary-dark;
@@ -68,7 +68,7 @@
   }
 }
 
-.root.light {
+.light {
   color: $text-dark;
   background-color: $white;
   border-color: $border-dark;
@@ -79,7 +79,7 @@
   }
 }
 
-.root.dark {
+.dark {
   color: $text-light;
   background-color: $dark;
   border-color: $dark;
@@ -90,25 +90,36 @@
   }
 }
 
-.root.borderless {
+.transparent {
+  color: $text-dark;
+  background-color: transparent;
+  border-color: transparent;
+
+  &:hover {
+    color: $primary;
+  }
+}
+
+.borderless {
   border-width: 0;
 }
 
-.root.small {
-  @include font(14px, 20px, 700);
+.small {
+  @include font(14px, 20px, 400);
   @include width-height(auto, 38px);
 
-  padding: 0 15px;
-}
-
-.root.medium {
-  @include font(16px, 24px, 700);
-  @include width-height(auto, 45px);
-
+  border-width: 1px;
   padding: 0 20px;
 }
 
-.root.large {
+.medium {
+  @include font(16px, 24px, 700);
+  @include width-height(auto, 45px);
+
+  padding: 0 25px;
+}
+
+.large {
   @include font(20px, 28px, 700);
   @include width-height(auto, 50px);
 

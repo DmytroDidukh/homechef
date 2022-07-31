@@ -19,4 +19,5 @@ export enum BUTTON_STYLE_ENUM {
     PRIMARY_DARK = 'primary-dark',
     LIGHT = 'light',
     DARK = 'dark',
+    TRANSPARENT = 'transparent',
 }
