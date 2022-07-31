@@ -10,9 +10,10 @@
     "lint:css": "stylelint src/**/*.scss",
     "lint:css:staged": "stylelint --fix",
     "lint:fix": "npm run lint:js && npm run lint:tsx && npm run lint:css -- --fix",
-    "lint:js": "eslint --fix --ext .js ./src",
-    "lint:ts": "eslint --fix --ext .ts ./src",
-    "lint:tsx": "eslint --fix --ext .tsx ./src",
+    "lint:js": "eslint --fix --ext .js ./",
+    "lint:jsx": "eslint --fix --ext .jsx ./",
+    "lint:ts": "eslint --fix --ext .ts ./",
+    "lint:tsx": "eslint --fix --ext .tsx ./",
     "prepare": "husky install",
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006 -s public",
@@ -39,6 +40,10 @@
     "*.js": [
       "prettier --write",
       "npm run lint:js"
+    ],
+    "*.jsx": [
+      "prettier --write",
+      "npm run lint:jsx"
     ],
     "*.ts": [
       "prettier --write",
