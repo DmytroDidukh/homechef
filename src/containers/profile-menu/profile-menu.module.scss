@@ -37,11 +37,20 @@
     @include font(16px, 24px, 600);
 
     background-color: transparent;
-    padding: 10px;
     margin: 0;
+    padding: 0;
+
+    > * {
+      padding: 10px;
+      display: block;
+    }
 
     &:hover {
       background-color: transparent;
+
+      a {
+        color: $text-primary;
+      }
     }
 
     &:last-child {
@@ -60,16 +69,7 @@
 
 .option {
   @include width-height(100%, 100%);
-  //@include flex-block(flex-start, center);
 
-  //box-sizing: border-box;
-  //cursor: pointer;
   text-decoration: none;
   color: $text-dark;
-
-  &:hover {
-    color: $text-primary;
-  }
-
-
 }
