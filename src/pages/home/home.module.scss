@@ -1,5 +1,6 @@
 @import "src/styles/mixins";
 @import "src/styles/variables";
+@import "src/styles/colors";
 
 .root {
   @include flex-block(center, flex-start, row, wrap);
@@ -12,7 +13,7 @@
   margin: 10px;
   padding: 20px;
 
-  border: 1px solid #efefef;
+  border: 1px solid $border-light;
   border-radius: 16px;
 }
 

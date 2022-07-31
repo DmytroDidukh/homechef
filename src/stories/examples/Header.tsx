@@ -1,6 +1,9 @@
 import React from 'react';
 
 import { Button } from 'components/button/button.component';
+
+import { COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+
 import './header.css';
 
 type User = {
@@ -42,12 +45,25 @@ export const Header = ({ user, onLogin, onLogout, onCreateAccount }: HeaderProps
                         <span className="welcome">
                             Welcome, <b>{user.name}</b>!
                         </span>
-                        <Button size="small" onClick={onLogout} label="Log out" />
+                        <Button
+                            size={COMPONENTS_SIZE_ENUM.SMALL}
+                            onClick={onLogout}
+                            label="Log out"
+                        />
                     </>
                 ) : (
                     <>
-                        <Button size="small" onClick={onLogin} label="Log in" />
-                        <Button primary size="small" onClick={onCreateAccount} label="Sign up" />
+                        <Button
+                            size={COMPONENTS_SIZE_ENUM.SMALL}
+                            onClick={onLogin}
+                            label="Log in"
+                        />
+                        <Button
+                            border
+                            size={COMPONENTS_SIZE_ENUM.SMALL}
+                            onClick={onCreateAccount}
+                            label="Sign up"
+                        />
                     </>
                 )}
             </div>

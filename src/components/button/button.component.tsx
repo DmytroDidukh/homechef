@@ -1,50 +1,37 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+
 import styles from './button.module.scss';
 
 export interface ButtonProps {
-    /**
-     * Is this the principal call to action on the page?
-     */
-    primary?: boolean;
-    /**
-     * What background color to use
-     */
-    backgroundColor?: string;
-    /**
-     * How large should the button be?
-     */
-    size?: 'small' | 'medium' | 'large';
-    /**
-     * Button contents
-     */
+    style?: BUTTON_STYLE_ENUM;
+    size?: COMPONENTS_SIZE_ENUM;
     label: string;
-    /**
-     * Optional click handler
-     */
+    border?: boolean;
+    disabled?: boolean;
     onClick?: () => void;
+    children?: React.ReactNode;
 }
 
-/**
- * Primary UI component for user interaction
- */
 export const Button: React.FC<ButtonProps> = ({
-    primary = false,
-    size = 'medium',
-    backgroundColor,
+    style = BUTTON_STYLE_ENUM.PRIMARY,
+    size = COMPONENTS_SIZE_ENUM.MEDIUM,
     label,
+    border = true,
+    children,
     ...props
 }) => {
-    const mode = primary ? 'primary' : 'secondary';
     return (
         <button
             type="button"
-            className={classNames(styles.root, styles[size], styles[mode])}
-            style={{ backgroundColor }}
+            className={classNames(styles.root, styles[size], styles[style], {
+                [styles.borderless]: !border,
+            })}
             {...props}
         >
-            {label}
+            {children ? children : label}
         </button>
     );
 };

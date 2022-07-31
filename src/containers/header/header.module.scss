@@ -1,12 +1,13 @@
 @import "src/styles/mixins";
 @import "src/styles/variables";
+@import "src/styles/colors";
 
 .root {
-  @include box-shadow(transparent, 0 8px 48px rgba(0, 0, 0, .2), 0 0 8px 8px);
+  @include box-shadow(transparent, 0 8px 48px rgba(0, 0, 0, .1), 0);
 
   height: $header-height;
 
-  border-bottom: 1px solid #efefef;
+  border-bottom: 1px solid $border-lighter;
   padding: 0 16px;
 }
 

@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Loader } from 'components/loader/loader.component';
 
-import { LOADER_STYLE_ENUM, LOADER_SIZE_ENUM } from 'typescript/enums/common';
+import { LOADER_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
 
 export default {
     title: 'Components/Loader',
@@ -17,9 +17,14 @@ Primary.args = {
     style: LOADER_STYLE_ENUM.PRIMARY,
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-    style: LOADER_STYLE_ENUM.SECONDARY,
+export const PrimaryLight = Template.bind({});
+PrimaryLight.args = {
+    style: LOADER_STYLE_ENUM.PRIMARY_LIGHT,
+};
+
+export const PrimaryDark = Template.bind({});
+PrimaryDark.args = {
+    style: LOADER_STYLE_ENUM.PRIMARY_DARK,
 };
 
 export const Dark = Template.bind({});
@@ -47,15 +52,10 @@ Light.decorators = [
 
 export const Small = Template.bind({});
 Small.args = {
-    size: LOADER_SIZE_ENUM.SMALL,
-};
-
-export const Medium = Template.bind({});
-Medium.args = {
-    size: LOADER_SIZE_ENUM.MEDIUM,
+    size: COMPONENTS_SIZE_ENUM.SMALL,
 };
 
 export const Large = Template.bind({});
 Large.args = {
-    size: LOADER_SIZE_ENUM.LARGE,
+    size: COMPONENTS_SIZE_ENUM.LARGE,
 };

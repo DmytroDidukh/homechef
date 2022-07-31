@@ -34,25 +34,42 @@
   }
 
   [class$="-option"] {
+    @include font(16px, 24px, 600);
+
     background-color: transparent;
-    color: black;
+    padding: 10px;
+    margin: 0;
+
+    &:hover {
+      background-color: transparent;
+    }
+
+    &:last-child {
+      margin-top: 10px;
+      border-top: 1px solid $border-lighter;
+      cursor: pointer;
+
+      color: $text-secondary;
+
+      &:hover {
+        color: $text-dark;
+      }
+    }
   }
 }
 
 .option {
-  @include width-height(100%, 40px);
+  @include width-height(100%, 100%);
+  //@include flex-block(flex-start, center);
 
-  padding: 10px;
-  display: block;
-  box-sizing: border-box;
-  color: black;
+  //box-sizing: border-box;
+  //cursor: pointer;
   text-decoration: none;
-  cursor: pointer;
-}
+  color: $text-dark;
 
-.option:last-child {
-  margin-top: 10px;
-  border-top: 1px solid $border-color;
+  &:hover {
+    color: $text-primary;
+  }
 
-  color: $text-secondary;
+
 }

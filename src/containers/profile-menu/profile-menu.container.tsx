@@ -65,16 +65,16 @@ export const ProfileMenu: React.FC<ProfileMenuInterface> = ({ user }): JSX.Eleme
                     ),
                     IndicatorsContainer: () => null,
                     Placeholder: () => null,
-                    Option: ({ data }) => (
-                        <>
-                            {data.value === SIGN_OUT_VALUE ? (
-                                <div className={styles.option}>{data.label}</div>
+                    Option: (props) => (
+                        <components.Option {...props}>
+                            {props.data.value === SIGN_OUT_VALUE ? (
+                                <span>{props.data.label}</span>
                             ) : (
-                                <Link className={styles.option} to={data.value}>
-                                    {data.label}
+                                <Link className={styles.option} to={props.data.value}>
+                                    {props.data.label}
                                 </Link>
                             )}
-                        </>
+                        </components.Option>
                     ),
                     SingleValue: () => null,
                 }}

@@ -1,35 +1,116 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
 .root {
-  font-family: 'Nunito Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 700;
-  border: 0;
-  border-radius: 3em;
+  @include flex-block(center, center);
+
+  display: inline-flex;
+  min-width: fit-content;
+
+  border-style: solid;
+  border-width: 2px;
+
+  transition: all .1s ease-in;
   cursor: pointer;
-  display: inline-block;
-  line-height: 1;
+  position: relative;
+
+  &:disabled,
+  &:disabled:hover {
+    border-color: $primary-disabled !important;
+    background-color: $primary-disabled !important;
+    color: $text-light !important;
+
+    cursor: not-allowed;
+  }
 }
 
 .root.primary {
-  color: white;
-  background-color: #1ea7fd;
+  color: $text-light;
+  background-color: $primary;
+  border-color: $border-primary;
+
+  &:hover {
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
 }
 
-.root.secondary {
-  color: #333;
-  background-color: transparent;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+.root.primary-reversed {
+  color: $text-primary;
+  background-color: $white;
+  border-color: $primary;
+
+  &:hover {
+    color: $text-light;
+    background-color: $primary-hover;
+    border-color: $primary-hover;
+  }
+}
+
+.root.primary-light {
+  color: $text-light;
+  background-color: $primary-light;
+  border-color: $primary-light;
+
+  &:hover {
+    background-color: $primary-light-hover;
+  }
+}
+
+.root.primary-dark {
+  color: $text-light;
+  background-color: $primary-dark;
+  border-color: $primary-dark;
+
+  &:hover {
+    background-color: $primary-dark-hover;
+  }
+}
+
+.root.light {
+  color: $text-dark;
+  background-color: $white;
+  border-color: $border-dark;
+
+  &:hover {
+    color: $primary;
+    border-color: $border-primary;
+  }
+}
+
+.root.dark {
+  color: $text-light;
+  background-color: $dark;
+  border-color: $dark;
+
+  &:hover {
+    background-color: $primary;
+    border-color: $border-primary;
+  }
+}
+
+.root.borderless {
+  border-width: 0;
 }
 
 .root.small {
-  font-size: 12px;
-  padding: 10px 16px;
+  @include font(14px, 20px, 700);
+  @include width-height(auto, 38px);
+
+  padding: 0 15px;
 }
 
 .root.medium {
-  font-size: 14px;
-  padding: 11px 20px;
+  @include font(16px, 24px, 700);
+  @include width-height(auto, 45px);
+
+  padding: 0 20px;
 }
 
 .root.large {
-  font-size: 16px;
-  padding: 12px 24px;
+  @include font(20px, 28px, 700);
+  @include width-height(auto, 50px);
+
+  padding: 0 30px;
 }
