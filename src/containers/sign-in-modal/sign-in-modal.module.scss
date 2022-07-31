@@ -1,0 +1,28 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.root {
+  width: auto;
+}
+
+.modal {
+  @include width-height(460px, 130px);
+  @include flex-block(space-evenly, flex-end, row, wrap);
+}
+
+.title {
+  width: 100%;
+  margin: 0;
+  text-align: center;
+}
+
+.button {
+  padding: 0;
+
+  img {
+    @include width-height(30px, auto);
+
+    margin-right: 10px;
+  }
+}
