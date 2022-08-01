@@ -34,7 +34,7 @@
   }
 
   [class$="-option"] {
-    @include font(16px, 24px, 600);
+    @include font-small(600);
 
     background-color: transparent;
     margin: 0;
@@ -54,6 +54,7 @@
     }
 
     &:last-child {
+      padding: 10px;
       margin-top: 10px;
       border-top: 1px solid $border-lighter;
       cursor: pointer;

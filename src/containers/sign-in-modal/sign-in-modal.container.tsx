@@ -23,6 +23,11 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
 
     const [modalOpen, setModalOpen] = useState(false);
 
+    const handleSignIn = (callback: () => void) => {
+        callback();
+        setModalOpen(false);
+    };
+
     return (
         <div>
             <Button
@@ -43,7 +48,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                         size={COMPONENTS_SIZE_ENUM.LARGE}
                         style={BUTTON_STYLE_ENUM.TRANSPARENT}
                         border={false}
-                        onClick={() => signInWithGoogle()}
+                        onClick={() => handleSignIn(signInWithGoogle)}
                     >
                         <img src={GoogleIcon} alt="Google" />
                         <>GOOGLE</>
@@ -53,7 +58,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                         size={COMPONENTS_SIZE_ENUM.LARGE}
                         style={BUTTON_STYLE_ENUM.TRANSPARENT}
                         border={false}
-                        onClick={() => signInWithFacebook()}
+                        onClick={() => handleSignIn(signInWithFacebook)}
                     >
                         <img src={FacebookIcon} alt="Facebook" />
                         <>FACEBOOK</>

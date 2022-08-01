@@ -9,6 +9,7 @@ export interface ButtonProps {
     style?: BUTTON_STYLE_ENUM;
     size?: COMPONENTS_SIZE_ENUM;
     label?: string;
+    title?: string;
     border?: boolean;
     disabled?: boolean;
     onClick?: () => void;
@@ -20,6 +21,7 @@ export const Button: React.FC<ButtonProps> = ({
     style = BUTTON_STYLE_ENUM.PRIMARY,
     size = COMPONENTS_SIZE_ENUM.SMALL,
     label,
+    title,
     border = true,
     children,
     className,
@@ -28,6 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
     return (
         <button
             type="button"
+            title={title}
             className={classNames(styles.root, styles[size], styles[style], className, {
                 [styles.borderless]: !border,
             })}

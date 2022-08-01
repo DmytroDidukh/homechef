@@ -13,6 +13,8 @@ export const ROUTES = {
     PROFILE: '/profile',
     SHOPPING_LIST: '/shopping-list',
     FAVORITES: '/favorites',
+    BOOKMARKS: '/bookmarks',
+    RECIPE_CREATOR: '/recipe-creator',
     NOT_FOUND: '/not-found',
     ERROR: '/error',
 };

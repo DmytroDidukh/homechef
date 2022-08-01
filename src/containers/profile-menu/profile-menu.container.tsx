@@ -18,10 +18,10 @@ interface ProfileMenuInterface {
 
 const SIGN_OUT_VALUE = 'signOut';
 const OPTIONS = [
-    { label: 'Профіль', value: ROUTES.PROFILE },
-    { label: 'Обрані рецепти', value: ROUTES.FAVORITES },
-    { label: 'Список покупок', value: ROUTES.SHOPPING_LIST },
-    { label: 'Вийти', value: SIGN_OUT_VALUE },
+    { label: 'ПРОФІЛЬ', value: ROUTES.PROFILE },
+    { label: 'ОБРАНІ РЕЦЕПТИ', value: ROUTES.FAVORITES },
+    { label: 'СПИСОК ПОКУПОК', value: ROUTES.SHOPPING_LIST },
+    { label: 'ВИЙТИ', value: SIGN_OUT_VALUE },
 ];
 
 export const ProfileMenu: React.FC<ProfileMenuInterface> = ({ user }): JSX.Element => {
@@ -68,7 +68,7 @@ export const ProfileMenu: React.FC<ProfileMenuInterface> = ({ user }): JSX.Eleme
                     Option: (props) => (
                         <components.Option {...props}>
                             {props.data.value === SIGN_OUT_VALUE ? (
-                                <span>{props.data.label}</span>
+                                <>{props.data.label}</>
                             ) : (
                                 <Link className={styles.option} to={props.data.value}>
                                     {props.data.label}

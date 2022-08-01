@@ -67,6 +67,22 @@ export const App: React.FC = (): JSX.Element => {
                         </RequireAuth>
                     }
                 />
+                <Route
+                    path={ROUTES.BOOKMARKS}
+                    element={
+                        <RequireAuth redirectTo={ROUTES.HOME}>
+                            <h1>Bookmarks</h1>
+                        </RequireAuth>
+                    }
+                />
+                <Route
+                    path={ROUTES.RECIPE_CREATOR}
+                    element={
+                        <RequireAuth redirectTo={ROUTES.HOME}>
+                            <h1>Recipe Creator</h1>
+                        </RequireAuth>
+                    }
+                />
             </Route>
             <Route path={ROUTES.ERROR} element={<h1>error</h1>} />
             <Route path={ROUTES.NOT_FOUND} element={<h1>not found</h1>} />
