@@ -13,10 +13,18 @@
 
 .container {
   @include flex-block(space-between, center);
+
+  padding: 12px 0;
 }
 
 .logo {
-  @include font(18px, 26px, 900);
+  @include font-x-large(900);
 
   margin: 0;
+}
+
+.nav {
+  @include flex-block(space-between, center);
+
+  height: 100%;
 }

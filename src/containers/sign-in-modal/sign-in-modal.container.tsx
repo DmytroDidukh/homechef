@@ -26,7 +26,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
     return (
         <div>
             <Button
-                label="Вхід"
+                label="ВХІД"
                 style={BUTTON_STYLE_ENUM.PRIMARY_REVERSED}
                 onClick={() => setModalOpen(true)}
             />
@@ -37,7 +37,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                     className={styles.modal}
                     onClose={() => setModalOpen(false)}
                 >
-                    <h5 className={styles.title}>Увійти за допомогою</h5>
+                    <h5 className={styles.title}>УВІЙТИ ЗА ДОПОМОГОЮ</h5>
                     <Button
                         className={styles.button}
                         size={COMPONENTS_SIZE_ENUM.LARGE}
@@ -46,7 +46,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                         onClick={() => signInWithGoogle()}
                     >
                         <img src={GoogleIcon} alt="Google" />
-                        <>Google</>
+                        <>GOOGLE</>
                     </Button>
                     <Button
                         className={styles.button}
@@ -56,7 +56,7 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                         onClick={() => signInWithFacebook()}
                     >
                         <img src={FacebookIcon} alt="Facebook" />
-                        <>Facebook</>
+                        <>FACEBOOK</>
                     </Button>
                 </Modal>
             )}

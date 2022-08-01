@@ -24,7 +24,7 @@ $table-upper-boundary: 1180px;
 
 @mixin link-normalize {
   text-decoration: none;
-  color: $always-black;
+  color: $text-dark;
 }
 
 @mixin input-normalize {
@@ -101,4 +101,49 @@ $table-upper-boundary: 1180px;
       transform: translateY(100%);
     }
   }
+}
+
+@mixin absolute-center {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+}
+
+// FONTS
+@mixin font-x-small($font-weight: 400) {
+  font-size: 10px;
+  line-height: 14px;
+  font-weight: $font-weight;
+}
+
+@mixin font-small($font-weight: 400) {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: $font-weight;
+}
+
+@mixin font-normal($font-weight: 400) {
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: $font-weight;
+}
+
+@mixin font-large($font-weight: 400) {
+  font-size: 18px;
+  line-height: 22px;
+  font-weight: $font-weight;
+}
+
+@mixin font-x-large($font-weight: 400) {
+  font-size: 22px;
+  line-height: 26px;
+  font-weight: $font-weight;
+}
+
+@mixin font-2x-large($font-weight: 700) {
+  font-size: 26px;
+  line-height: 30px;
+  font-weight: $font-weight;
 }

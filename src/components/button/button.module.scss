@@ -9,7 +9,7 @@
   min-width: fit-content;
 
   border-style: solid;
-  border-width: 2px;
+  border-width: 1px;
 
   transition: all .1s ease-in;
   cursor: pointer;
@@ -93,35 +93,35 @@
 .transparent {
   color: $text-dark;
   background-color: transparent;
-  border-color: transparent;
+  border-color: $border-dark;
 
   &:hover {
     color: $primary;
+    background-color: rgba($primary-light-hover, .2);
   }
+}
+
+.small {
+  @include font-x-small();
+  @include width-height(auto, 34px);
+
+  padding: 0 30px;
+}
+
+.medium {
+  @include font-small();
+  @include width-height(auto, 40px);
+
+  padding: 0 40px;
+}
+
+.large {
+  @include font-normal();
+  @include width-height(auto, 50px);
+
+  padding: 0 45px;
 }
 
 .borderless {
   border-width: 0;
-}
-
-.small {
-  @include font(14px, 20px, 400);
-  @include width-height(auto, 38px);
-
-  border-width: 1px;
-  padding: 0 20px;
-}
-
-.medium {
-  @include font(16px, 24px, 700);
-  @include width-height(auto, 45px);
-
-  padding: 0 25px;
-}
-
-.large {
-  @include font(20px, 28px, 700);
-  @include width-height(auto, 50px);
-
-  padding: 0 30px;
 }

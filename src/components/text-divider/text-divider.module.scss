@@ -1,0 +1,11 @@
+@import "src/styles/mixins";
+@import "src/styles/colors";
+
+.root {
+  @include width-height(1px, 100%);
+
+  display: inline-block;
+  margin: 0 15px;
+
+  background-color: $border-lighter;
+}
