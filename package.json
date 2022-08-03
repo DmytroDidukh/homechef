@@ -18,7 +18,8 @@
     "lint-staged": "lint-staged",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
-    "deploy": "npm run build && npm run firebase deploy"
+    "firebase-deploy": "firebase deploy",
+    "deploy": "npm run build && npm run firebase-deploy"
   },
   "browserslist": {
     "production": [
