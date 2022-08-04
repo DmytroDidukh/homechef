@@ -2,75 +2,96 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
 import { api } from 'api';
 import { currentUserFactory } from 'factory/user';
+import { setAdminMode } from './app';
 
-import type { AppState, AppDispatch } from 'typescript/types/app';
-import type { CurrentUserType } from 'typescript/types/auth';
-import type { AuthStateInterface, LoginInterface } from 'typescript/interfaces/auth';
+import type { AppState, AppDispatch, FirebaseUser } from 'typescript/types';
+import type { CurrentUserType } from 'typescript/types';
+import type { AuthStateInterface } from 'typescript/interfaces/auth';
 import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
 
 export const initialState: AuthStateInterface = {
     login: {
         authenticated: undefined,
         status: APP_REQUEST_STATUS_ENUM.IDLE,
-        error: null,
-        loading: undefined,
     },
     user: {
         id: undefined,
         data: null,
     },
+    error: null,
+    loading: undefined,
 };
+
+const saveUserToDatabase = createAsyncThunk<
+    CurrentUserType,
+    FirebaseUser,
+    {
+        dispatch: AppDispatch;
+    }
+    // @ts-ignore
+>('auth/saveUserToDatabase', async (data, { dispatch }) => {
+    try {
+        const factoryUser = currentUserFactory(data);
+        const user = await api.auth.getUser(factoryUser);
+        console.log(user);
+        if (user) {
+            dispatch(setAdminMode(user.admin));
+
+            return user;
+        } else {
+            await api.auth.addUser(factoryUser);
+
+            return factoryUser;
+        }
+    } catch (e) {
+        console.log(e);
+        return 'SIGN UP ERROR';
+    }
+});
 
 const signInWithGoogle = createAsyncThunk<
     // Return type of the payload creator
     CurrentUserType,
     // First argument to the payload creator
-    undefined,
+    void,
     {
         // Optional fields for defining thunkApi field types
         dispatch: AppDispatch;
         state: AppState;
     }
     // @ts-ignore
->('auth/signInWithGoogle', async () => {
+>('auth/signInWithGoogle', async (_, { dispatch }) => {
     try {
-        console.log('HELLO');
         const response = await api.auth.googleSignIn();
-
-        return currentUserFactory(response.user);
+        dispatch(saveUserToDatabase(response.user));
+        // return currentUserFactory(response.user);
     } catch (e) {
         console.log(e);
     }
 });
 
 const signInWithFacebook = createAsyncThunk<
-    // Return type of the payload creator
-    CurrentUserType,
-    // First argument to the payload creator
+    undefined,
     undefined,
     {
-        // Optional fields for defining thunkApi field types
         dispatch: AppDispatch;
         state: AppState;
     }
     // @ts-ignore
->('auth/signInWithFacebook', async () => {
+>('auth/signInWithFacebook', async (_, { dispatch }) => {
     try {
         const response = await api.auth.facebookSignIn();
-
-        return currentUserFactory(response.user);
+        dispatch(saveUserToDatabase(response.user));
+        // return currentUserFactory(response.user);
     } catch (e) {
         console.log(e);
     }
 });
 
 const signOut = createAsyncThunk<
-    // Return type of the payload creator
     CurrentUserType,
-    // First argument to the payload creator
     undefined,
     {
-        // Optional fields for defining thunkApi field types
         dispatch: AppDispatch;
         state: AppState;
     }
@@ -96,7 +117,7 @@ export const authSlice = createSlice({
         },
         setCurrentUser: (state, action) => {
             state.login.authenticated = true;
-            state.login.loading = false;
+            state.loading = false;
 
             state.user.data = action.payload;
             state.user.id = action.payload.id;
@@ -104,25 +125,42 @@ export const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(signInWithGoogle.fulfilled, (state, action) => {
-                state.user.data = action.payload;
-                state.login.authenticated = true;
+            .addCase(signInWithGoogle.rejected, (state) => {
+                state.error = 'ERROR';
             })
-            .addCase(signInWithFacebook.fulfilled, (state, action) => {
-                state.user.data = action.payload;
-                state.login.authenticated = true;
+            .addCase(signInWithFacebook.rejected, (state) => {
+                state.error = 'ERROR';
             })
             .addCase(signOut.fulfilled, (state) => {
                 state.user.data = null;
                 state.user.id = undefined;
                 state.login.authenticated = false;
+            })
+            .addCase(saveUserToDatabase.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(saveUserToDatabase.fulfilled, (state, action) => {
+                state.user.data = action.payload;
+                state.user.id = action.payload.id;
+
+                state.login.authenticated = true;
+
+                state.loading = false;
+                state.error = null;
+            })
+            .addCase(saveUserToDatabase.rejected, (state, action) => {
+                state.login.authenticated = false;
+                state.loading = false;
+                // @ts-ignore
+                state.error = action.payload;
             });
     },
 });
 
 export const { resetAuth } = authSlice.actions;
 
-export const selectAuth = (state: AppState): LoginInterface => state.auth.login;
+export const selectAuthLoading = (state: AppState): boolean | undefined => state.auth.loading;
+export const selectAuthError = (state: AppState): string | null => state.auth.err;
 export const selectAuthenticated = (state: AppState): boolean => state.auth.login.authenticated;
 export const selectUserData = (state: AppState): CurrentUserType => state.auth.user.data;
 export const selectUserId = (state: AppState): string => state.auth.user.id;
@@ -133,4 +171,5 @@ export const authActions = {
     signInWithGoogle,
     signInWithFacebook,
     signOut,
+    saveUserToDatabase,
 };

@@ -1,4 +1,4 @@
-import type { IngredientsType, IngredientsGroupsType } from '../types/ingredients';
+import type { IngredientsType, IngredientsGroupsType } from '../types';
 
 export interface IngredientsStateInterface {
     ingredients: {

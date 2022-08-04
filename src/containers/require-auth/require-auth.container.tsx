@@ -15,13 +15,7 @@ export const RequireAuth: React.FC<RequireAuthInterface> = ({
     const { authenticated } = useAuth();
     const location = useLocation();
 
-    console.log(authenticated);
-
-    if (authenticated === undefined) {
-        return <p>Loading ...</p>;
-    }
-
-    if (authenticated === false) {
+    if (!authenticated) {
         return <Navigate to={redirectTo} state={{ from: location }} replace />;
     }
     return children;

@@ -1,5 +1,3 @@
-export {};
-
 const APP_NAME_UPPERCASE = 'HOMECHEF';
 
 export const STORAGE_KEYS = {
@@ -23,4 +21,11 @@ export const THEME = {
     PRIMARY: '#a4daf6',
     PRIMARY_LIGHT: '#eafaff',
     PRIMARY_DARK: '#429cb5',
+};
+
+export const CLOUD_IMAGES = {
+    LOADING_BARNY:
+        'https://res.cloudinary.com/d-didukh/image/upload/v1659633095/homechef/fried-rice-cooking_rf5fd4.gif',
+    USER_PLACEHOLDER:
+        'https://res.cloudinary.com/d-didukh/image/upload/v1659278094/homechef/user_g7miac.png',
 };

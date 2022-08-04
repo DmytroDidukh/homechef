@@ -8,7 +8,7 @@ import GoogleIcon from 'icons/google.svg';
 
 import { useActions } from 'store/hooks';
 
-import type { CurrentUserType } from 'typescript/types/auth';
+import type { CurrentUserType } from 'typescript/types';
 
 import styles from './sign-in-modal.module.scss';
 

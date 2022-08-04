@@ -8,7 +8,7 @@ import { useActions } from 'store/hooks';
 import { ROUTES, THEME } from 'constants/app';
 
 import type { SelectOption } from 'typescript/interfaces/common';
-import type { CurrentUserType } from 'typescript/types/auth';
+import type { CurrentUserType } from 'typescript/types';
 
 import styles from './profile-menu.module.scss';
 

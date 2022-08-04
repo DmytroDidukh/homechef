@@ -3,13 +3,13 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from 'api';
 import { normalize } from 'utils/normalize';
 
-import type { AppDispatch, AppState } from 'typescript/types/app';
+import type { AppDispatch, AppState } from 'typescript/types';
 import type {
     IngredientGroupType,
     IngredientType,
     IngredientsType,
     IngredientsGroupsType,
-} from 'typescript/types/ingredients';
+} from 'typescript/types';
 import { IngredientsStateInterface } from 'typescript/interfaces/ingredients';
 
 export const initialState: IngredientsStateInterface = {

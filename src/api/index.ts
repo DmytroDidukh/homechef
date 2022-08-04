@@ -1,10 +1,12 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
 import { Firestore } from '@firebase/firestore';
-
+import { getFirestore, CollectionReference, collection, DocumentData } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+
 import { AuthApi, AuthApiInterface } from './auth';
 import { IngredientsApi, IngredientsApiInterface } from './ingredients';
+
+import type { CurrentUserType } from 'typescript/types';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -27,13 +29,19 @@ interface ApiInterface {
     ingredients: IngredientsApiInterface;
 }
 
+const createCollection = <T = DocumentData>(collectionName: string) => {
+    return collection(db, collectionName) as CollectionReference<T>;
+};
+
+export const usersCollection = createCollection<CurrentUserType>('users');
+
 class Api implements ApiInterface {
     public auth;
     public ingredients;
 
     constructor() {
-        this.auth = new AuthApi(auth);
-        this.ingredients = new IngredientsApi(db);
+        this.auth = new AuthApi();
+        this.ingredients = new IngredientsApi();
     }
 }
 

@@ -1,8 +1,15 @@
 import { useAppSelector } from 'store/hooks';
-import { selectAuth, selectUserData } from 'store/slices/auth';
+import {
+    selectAuthenticated,
+    selectAuthError,
+    selectAuthLoading,
+    selectUserData,
+} from 'store/slices/auth';
 
 export const useAuth = () => {
-    const { loading, error, authenticated } = useAppSelector(selectAuth);
+    const authenticated = useAppSelector(selectAuthenticated);
+    const error = useAppSelector(selectAuthError);
+    const loading = useAppSelector(selectAuthLoading);
     const user = useAppSelector(selectUserData);
 
     return { user, authenticated, loading, error };

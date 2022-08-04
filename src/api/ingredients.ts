@@ -1,6 +1,8 @@
 import { collection, addDoc, getDocs } from 'firebase/firestore';
-import { Firestore } from '@firebase/firestore';
-import { IngredientGroupType, IngredientType } from 'typescript/types/ingredients';
+
+import { db } from './index';
+
+import type { IngredientGroupType, IngredientType } from 'typescript/types';
 
 export interface IngredientsApiInterface {
     add(data: IngredientType): Promise<string>;
@@ -9,22 +11,17 @@ export interface IngredientsApiInterface {
 }
 
 export class IngredientsApi implements IngredientsApiInterface {
-    private db: Firestore;
     private ingredientsCollection: string = 'ingredients';
     private ingredientsGroupsCollection: string = 'ingredients_groups';
 
-    constructor(db: Firestore) {
-        this.db = db;
-    }
-
     async add(data: IngredientType) {
-        const docRef = await addDoc(collection(this.db, this.ingredientsCollection), data);
+        const docRef = await addDoc(collection(db, this.ingredientsCollection), data);
 
         return docRef.id;
     }
 
     async getGroups() {
-        const querySnapshot = await getDocs(collection(this.db, this.ingredientsGroupsCollection));
+        const querySnapshot = await getDocs(collection(db, this.ingredientsGroupsCollection));
 
         const data: IngredientGroupType[] = [];
         querySnapshot.forEach((doc) => {
@@ -37,7 +34,7 @@ export class IngredientsApi implements IngredientsApiInterface {
     }
 
     async getIngredients() {
-        const querySnapshot = await getDocs(collection(this.db, this.ingredientsCollection));
+        const querySnapshot = await getDocs(collection(db, this.ingredientsCollection));
 
         const data: IngredientType[] = [];
         querySnapshot.forEach((doc) => {

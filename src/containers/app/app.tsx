@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router';
 import { Navigate } from 'react-router-dom';
 import { onAuthStateChanged } from 'firebase/auth';
@@ -6,29 +6,29 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { RequireAuth } from 'containers/require-auth/require-auth.container';
 import { Layout } from 'containers/app/layout.component';
 import { Home } from 'pages/home/home.container';
+import { LoaderBarny } from 'components/loader-barny/loader-barny.component';
 
 import { ROUTES } from 'constants/app';
-import { useActions } from 'store/hooks';
+import { useActions, useAppSelector } from 'store/hooks';
 import { auth } from 'api';
-import { currentUserFactory } from 'factory/user';
-import { FirebaseUser } from 'typescript/types/auth';
+
+import type { FirebaseUser } from 'typescript/types';
+import { selectAuthenticated } from '../../store/slices/auth';
 
 export const App: React.FC = (): JSX.Element => {
-    const { setCurrentUser, setAuthenticated, setAdminMode } = useActions();
+    const authenticated = useAppSelector(selectAuthenticated);
+    const { setAuthenticated, saveUserToDatabase } = useActions();
 
-    const [initializing, setInitializing] = useState(true);
+    // const [initializing, setInitializing] = useState(true);
 
     const onAuthStateChanges = (user: FirebaseUser): void => {
         if (user) {
-            const currentUser = currentUserFactory(user);
-
-            setCurrentUser(currentUser);
-            setAdminMode(currentUser.id === process.env.REACT_APP_ADMIN_UID);
+            saveUserToDatabase(user);
         } else {
             setAuthenticated(false);
         }
 
-        if (initializing) setInitializing(false);
+        // if (initializing) setInitializing(false);
     };
 
     useEffect(() => {
@@ -38,6 +38,10 @@ export const App: React.FC = (): JSX.Element => {
         return subscriber;
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    if (authenticated === undefined) {
+        return <LoaderBarny />;
+    }
 
     return (
         <Routes>

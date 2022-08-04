@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { CLOUD_IMAGES } from 'constants/app';
+
 import styles from './user-avatar.module.scss';
 
 interface UserAvatarInterface {
@@ -10,10 +12,7 @@ export const UserAvatar: React.FC<UserAvatarInterface> = ({ photoURL }): JSX.Ele
     return (
         <div
             style={{
-                backgroundImage: `url(${
-                    photoURL ||
-                    'https://res.cloudinary.com/d-didukh/image/upload/v1659278094/homechef/user_g7miac.png'
-                })`,
+                backgroundImage: `url(${photoURL || CLOUD_IMAGES.USER_PLACEHOLDER})`,
             }}
             className={styles.root}
         />

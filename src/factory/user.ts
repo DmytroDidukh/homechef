@@ -1,4 +1,4 @@
-import { CurrentUserType, FirebaseUser } from 'typescript/types/auth';
+import { CurrentUserType, FirebaseUser } from 'typescript/types';
 
 export const currentUserFactory = (user: FirebaseUser): CurrentUserType => {
     return {
@@ -7,5 +7,10 @@ export const currentUserFactory = (user: FirebaseUser): CurrentUserType => {
         email: user.email,
         emailVerified: user.emailVerified,
         photoURL: user.photoURL,
+        admin: false,
+        recipes: [],
+        favorites: [],
+        bookmarks: [],
+        notes: [],
     };
 };

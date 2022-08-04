@@ -4,7 +4,7 @@ import { authSlice, authReducer, resetAuth, initialState as authInitialState } f
 import { ingredientsSlice, ingredientsReducer } from './slices/ingredients';
 import { appSlice, appReducer } from './slices/app';
 
-import type { AppState } from 'typescript/types/app';
+import type { AppState } from 'typescript/types';
 
 const reducer: Reducer<AppState> = combineReducers({
     [authSlice.name]: authReducer,
