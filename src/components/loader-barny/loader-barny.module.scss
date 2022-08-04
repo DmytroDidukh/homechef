@@ -1,0 +1,8 @@
+@import "src/styles/mixins";
+
+.root {
+  @include absolute-center;
+}
+
+
+

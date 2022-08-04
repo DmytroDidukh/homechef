@@ -10,10 +10,10 @@ import { LoaderBarny } from 'components/loader-barny/loader-barny.component';
 
 import { ROUTES } from 'constants/app';
 import { useActions, useAppSelector } from 'store/hooks';
+import { selectAuthenticated } from 'store/slices/auth';
 import { auth } from 'api';
 
 import type { FirebaseUser } from 'typescript/types';
-import { selectAuthenticated } from '../../store/slices/auth';
 
 export const App: React.FC = (): JSX.Element => {
     const authenticated = useAppSelector(selectAuthenticated);
