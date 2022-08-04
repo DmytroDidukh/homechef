@@ -57,3 +57,17 @@ export type IngredientsType = {
 export type IngredientsGroupsType = {
     [ket: string]: IngredientGroupType;
 };
+
+export type CategoryType = {
+    id: string;
+    name: string;
+    name_uk: string;
+    subcategories: string[];
+};
+
+export type SubcategoryType = {
+    id: string;
+    name: string;
+    name_uk: string;
+    category: string;
+};

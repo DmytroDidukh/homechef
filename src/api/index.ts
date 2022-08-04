@@ -5,8 +5,9 @@ import { getAuth } from 'firebase/auth';
 
 import { AuthApi, AuthApiInterface } from './auth';
 import { IngredientsApi, IngredientsApiInterface } from './ingredients';
+import { CategoriesApi, CategoriesApiInterface } from './categories';
 
-import type { CurrentUserType } from 'typescript/types';
+import type { CategoryType, CurrentUserType, SubcategoryType } from 'typescript/types';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -27,6 +28,7 @@ export const auth = getAuth(app);
 interface ApiInterface {
     auth: AuthApiInterface;
     ingredients: IngredientsApiInterface;
+    categories: CategoriesApiInterface;
 }
 
 const createCollection = <T = DocumentData>(collectionName: string) => {
@@ -34,14 +36,18 @@ const createCollection = <T = DocumentData>(collectionName: string) => {
 };
 
 export const usersCollection = createCollection<CurrentUserType>('users');
+export const categoriesCollection = createCollection<CategoryType>('categories');
+export const subcategoriesCollection = createCollection<SubcategoryType>('subcategories');
 
 class Api implements ApiInterface {
     public auth;
     public ingredients;
+    public categories;
 
     constructor() {
         this.auth = new AuthApi();
         this.ingredients = new IngredientsApi();
+        this.categories = new CategoriesApi();
     }
 }
 
