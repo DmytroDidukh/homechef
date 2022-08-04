@@ -6,7 +6,7 @@ import { setAdminMode } from './app';
 
 import type { AppState, AppDispatch, FirebaseUser } from 'typescript/types';
 import type { CurrentUserType } from 'typescript/types';
-import type { AuthStateInterface } from 'typescript/interfaces/auth';
+import type { AuthStateInterface } from 'typescript/interfaces/app';
 import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
 
 export const initialState: AuthStateInterface = {

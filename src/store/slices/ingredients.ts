@@ -10,7 +10,7 @@ import type {
     IngredientsType,
     IngredientsGroupsType,
 } from 'typescript/types';
-import { IngredientsStateInterface } from 'typescript/interfaces/ingredients';
+import { IngredientsStateInterface } from 'typescript/interfaces/app';
 
 export const initialState: IngredientsStateInterface = {
     ingredients: {

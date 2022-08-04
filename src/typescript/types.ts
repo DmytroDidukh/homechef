@@ -65,9 +65,17 @@ export type CategoryType = {
     subcategories: string[];
 };
 
+export type CategoriesType = {
+    [ket: string]: CategoryType;
+};
+
 export type SubcategoryType = {
     id: string;
     name: string;
     name_uk: string;
     category: string;
+};
+
+export type SubcategoriesType = {
+    [ket: string]: SubcategoryType;
 };
