@@ -13,6 +13,10 @@
     cursor: pointer;
     border-radius: 50%;
 
+    > div {
+      overflow: visible;
+    }
+
     &:hover,
     &:focus {
       border-color: transparent;
