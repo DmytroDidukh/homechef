@@ -19,7 +19,9 @@
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "firebase-deploy": "firebase deploy",
-    "deploy": "npm run build && npm run firebase-deploy"
+    "stash": "git stash",
+    "stash-apply": "git stash apply \"stash@{0}\"",
+    "deploy": "npm run stash && npm run build && npm run firebase-deploy && npm run stash-apply"
   },
   "browserslist": {
     "production": [
