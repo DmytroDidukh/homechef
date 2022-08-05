@@ -62,7 +62,6 @@ export type CategoryType = {
     id: string;
     name: string;
     name_uk: string;
-    subcategories: string[];
 };
 
 export type CategoriesType = {
@@ -73,7 +72,7 @@ export type SubcategoryType = {
     id: string;
     name: string;
     name_uk: string;
-    category: string;
+    categoryId: string;
 };
 
 export type SubcategoriesType = {

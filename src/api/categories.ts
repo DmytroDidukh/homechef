@@ -1,4 +1,4 @@
-import { addDoc, getDocs } from 'firebase/firestore';
+import { addDoc, getDocs, collection } from 'firebase/firestore';
 
 import { categoriesCollection, subcategoriesCollection } from './index';
 
@@ -19,7 +19,10 @@ export class CategoriesApi implements CategoriesApiInterface {
     }
 
     async addSubcategory(data: SubcategoryType) {
-        const docRef = await addDoc(subcategoriesCollection, data);
+        const docRef = await addDoc(
+            collection(categoriesCollection, data.categoryId, 'subcategories'),
+            data,
+        );
 
         return docRef.id;
     }

@@ -1,6 +1,13 @@
 import { initializeApp, FirebaseApp } from 'firebase/app';
 import { Firestore } from '@firebase/firestore';
-import { getFirestore, CollectionReference, collection, DocumentData } from 'firebase/firestore';
+import {
+    getFirestore,
+    CollectionReference,
+    collection,
+    DocumentData,
+    collectionGroup,
+    query,
+} from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
 
 import { AuthApi, AuthApiInterface } from './auth';
@@ -34,10 +41,13 @@ interface ApiInterface {
 const createCollection = <T = DocumentData>(collectionName: string) => {
     return collection(db, collectionName) as CollectionReference<T>;
 };
+const createSubCollection = <T = DocumentData>(collectionName: string) => {
+    return query(collectionGroup(db, collectionName) as CollectionReference<T>);
+};
 
 export const usersCollection = createCollection<CurrentUserType>('users');
 export const categoriesCollection = createCollection<CategoryType>('categories');
-export const subcategoriesCollection = createCollection<SubcategoryType>('subcategories');
+export const subcategoriesCollection = createSubCollection<SubcategoryType>('subcategories');
 
 class Api implements ApiInterface {
     public auth;
