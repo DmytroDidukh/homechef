@@ -25,8 +25,11 @@
   }
 
   [class$="-menu"] {
+    top: 55px;
     right: 0;
     width: 200px;
+
+    margin: 0;
   }
 
   [class$="-ValueContainer"] {
@@ -43,6 +46,8 @@
     background-color: transparent;
     margin: 0;
     padding: 0;
+
+    color: $text-dark;
 
     > * {
       padding: 10px;
@@ -74,7 +79,7 @@
 
 .option {
   @include width-height(100%, 100%);
+  @include link-normalize;
 
-  text-decoration: none;
   color: $text-dark;
 }

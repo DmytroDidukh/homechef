@@ -13,14 +13,63 @@
 
 .container {
   @include flex-block(space-between, center);
-
-  padding: 12px 0;
 }
 
 .logo {
   @include font-x-large(900);
+  @include link-normalize;
 
   margin: 0;
+}
+
+.recipes {
+  @include flex-block(flex-start, center);
+
+  height: 100%;
+  margin-left: 50px;
+
+  .title {
+    @include font-normal(600);
+
+    transition: color .2s ease-in;
+  }
+
+  &:hover {
+    .title {
+      color: $text-primary;
+    }
+
+    .categories {
+      display: block;
+    }
+  }
+
+  .categories {
+    display: none;
+
+    background-color: $white;
+    box-shadow: 0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%);
+
+    position: absolute;
+    top: calc(#{$header-height} - 1px);
+
+    margin: 0;
+    padding: 4px 0;
+
+    list-style: none;
+
+    li a {
+      @include font-small(600);
+      @include link-normalize;
+
+      padding: 10px;
+      display: block;
+
+      &:hover {
+        color: $text-primary;
+      }
+    }
+  }
 }
 
 .nav {
