@@ -1,9 +1,15 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit';
 
 import { api } from 'api';
 import { normalize } from 'utils/normalize';
 
-import type { AppState, CategoryType, SubcategoryType, SubcategoriesType } from 'typescript/types';
+import type {
+    AppState,
+    CategoryType,
+    SubcategoryType,
+    SubcategoriesType,
+    CategoriesType,
+} from 'typescript/types';
 import { CategoriesStateInterface } from 'typescript/interfaces/app';
 
 export const initialState: CategoriesStateInterface = {
@@ -134,9 +140,27 @@ export const categoriesSlice = createSlice({
     },
 });
 
+/**
+ * Categories
+ */
 export const selectCategoriesIds = (state: AppState): string[] | [] =>
     state.categories.categories.ids;
-export const selectCategories = (state: AppState): CategoryType => state.categories.categories.byId;
+export const selectCategories = (state: AppState): CategoriesType =>
+    state.categories.categories.byId;
+export const selectCategoriesList = createSelector(
+    [selectCategoriesIds, selectCategories],
+    (ids, data) => {
+        if (ids && data) {
+            return ids.map((id) => data[id]);
+        }
+
+        return [];
+    },
+);
+
+/**
+ * Subcategories
+ */
 export const selectSubcategoriesIds = (state: AppState): string[] | [] =>
     state.categories.subcategories.ids;
 export const selectSubcategories = (state: AppState): SubcategoriesType =>

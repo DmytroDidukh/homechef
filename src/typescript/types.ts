@@ -51,11 +51,11 @@ export type IngredientGroupType = {
 };
 
 export type IngredientsType = {
-    [ket: string]: IngredientType;
+    [key: string]: IngredientType;
 };
 
 export type IngredientsGroupsType = {
-    [ket: string]: IngredientGroupType;
+    [key: string]: IngredientGroupType;
 };
 
 export type CategoryType = {
@@ -65,7 +65,7 @@ export type CategoryType = {
 };
 
 export type CategoriesType = {
-    [ket: string]: CategoryType;
+    [key: string]: CategoryType;
 };
 
 export type SubcategoryType = {
@@ -76,5 +76,5 @@ export type SubcategoryType = {
 };
 
 export type SubcategoriesType = {
-    [ket: string]: SubcategoryType;
+    [key: string]: SubcategoryType;
 };
