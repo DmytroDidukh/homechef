@@ -16,8 +16,9 @@ import { auth } from 'api';
 import type { FirebaseUser } from 'typescript/types';
 
 export const App: React.FC = (): JSX.Element => {
-    const authenticated = useAppSelector(selectAuthenticated);
     const { setAuthenticated, saveUserToDatabase } = useActions();
+
+    const authenticated = useAppSelector(selectAuthenticated);
 
     // const [initializing, setInitializing] = useState(true);
 
@@ -45,7 +46,7 @@ export const App: React.FC = (): JSX.Element => {
 
     return (
         <Routes>
-            <Route path={ROUTES.HOME} element={<Layout />}>
+            <Route element={<Layout />}>
                 <Route index element={<Home />} />
                 <Route
                     path={ROUTES.PROFILE}
@@ -79,14 +80,36 @@ export const App: React.FC = (): JSX.Element => {
                         </RequireAuth>
                     }
                 />
-                <Route
-                    path={ROUTES.RECIPE_CREATOR}
-                    element={
-                        <RequireAuth redirectTo={ROUTES.HOME}>
-                            <h1>Recipe Creator</h1>
-                        </RequireAuth>
-                    }
-                />
+                <Route path={ROUTES.RECIPES}>
+                    <Route
+                        path={ROUTES.RECIPES_CATEGORY}
+                        element={<h1>Recipes by category :categoryId</h1>}
+                    />
+                    <Route
+                        path={ROUTES.RECIPE_NEW}
+                        element={
+                            <RequireAuth redirectTo={ROUTES.HOME}>
+                                <h1>Recipe New</h1>
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.RECIPE_PREVIEW}
+                        element={
+                            <RequireAuth redirectTo={ROUTES.HOME}>
+                                <h1>Recipe Preview</h1>
+                            </RequireAuth>
+                        }
+                    />
+                    <Route
+                        path={ROUTES.RECIPE_PREVIEW}
+                        element={
+                            <RequireAuth redirectTo={ROUTES.HOME}>
+                                <h1>Recipe Preview</h1>
+                            </RequireAuth>
+                        }
+                    />
+                </Route>
             </Route>
             <Route path={ROUTES.ERROR} element={<h1>error</h1>} />
             <Route path={ROUTES.NOT_FOUND} element={<h1>not found</h1>} />

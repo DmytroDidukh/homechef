@@ -8,19 +8,23 @@ export const STORAGE_KEYS = {
 
 export const ROUTES = {
     HOME: '/',
-    PROFILE: '/profile',
-    SHOPPING_LIST: '/shopping-list',
-    FAVORITES: '/favorites',
-    BOOKMARKS: '/bookmarks',
-    RECIPE_CREATOR: '/recipe-creator',
-    NOT_FOUND: '/not-found',
-    ERROR: '/error',
+    PROFILE: 'profile',
+    SHOPPING_LIST: 'shopping-list',
+    FAVORITES: 'favorites',
+    BOOKMARKS: 'bookmarks',
+    RECIPES: 'recipes',
+    RECIPES_CATEGORY: ':categoryId',
+    RECIPE_NEW: 'new',
+    RECIPE_PREVIEW: 'preview/:recipeId',
+    RECIPE_EDIT: 'edit/:recipeId',
+    NOT_FOUND: 'not-found',
+    ERROR: 'error',
 };
 
 export const THEME = {
-    PRIMARY: '#a4daf6',
-    PRIMARY_LIGHT: '#eafaff',
-    PRIMARY_DARK: '#429cb5',
+    PRIMARY: '#3399C7',
+    PRIMARY_LIGHT: '#80BFDC',
+    PRIMARY_DARK: '#006694',
 };
 
 export const CLOUD_IMAGES = {
