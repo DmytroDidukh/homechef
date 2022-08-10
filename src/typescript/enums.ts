@@ -1,3 +1,27 @@
+/**
+ * App
+ */
+export enum APP_REQUEST_STATUS_ENUM {
+    IDLE = 'IDLE',
+    PENDING = 'PENDING',
+    ERROR = 'ERROR',
+    SUCCESS = 'SUCCESS',
+}
+
+export enum SIGN_IN_ENUM {
+    GOOGLE = 'google',
+    FACEBOOK = 'facebook',
+}
+
+export enum RECIPE_STATUS_ENUM {
+    DRAFT = 'draft',
+    PUBLISHED = 'published',
+    BLOCKED = 'blocked',
+}
+
+/**
+ * Common
+ */
 export enum COMPONENTS_SIZE_ENUM {
     SMALL = 'small',
     MEDIUM = 'medium',

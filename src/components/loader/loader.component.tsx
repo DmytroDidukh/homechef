@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { COMPONENTS_SIZE_ENUM, LOADER_STYLE_ENUM } from 'typescript/enums/common';
+import { COMPONENTS_SIZE_ENUM, LOADER_STYLE_ENUM } from 'typescript/enums';
 
 import styles from './loader.module.scss';
 

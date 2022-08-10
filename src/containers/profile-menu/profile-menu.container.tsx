@@ -7,13 +7,12 @@ import { UserAvatar } from 'components/user-avatart/user-avatar.component';
 import { useActions } from 'store/hooks';
 import { ROUTES, THEME } from 'constants/app';
 
-import type { SelectOption } from 'typescript/interfaces/common';
-import type { CurrentUserType } from 'typescript/types';
+import { SelectOption, CurrentUserInterface } from 'typescript/interfaces';
 
 import styles from './profile-menu.module.scss';
 
 interface ProfileMenuInterface {
-    user: CurrentUserType;
+    user: CurrentUserInterface;
 }
 
 const SIGN_OUT_VALUE = 'signOut';

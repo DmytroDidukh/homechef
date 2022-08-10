@@ -3,7 +3,7 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { Loader } from 'components/loader/loader.component';
 
-import { LOADER_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+import { LOADER_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums';
 
 export default {
     title: 'Components/Loader',

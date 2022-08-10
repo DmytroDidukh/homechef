@@ -1,7 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums';
 
 import styles from './button.module.scss';
 

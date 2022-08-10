@@ -2,23 +2,23 @@ import { addDoc, getDocs, collection } from 'firebase/firestore';
 
 import { categoriesCollection, subcategoriesCollection } from './index';
 
-import type { CategoryType, SubcategoryType } from 'typescript/types';
+import { CategoryInterface, SubcategoryInterface } from 'typescript/interfaces';
 
 export interface CategoriesApiInterface {
-    addCategory(data: CategoryType): Promise<string>;
-    addSubcategory(data: SubcategoryType): Promise<string>;
-    getCategories(): Promise<CategoryType[]>;
-    getSubcategories(): Promise<SubcategoryType[]>;
+    addCategory(data: CategoryInterface): Promise<string>;
+    addSubcategory(data: SubcategoryInterface): Promise<string>;
+    getCategories(): Promise<CategoryInterface[]>;
+    getSubcategories(): Promise<SubcategoryInterface[]>;
 }
 
 export class CategoriesApi implements CategoriesApiInterface {
-    async addCategory(data: CategoryType) {
+    async addCategory(data: CategoryInterface) {
         const docRef = await addDoc(categoriesCollection, data);
 
         return docRef.id;
     }
 
-    async addSubcategory(data: SubcategoryType) {
+    async addSubcategory(data: SubcategoryInterface) {
         const docRef = await addDoc(
             collection(categoriesCollection, data.categoryId, 'subcategories'),
             data,
@@ -30,7 +30,7 @@ export class CategoriesApi implements CategoriesApiInterface {
     async getCategories() {
         const querySnapshot = await getDocs(categoriesCollection);
 
-        const data: CategoryType[] = [];
+        const data: CategoryInterface[] = [];
         querySnapshot.forEach((doc) => {
             const docData = doc.data();
 
@@ -46,7 +46,7 @@ export class CategoriesApi implements CategoriesApiInterface {
     async getSubcategories() {
         const querySnapshot = await getDocs(subcategoriesCollection);
 
-        const data: SubcategoryType[] = [];
+        const data: SubcategoryInterface[] = [];
         querySnapshot.forEach((doc) => {
             const docData = doc.data();
 

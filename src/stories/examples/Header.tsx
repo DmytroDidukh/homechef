@@ -2,7 +2,7 @@ import React from 'react';
 
 import { Button } from 'components/button/button.component';
 
-import { COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+import { COMPONENTS_SIZE_ENUM } from 'typescript/enums';
 
 import './header.css';
 

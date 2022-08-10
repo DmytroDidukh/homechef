@@ -8,14 +8,13 @@ import GoogleIcon from 'icons/google.svg';
 
 import { useActions } from 'store/hooks';
 
-import type { CurrentUserType } from 'typescript/types';
+import { CurrentUserInterface } from 'typescript/interfaces';
+import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums';
 
 import styles from './sign-in-modal.module.scss';
 
-import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
-
 interface SignInModalProps {
-    user?: CurrentUserType;
+    user?: CurrentUserInterface;
 }
 
 export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {

@@ -5,7 +5,7 @@ import useState from 'storybook-addon-state';
 import { Modal as ModalBase } from 'components/modal/modal.component';
 import { Button } from 'components/button/button.component';
 
-import { SIGN_IN_ENUM } from 'typescript/enums/app';
+import { SIGN_IN_ENUM } from 'typescript/enums';
 
 export default {
     title: 'Components/Modal',

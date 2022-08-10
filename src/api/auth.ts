@@ -4,14 +4,14 @@ import { getDoc, doc, setDoc } from 'firebase/firestore';
 
 import { usersCollection, auth } from './index';
 
-import type { CurrentUserType } from 'typescript/types';
+import { CurrentUserInterface } from 'typescript/interfaces';
 
 export interface AuthApiInterface {
     googleSignIn(): Promise<UserCredential>;
     facebookSignIn(): Promise<UserCredential>;
     signOut(): Promise<void>;
-    getUser(data: CurrentUserType): Promise<CurrentUserType | null>;
-    addUser(data: CurrentUserType): Promise<void>;
+    getUser(data: CurrentUserInterface): Promise<CurrentUserInterface | null>;
+    addUser(data: CurrentUserInterface): Promise<void>;
 }
 
 export class AuthApi implements AuthApiInterface {
@@ -30,7 +30,7 @@ export class AuthApi implements AuthApiInterface {
         return signOut(auth);
     }
 
-    async getUser(data: CurrentUserType) {
+    async getUser(data: CurrentUserInterface) {
         const docRef = doc(usersCollection, data.id);
         const docSnap = await getDoc(docRef);
 
@@ -41,7 +41,7 @@ export class AuthApi implements AuthApiInterface {
         }
     }
 
-    async addUser(data: CurrentUserType) {
+    async addUser(data: CurrentUserInterface) {
         const docRef = doc(usersCollection, data.id);
 
         await setDoc(docRef, data);

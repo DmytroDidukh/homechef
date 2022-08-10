@@ -2,6 +2,13 @@ import { Action, ThunkAction } from '@reduxjs/toolkit';
 import { User } from '@firebase/auth';
 
 import { store } from 'store/store';
+import {
+    CategoryInterface,
+    IngredientGroupInterface,
+    IngredientInterface,
+    RecipeInterface,
+    SubcategoryInterface,
+} from './interfaces';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -13,68 +20,13 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 >;
 
 export type FirebaseUser = User;
+export type UniqueId = string;
 
-export type NoteType = {
-    id: string;
-    text: string;
-};
-
-export type CurrentUserType = {
-    id: string;
-    email: string | null;
-    emailVerified: boolean;
-    displayName: string | null;
-    photoURL: string | null;
-    admin?: boolean;
-    recipes: string[];
-    favorites: string[];
-    bookmarks: string[];
-    notes: NoteType[];
-};
-
-export type IngredientType = {
-    id: string;
-    name: string;
-    name_uk: string;
-    name_scientific: string | null;
-    description: string | null;
-    description_uk: string | null;
-    wikipedia_id: string | null;
-    group_id: string;
-    image_url: string | null;
-};
-
-export type IngredientGroupType = {
-    id: string;
-    name: string;
-    name_uk: string;
-};
-
-export type IngredientsType = {
-    [key: string]: IngredientType;
-};
-
-export type IngredientsGroupsType = {
-    [key: string]: IngredientGroupType;
-};
-
-export type CategoryType = {
-    id: string;
-    name: string;
-    name_uk: string;
-};
-
-export type CategoriesType = {
-    [key: string]: CategoryType;
-};
-
-export type SubcategoryType = {
-    id: string;
-    name: string;
-    name_uk: string;
-    categoryId: string;
-};
-
-export type SubcategoriesType = {
-    [key: string]: SubcategoryType;
-};
+export type CategoriesById = Record<CategoryInterface['id'], CategoryInterface>;
+export type SubcategoriesById = Record<SubcategoryInterface['id'], SubcategoryInterface>;
+export type RecipesById = Record<RecipeInterface['id'], RecipeInterface>;
+export type IngredientsById = Record<IngredientInterface['id'], IngredientInterface>;
+export type IngredientsGroupsById = Record<
+    IngredientGroupInterface['id'],
+    IngredientGroupInterface
+>;

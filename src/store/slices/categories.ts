@@ -3,14 +3,12 @@ import { createAsyncThunk, createSelector, createSlice } from '@reduxjs/toolkit'
 import { api } from 'api';
 import { normalize } from 'utils/normalize';
 
-import type {
-    AppState,
-    CategoryType,
-    SubcategoryType,
-    SubcategoriesType,
-    CategoriesType,
-} from 'typescript/types';
-import { CategoriesStateInterface } from 'typescript/interfaces/app';
+import type { AppState, SubcategoriesById, CategoriesById, UniqueId } from 'typescript/types';
+import {
+    CategoriesStateInterface,
+    CategoryInterface,
+    SubcategoryInterface,
+} from 'typescript/interfaces';
 
 export const initialState: CategoriesStateInterface = {
     categories: {
@@ -26,8 +24,8 @@ export const initialState: CategoriesStateInterface = {
 };
 
 const addCategory = createAsyncThunk<
-    CategoryType,
-    CategoryType
+    CategoryInterface,
+    CategoryInterface
     // @ts-ignore
 >('categories/addCategory', async (data) => {
     try {
@@ -44,8 +42,8 @@ const addCategory = createAsyncThunk<
 });
 
 const addSubcategory = createAsyncThunk<
-    SubcategoryType,
-    SubcategoryType
+    SubcategoryInterface,
+    SubcategoryInterface
     // @ts-ignore
 >('categories/addSubcategory', async (data) => {
     try {
@@ -62,7 +60,7 @@ const addSubcategory = createAsyncThunk<
 });
 
 const getCategories = createAsyncThunk<
-    CategoryType[]
+    CategoryInterface[]
     // @ts-ignore
 >('categories/getCategories', async () => {
     try {
@@ -76,7 +74,7 @@ const getCategories = createAsyncThunk<
 });
 
 const getSubcategories = createAsyncThunk<
-    SubcategoryType[]
+    SubcategoryInterface[]
     // @ts-ignore
 >('categories/getSubcategories', async () => {
     try {
@@ -143,9 +141,8 @@ export const categoriesSlice = createSlice({
 /**
  * Categories
  */
-export const selectCategoriesIds = (state: AppState): string[] | [] =>
-    state.categories.categories.ids;
-export const selectCategories = (state: AppState): CategoriesType =>
+export const selectCategoriesIds = (state: AppState): UniqueId[] => state.categories.categories.ids;
+export const selectCategories = (state: AppState): CategoriesById =>
     state.categories.categories.byId;
 export const selectCategoriesList = createSelector(
     [selectCategoriesIds, selectCategories],
@@ -161,9 +158,9 @@ export const selectCategoriesList = createSelector(
 /**
  * Subcategories
  */
-export const selectSubcategoriesIds = (state: AppState): string[] | [] =>
+export const selectSubcategoriesIds = (state: AppState): UniqueId[] =>
     state.categories.subcategories.ids;
-export const selectSubcategories = (state: AppState): SubcategoriesType =>
+export const selectSubcategories = (state: AppState): SubcategoriesById =>
     state.categories.subcategories.byId;
 
 export const categoriesReducer = categoriesSlice.reducer;

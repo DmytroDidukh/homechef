@@ -2,19 +2,19 @@ import { collection, addDoc, getDocs } from 'firebase/firestore';
 
 import { db } from './index';
 
-import type { IngredientGroupType, IngredientType } from 'typescript/types';
+import { IngredientGroupInterface, IngredientInterface } from 'typescript/interfaces';
 
 export interface IngredientsApiInterface {
-    add(data: IngredientType): Promise<string>;
-    getGroups(): Promise<IngredientGroupType[]>;
-    getIngredients(): Promise<IngredientType[]>;
+    add(data: IngredientInterface): Promise<string>;
+    getGroups(): Promise<IngredientGroupInterface[]>;
+    getIngredients(): Promise<IngredientInterface[]>;
 }
 
 export class IngredientsApi implements IngredientsApiInterface {
     private ingredientsCollection: string = 'ingredients';
     private ingredientsGroupsCollection: string = 'ingredients_groups';
 
-    async add(data: IngredientType) {
+    async add(data: IngredientInterface) {
         const docRef = await addDoc(collection(db, this.ingredientsCollection), data);
 
         return docRef.id;
@@ -23,7 +23,7 @@ export class IngredientsApi implements IngredientsApiInterface {
     async getGroups() {
         const querySnapshot = await getDocs(collection(db, this.ingredientsGroupsCollection));
 
-        const data: IngredientGroupType[] = [];
+        const data: IngredientGroupInterface[] = [];
         querySnapshot.forEach((doc) => {
             const docData = doc.data();
 
@@ -36,10 +36,10 @@ export class IngredientsApi implements IngredientsApiInterface {
     async getIngredients() {
         const querySnapshot = await getDocs(collection(db, this.ingredientsCollection));
 
-        const data: IngredientType[] = [];
+        const data: IngredientInterface[] = [];
         querySnapshot.forEach((doc) => {
             // @ts-ignore
-            const docData: IngredientType = doc.data();
+            const docData: IngredientInterface = doc.data();
 
             data.push({ ...docData, id: doc.id });
         });

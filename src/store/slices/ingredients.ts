@@ -3,14 +3,18 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from 'api';
 import { normalize } from 'utils/normalize';
 
-import type { AppDispatch, AppState } from 'typescript/types';
 import type {
-    IngredientGroupType,
-    IngredientType,
-    IngredientsType,
-    IngredientsGroupsType,
+    AppDispatch,
+    AppState,
+    IngredientsById,
+    IngredientsGroupsById,
+    UniqueId,
 } from 'typescript/types';
-import { IngredientsStateInterface } from 'typescript/interfaces/app';
+import {
+    IngredientsStateInterface,
+    IngredientInterface,
+    IngredientGroupInterface,
+} from 'typescript/interfaces';
 
 export const initialState: IngredientsStateInterface = {
     ingredients: {
@@ -26,9 +30,9 @@ export const initialState: IngredientsStateInterface = {
 
 const addIngredient = createAsyncThunk<
     // Return type of the payload creator
-    IngredientType,
+    IngredientInterface,
     // First argument to the payload creator
-    IngredientType,
+    IngredientInterface,
     {
         // Optional fields for defining thunkApi field types
         dispatch: AppDispatch;
@@ -50,7 +54,7 @@ const addIngredient = createAsyncThunk<
 });
 
 const getIngredientsGroups = createAsyncThunk<
-    IngredientGroupType[]
+    IngredientGroupInterface[]
     // @ts-ignore
 >('ingredients/getIngredientsGroups', async () => {
     try {
@@ -64,7 +68,7 @@ const getIngredientsGroups = createAsyncThunk<
 });
 
 const getIngredients = createAsyncThunk<
-    IngredientType[]
+    IngredientInterface[]
     // @ts-ignore
 >('ingredients/getIngredients', async () => {
     try {
@@ -108,13 +112,13 @@ export const ingredientsSlice = createSlice({
     },
 });
 
-export const selectIngredientsIds = (state: AppState): string[] | [] =>
+export const selectIngredientsIds = (state: AppState): UniqueId[] =>
     state.ingredients.ingredients.ids;
-export const selectIngredients = (state: AppState): IngredientsType =>
+export const selectIngredients = (state: AppState): IngredientsById =>
     state.ingredients.ingredients.byId;
-export const selectIngredientsGroupsIds = (state: AppState): string[] | [] =>
+export const selectIngredientsGroupsIds = (state: AppState): UniqueId[] =>
     state.ingredients.groups.ids;
-export const selectIngredientsGroups = (state: AppState): IngredientsGroupsType =>
+export const selectIngredientsGroups = (state: AppState): IngredientsGroupsById =>
     state.ingredients.groups.byId;
 
 export const ingredientsReducer = ingredientsSlice.reducer;

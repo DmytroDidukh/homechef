@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import type { AppState } from 'typescript/types';
-import { AppStateInterface } from 'typescript/interfaces/app';
+import { AppStateInterface } from 'typescript/interfaces';
 
 export const initialState: AppStateInterface = {
     adminMode: undefined,

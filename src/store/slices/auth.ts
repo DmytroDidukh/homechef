@@ -5,9 +5,8 @@ import { currentUserFactory } from 'factory/user';
 import { setAdminMode } from './app';
 
 import type { AppState, AppDispatch, FirebaseUser } from 'typescript/types';
-import type { CurrentUserType } from 'typescript/types';
-import type { AuthStateInterface } from 'typescript/interfaces/app';
-import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums/app';
+import { AuthStateInterface, CurrentUserInterface } from 'typescript/interfaces';
+import { APP_REQUEST_STATUS_ENUM } from 'typescript/enums';
 
 export const initialState: AuthStateInterface = {
     login: {
@@ -23,7 +22,7 @@ export const initialState: AuthStateInterface = {
 };
 
 const saveUserToDatabase = createAsyncThunk<
-    CurrentUserType,
+    CurrentUserInterface,
     FirebaseUser,
     {
         dispatch: AppDispatch;
@@ -51,7 +50,7 @@ const saveUserToDatabase = createAsyncThunk<
 
 const signInWithGoogle = createAsyncThunk<
     // Return type of the payload creator
-    CurrentUserType,
+    CurrentUserInterface,
     // First argument to the payload creator
     void,
     {
@@ -89,7 +88,7 @@ const signInWithFacebook = createAsyncThunk<
 });
 
 const signOut = createAsyncThunk<
-    CurrentUserType,
+    CurrentUserInterface,
     undefined,
     {
         dispatch: AppDispatch;
@@ -162,7 +161,7 @@ export const { resetAuth } = authSlice.actions;
 export const selectAuthLoading = (state: AppState): boolean | undefined => state.auth.loading;
 export const selectAuthError = (state: AppState): string | null => state.auth.err;
 export const selectAuthenticated = (state: AppState): boolean => state.auth.login.authenticated;
-export const selectUserData = (state: AppState): CurrentUserType => state.auth.user.data;
+export const selectUserData = (state: AppState): CurrentUserInterface => state.auth.user.data;
 export const selectUserId = (state: AppState): string => state.auth.user.id;
 
 export const authReducer = authSlice.reducer;

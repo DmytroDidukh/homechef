@@ -1,6 +1,7 @@
-import { CurrentUserType, FirebaseUser } from 'typescript/types';
+import type { FirebaseUser } from 'typescript/types';
+import { CurrentUserInterface } from 'typescript/interfaces';
 
-export const currentUserFactory = (user: FirebaseUser): CurrentUserType => {
+export const currentUserFactory = (user: FirebaseUser): CurrentUserInterface => {
     return {
         id: user.uid,
         displayName: user.displayName,

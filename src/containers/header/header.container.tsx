@@ -16,7 +16,7 @@ import { selectCategoriesList } from 'store/slices/categories';
 import { useAuth } from 'hooks/useAuth';
 import { ROUTES } from 'constants/app';
 
-import { BUTTON_STYLE_ENUM } from 'typescript/enums/common';
+import { BUTTON_STYLE_ENUM } from 'typescript/enums';
 
 import styles from './header.module.scss';
 

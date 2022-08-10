@@ -14,7 +14,11 @@ import { AuthApi, AuthApiInterface } from './auth';
 import { IngredientsApi, IngredientsApiInterface } from './ingredients';
 import { CategoriesApi, CategoriesApiInterface } from './categories';
 
-import type { CategoryType, CurrentUserType, SubcategoryType } from 'typescript/types';
+import {
+    CategoryInterface,
+    CurrentUserInterface,
+    SubcategoryInterface,
+} from 'typescript/interfaces';
 
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -32,12 +36,6 @@ const db: Firestore = getFirestore(app);
 
 export const auth = getAuth(app);
 
-interface ApiInterface {
-    auth: AuthApiInterface;
-    ingredients: IngredientsApiInterface;
-    categories: CategoriesApiInterface;
-}
-
 const createCollection = <T = DocumentData>(collectionName: string) => {
     return collection(db, collectionName) as CollectionReference<T>;
 };
@@ -45,9 +43,21 @@ const createSubCollection = <T = DocumentData>(collectionName: string) => {
     return query(collectionGroup(db, collectionName) as CollectionReference<T>);
 };
 
-export const usersCollection = createCollection<CurrentUserType>('users');
-export const categoriesCollection = createCollection<CategoryType>('categories');
-export const subcategoriesCollection = createSubCollection<SubcategoryType>('subcategories');
+/**
+ * Typed firebase collections
+ */
+export const usersCollection = createCollection<CurrentUserInterface>('users');
+export const categoriesCollection = createCollection<CategoryInterface>('categories');
+export const subcategoriesCollection = createSubCollection<SubcategoryInterface>('subcategories');
+
+/**
+ * API
+ */
+interface ApiInterface {
+    auth: AuthApiInterface;
+    ingredients: IngredientsApiInterface;
+    categories: CategoriesApiInterface;
+}
 
 class Api implements ApiInterface {
     public auth;

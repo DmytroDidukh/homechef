@@ -4,7 +4,7 @@ import classNames from 'classnames';
 
 import { Button } from 'components/button/button.component';
 
-import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums/common';
+import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums';
 
 import styles from './modal.module.scss';
 
