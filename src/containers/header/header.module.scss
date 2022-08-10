@@ -16,10 +16,13 @@
 }
 
 .logo {
-  @include font-x-large(900);
-  @include link-normalize;
+  @include flex-block(flex-start, center);
 
-  margin: 0;
+  #{&}_title {
+    @include font-x-large(900);
+
+    margin: 0;
+  }
 }
 
 .recipes {

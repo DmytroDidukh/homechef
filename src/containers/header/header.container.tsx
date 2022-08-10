@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { resolvePath } from 'react-router';
+import classNames from 'classnames';
 
 import { ProfileMenu } from 'containers/profile-menu/profile-menu.container';
 import { SignInModal } from 'containers/sign-in-modal/sign-in-modal.container';
@@ -14,7 +15,7 @@ import BookmarkIcon from 'icons/bookmark.svg';
 import { useActions, useAppSelector } from 'store/hooks';
 import { selectCategoriesList } from 'store/slices/categories';
 import { useAuth } from 'hooks/useAuth';
-import { ROUTES } from 'constants/app';
+import { CLOUD_IMAGES, ROUTES } from 'constants/app';
 
 import { BUTTON_STYLE_ENUM } from 'typescript/enums';
 
@@ -29,16 +30,25 @@ export const Header: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
 
     useEffect(() => {
+        console.log();
         getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    console.log(styles);
 
     return (
         <header className={styles.root}>
             <PageContainer className={styles.container}>
                 <div className={styles.nav}>
-                    <Link to={ROUTES.HOME} className={styles.link}>
-                        <h1 className={styles.logo}>homechef</h1>
+                    <Link to={ROUTES.HOME} className={classNames(styles.logo, styles.link)}>
+                        <img
+                            src={CLOUD_IMAGES.LOGO_50x50}
+                            alt="homechef logo"
+                            width={50}
+                            height={50}
+                        />
+                        <h1 className={styles.logo_title}>homechef</h1>
                     </Link>
 
                     <div className={styles.recipes}>

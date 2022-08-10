@@ -32,4 +32,6 @@ export const CLOUD_IMAGES = {
         'https://res.cloudinary.com/d-didukh/image/upload/v1659633095/homechef/fried-rice-cooking_rf5fd4.gif',
     USER_PLACEHOLDER:
         'https://res.cloudinary.com/d-didukh/image/upload/v1659278094/homechef/user_g7miac.png',
+    LOGO_50x50:
+        'https://res.cloudinary.com/d-didukh/image/upload/v1660161952/homechef/logo_gmiqsz.png',
 };
