@@ -1,40 +1,52 @@
+// App
 $primary: #3399C7;
 $primary-light: #80BFDC;
 $primary-dark: #006694;
 $primary-disabled: #E6F2F8;
 
-$primary-analogous-1: #00B997;
-$primary-analogous-2: #0023B9;
-$primary-analogous-3: #B93A00;
-
-$white: #fff;
-$dark: #001925;
-$grey: #9DA6AA;
-
 $primary-hover: darken($primary, 3%);
 $primary-light-hover: darken($primary-light, 3%);
 $primary-dark-hover: darken($primary-dark, 3%);
 
+$primary-analogous-1: #00B997;
+$primary-analogous-2: #0023B9;
+$primary-analogous-3: #B93A00;
+
+$warning: $primary-analogous-3;
+$success: $primary-analogous-1;
+
+
+// Common
+$white: #fff;
+$dark: #001925;
+$grey: #9DA6AA;
+
+$warning: $primary-analogous-3;
+$success: $primary-analogous-1;
+
+
+// Text
 $text-primary: $primary;
 $text-dark: $dark;
 $text-light: $white;
 $text-secondary: $grey;
+$text-warning: $warning;
+$text-success: $success;
 
+
+// Border
 $border-primary: $primary;
+$border-warning: $warning;
 $border-lighter: #dae6eb;
 $border-light: #9DA6AA;
 $border-dark: #001925;
 
-$warning-hint: #ff705c;
 
-$header-border-color: #f0f0f0;
+// Background
+$bg-white: $white;
+$bg-primary: #f7fbfc;
+$bg-dark: #f4f4f4;
 
-// Stats
-$earned: #4eceb1;
-$installs: #0072f5;
-$views: #fcb41c;
-$shares: #64c4ed;
-$followers: #de87a9;
 
 // Scrollbar
 $scrollbar-track: #efefef;

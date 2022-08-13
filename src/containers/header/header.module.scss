@@ -3,16 +3,19 @@
 @import "src/styles/colors";
 
 .root {
-  @include box-shadow(transparent, 0 8px 48px rgba(0, 0, 0, .1), 0);
-
   height: $header-height;
 
   border-bottom: 1px solid $border-lighter;
+  background-color: $bg-white;
   padding: 0 16px;
 }
 
 .container {
   @include flex-block(space-between, center);
+
+  max-height: $header-height;
+  border: none;
+  padding: 0;
 }
 
 .logo {
@@ -51,7 +54,7 @@
     display: none;
 
     background-color: $white;
-    box-shadow: 0 0 0 1px hsl(0deg 0% 0% / 10%), 0 4px 11px hsl(0deg 0% 0% / 10%);
+    border: 1px solid $border-lighter;
 
     position: absolute;
     top: calc(#{$header-height} - 1px);
@@ -79,6 +82,10 @@
   @include flex-block(space-between, center);
 
   height: 100%;
+}
+
+.nav:last-child {
+  padding: 10px 0;
 }
 
 .link {

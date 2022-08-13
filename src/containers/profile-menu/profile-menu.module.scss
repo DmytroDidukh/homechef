@@ -25,11 +25,13 @@
   }
 
   [class$="-menu"] {
-    top: 55px;
+    top: 54px;
     right: 0;
     width: 200px;
 
     margin: 0;
+    box-shadow: none;
+    border: 1px solid $border-lighter;
   }
 
   [class$="-ValueContainer"] {

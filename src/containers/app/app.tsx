@@ -6,6 +6,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { RequireAuth } from 'containers/require-auth/require-auth.container';
 import { Layout } from 'containers/app/layout.component';
 import { Home } from 'pages/home/home.container';
+import { RecipeCreator } from 'pages/recipe-creator/recipe-creator.container';
 import { LoaderBarny } from 'components/loader-barny/loader-barny.component';
 
 import { ROUTES } from 'constants/app';
@@ -89,7 +90,7 @@ export const App: React.FC = (): JSX.Element => {
                         path={ROUTES.RECIPE_NEW}
                         element={
                             <RequireAuth redirectTo={ROUTES.HOME}>
-                                <h1>Recipe New</h1>
+                                <RecipeCreator />
                             </RequireAuth>
                         }
                     />

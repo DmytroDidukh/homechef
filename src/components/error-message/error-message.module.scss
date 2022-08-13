@@ -1,0 +1,13 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.root {
+  @include font-small;
+
+  position: absolute;
+  bottom: calc(-16px - 10px); // Line-height + margin
+
+  color: $text-warning;
+}
+

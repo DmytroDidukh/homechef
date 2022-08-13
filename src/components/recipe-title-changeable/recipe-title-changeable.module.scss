@@ -1,0 +1,45 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.root {
+  @include flex-block(center, flex-start);
+
+  position: relative;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.root.invalid {
+  .textarea {
+    border-bottom: 1px solid $border-warning;
+  }
+}
+
+.textarea {
+  @include scrollbars(1px);
+  @include font-3x-large;
+
+  font-family: $font-family;
+  text-align: center;
+  text-transform: uppercase;
+
+  max-width: 80%;
+  min-width: 500px;
+  min-height: unset;
+
+  padding: 17px 15px;
+
+  border: none;
+  outline: none;
+  resize: none;
+  background-color: transparent;
+
+  &::placeholder {
+    color: $text-secondary;
+  }
+}
+
+.error {
+
+}

@@ -1,5 +1,5 @@
-$mobile-upper-boundary: 767px;
-$table-upper-boundary: 1180px;
+@import "./variables";
+@import "./colors";
 
 @mixin for-device($device) {
   @if $device == mobile {
@@ -40,7 +40,7 @@ $table-upper-boundary: 1180px;
   flex-wrap: $wrap;
 }
 
-@mixin scrollbars($size, $thumb-color, $track-color: mix($thumb-color, white,  50%)) {
+@mixin scrollbars($size, $thumb-color: $scrollbar-thumb, $track-color: mix($thumb-color, white,  50%)) {
   &::-webkit-scrollbar {
     width: $size;
     height: $size;
@@ -55,12 +55,6 @@ $table-upper-boundary: 1180px;
     background: $track-color;
     border-radius: 8px;
   }
-}
-
-@mixin box-shadow($bg-2-light: #d9dee5, $shadow: 0 8px 48px rgba(0, 0, 0, .6), $radius: 8px) {
-  border: 1px solid $bg-2-light;
-  box-shadow: $shadow;
-  border-radius: $radius;
 }
 
 @mixin fixed-full-frame() {
@@ -146,4 +140,16 @@ $table-upper-boundary: 1180px;
   font-size: 26px;
   line-height: 30px;
   font-weight: $font-weight;
+}
+
+@mixin font-3x-large($font-weight: 900) {
+  font-size: 40px;
+  line-height: 50px;
+  font-weight: $font-weight;
+}
+
+@mixin box-shadow($bg-2-light: #d9dee5, $shadow: 0 8px 48px rgba(0, 0, 0, .6), $radius: 8px) {
+  border: 1px solid $bg-2-light;
+  box-shadow: $shadow;
+  border-radius: $radius;
 }

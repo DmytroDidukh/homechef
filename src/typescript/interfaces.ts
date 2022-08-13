@@ -15,6 +15,11 @@ export interface SelectOption {
     label: string;
 }
 
+export interface CustomErrorInterface {
+    status: boolean;
+    message?: string;
+}
+
 /**
  * App
  */
