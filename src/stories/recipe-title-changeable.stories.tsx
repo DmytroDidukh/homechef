@@ -12,7 +12,7 @@ export default {
 } as ComponentMeta<typeof RecipeTitleChangeable>;
 
 const Template: ComponentStory<typeof RecipeTitleChangeable> = (args) => (
-    <RecipeTitleChangeable {...args} saveHandler={() => {}} />
+    <RecipeTitleChangeable {...args} savingHandler={() => {}} />
 );
 
 export const Default = Template.bind({});

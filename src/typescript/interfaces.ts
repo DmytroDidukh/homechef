@@ -136,24 +136,24 @@ export interface RecipeStepsInterface {
 }
 
 export interface RecipeDataInterface {
-    id: UniqueId;
+    id?: UniqueId;
     name?: string;
-    name_uk: string;
+    name_uk?: string;
     description?: string;
     description_uk?: string;
-    slug: string;
-    category: UniqueId;
+    slug?: string;
+    category?: UniqueId;
     subcategory?: UniqueId;
     tags?: string[];
-    steps: RecipeStepsInterface[];
+    steps?: RecipeStepsInterface[];
     videoURL?: string;
     originURL?: string;
-    cookingTime: string;
+    cookingTime?: string;
     preparationTime?: string;
-    complexity: string;
-    author: UniqueId;
+    complexity?: string;
+    author?: UniqueId;
     rating?: number;
-    createdAt: string;
+    createdAt?: string;
 }
 
 export interface RecipeMetaInterface {

@@ -45,3 +45,25 @@ export enum BUTTON_STYLE_ENUM {
     DARK = 'dark',
     TRANSPARENT = 'transparent',
 }
+
+/**
+ * Recipe
+ */
+export enum RECIPE_PROPERTY_ENUM {
+    NAME = 'name',
+    NAME_UK = 'name_uk',
+    DESCRIPTION = 'description',
+    DESCRIPTION_UK = 'description_uk',
+    SLUG = 'slug',
+    CATEGORY = 'category',
+    SUBCATEGORY = 'subcategory',
+    TAGS = 'tags',
+    STEPS = 'steps',
+    VIDEO_URL = 'videoURL',
+    ORIGIN_URL = 'originURL',
+    COOKING_TIME = 'cookingTime',
+    PREPARATION_TIME = 'preparationTime',
+    COMPLEXITY = 'complexity',
+    AUTHOR = 'author',
+    CREATED_AT = 'createdAt',
+}
