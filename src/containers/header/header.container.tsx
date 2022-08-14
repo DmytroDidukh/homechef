@@ -30,12 +30,9 @@ export const Header: React.FC = (): JSX.Element => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        console.log();
         getCategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    console.log(styles);
 
     return (
         <header className={styles.root}>

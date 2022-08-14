@@ -32,7 +32,7 @@ const saveUserToDatabase = createAsyncThunk<
     try {
         const factoryUser = currentUserFactory(data);
         const user = await api.auth.getUser(factoryUser);
-        console.log(user);
+
         if (user) {
             dispatch(setAdminMode(user.admin));
 

@@ -1,3 +1,5 @@
+import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
+
 export const RECIPE_CREATOR_ERROR_MESSAGE = {
-    TITLE: 'Поле є обов’язковим для заповнення.',
+    [RECIPE_PROPERTY_ENUM.NAME_UK]: 'Поле є обов’язковим для заповнення.',
 };

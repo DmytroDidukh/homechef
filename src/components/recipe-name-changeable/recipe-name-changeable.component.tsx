@@ -8,19 +8,19 @@ import { measureText } from 'utils/string';
 import { CustomErrorInterface } from 'typescript/interfaces';
 import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
 
-import styles from './recipe-title-changeable.module.scss';
+import styles from './recipe-name-changeable.module.scss';
 
 export interface RecipeTitleChangeableProps {
     initValue?: string;
     error: CustomErrorInterface;
-    savingHandler: (property: RECIPE_PROPERTY_ENUM.NAME_UK, value: string) => void;
+    valueSaveHandler: (property: RECIPE_PROPERTY_ENUM.NAME_UK, value: string) => void;
     className?: string;
 }
 
-export const RecipeTitleChangeable: React.FC<RecipeTitleChangeableProps> = ({
+export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
     initValue = '',
     error,
-    savingHandler,
+    valueSaveHandler,
     className,
     ...props
 }) => {
@@ -31,7 +31,7 @@ export const RecipeTitleChangeable: React.FC<RecipeTitleChangeableProps> = ({
     };
 
     const blurHandler = (): void => {
-        savingHandler(RECIPE_PROPERTY_ENUM.NAME_UK, value);
+        valueSaveHandler(RECIPE_PROPERTY_ENUM.NAME_UK, value);
     };
 
     return (

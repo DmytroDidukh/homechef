@@ -4,11 +4,13 @@ import { User } from '@firebase/auth';
 import { store } from 'store/store';
 import {
     CategoryInterface,
+    CustomErrorInterface,
     IngredientGroupInterface,
     IngredientInterface,
     RecipeInterface,
     SubcategoryInterface,
 } from './interfaces';
+import { RECIPE_PROPERTY_ENUM } from './enums';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -30,3 +32,4 @@ export type IngredientsGroupsById = Record<
     IngredientGroupInterface['id'],
     IngredientGroupInterface
 >;
+export type RecipeDataErrors = Record<RECIPE_PROPERTY_ENUM, CustomErrorInterface>;
