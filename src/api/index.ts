@@ -9,10 +9,12 @@ import {
     query,
 } from 'firebase/firestore';
 import { getAuth } from 'firebase/auth';
+import { getStorage, FirebaseStorage } from 'firebase/storage';
 
 import { AuthApi, AuthApiInterface } from './auth';
 import { IngredientsApi, IngredientsApiInterface } from './ingredients';
 import { CategoriesApi, CategoriesApiInterface } from './categories';
+import { MediaApi } from './media';
 
 import {
     CategoryInterface,
@@ -33,6 +35,7 @@ const firebaseConfig = {
 // Initialize Firebase
 const app: FirebaseApp = initializeApp(firebaseConfig);
 const db: Firestore = getFirestore(app);
+const storage: FirebaseStorage = getStorage(app);
 
 export const auth = getAuth(app);
 
@@ -63,14 +66,16 @@ class Api implements ApiInterface {
     public auth;
     public ingredients;
     public categories;
+    public media;
 
     constructor() {
         this.auth = new AuthApi();
         this.ingredients = new IngredientsApi();
         this.categories = new CategoriesApi();
+        this.media = new MediaApi();
     }
 }
 
 const api = new Api();
 
-export { db, app, api };
+export { db, app, api, storage };
