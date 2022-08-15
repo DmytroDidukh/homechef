@@ -27,7 +27,7 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
         const file = e.target.files[0];
 
         if (validationService.validateImage(file)) {
-            console.error('FILE IS VALID', file);
+            console.log('FILE IS VALID', file);
             fileSaveHandler(file);
         } else {
             console.error('FILE IS WRONG', file);

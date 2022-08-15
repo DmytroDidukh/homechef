@@ -167,3 +167,13 @@ export interface RecipeInterface {
     data: RecipeDataInterface;
     meta: RecipeMetaInterface;
 }
+
+export interface FilesSaveOptionsInterface {
+    main?: boolean;
+    step?: number;
+}
+
+export interface StepFileInterface {
+    step: number;
+    file: File;
+}
