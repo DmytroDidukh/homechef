@@ -12,14 +12,14 @@ import styles from './recipe-name-changeable.module.scss';
 
 export interface RecipeTitleChangeableProps {
     initValue?: string;
-    error: CustomErrorInterface;
+    error?: CustomErrorInterface;
     valueSaveHandler: (property: RECIPE_PROPERTY_ENUM.NAME_UK, value: string) => void;
     className?: string;
 }
 
 export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
     initValue = '',
-    error,
+    error = { status: false },
     valueSaveHandler,
     className,
     ...props

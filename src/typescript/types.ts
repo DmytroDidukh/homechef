@@ -10,7 +10,6 @@ import {
     RecipeInterface,
     SubcategoryInterface,
 } from './interfaces';
-import { RECIPE_PROPERTY_ENUM } from './enums';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -32,4 +31,11 @@ export type IngredientsGroupsById = Record<
     IngredientGroupInterface['id'],
     IngredientGroupInterface
 >;
-export type RecipeDataErrors = Record<RECIPE_PROPERTY_ENUM, CustomErrorInterface>;
+export type RecipeDataErrorsType = Record<string, CustomErrorInterface>;
+export type ValidationRegExpType = {
+    [key: string]: RegExp;
+};
+
+export type DefaultObjectValueStingType = {
+    [key: string]: string;
+};

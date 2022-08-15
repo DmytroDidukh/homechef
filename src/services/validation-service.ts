@@ -2,37 +2,48 @@ import { RECIPE_CREATOR_ERROR_MESSAGE } from 'constants/errors';
 
 import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
 import { RecipeDataInterface } from 'typescript/interfaces';
-import type { RecipeDataErrors } from 'typescript/types';
+import type { RecipeDataErrorsType, ValidationRegExpType } from 'typescript/types';
 
-const VALIDATION_CONFIG = {
+interface ValidationConfigInterface {
+    RECIPE: ValidationRegExpType;
+}
+
+const VALIDATION_CONFIG: ValidationConfigInterface = {
     RECIPE: {
         [RECIPE_PROPERTY_ENUM.NAME_UK]: /^[\w\d\s-,]{2,200}$/gi,
     },
 };
 
-export class ValidationService {
-    validateRecipeData(data: RecipeDataInterface): RecipeDataErrors {
-        const errors: {} = {};
+interface ValidationServiceInterface {
+    validateRecipeData(
+        data: RecipeDataInterface,
+        propertiesToValidate: RECIPE_PROPERTY_ENUM[],
+    ): RecipeDataErrorsType;
+}
 
-        Object.entries(data).forEach(([key, value]) => {
-            // @ts-ignore
-            const isValid = VALIDATION_CONFIG.RECIPE[key].test(value);
+class ValidationService implements ValidationServiceInterface {
+    validateRecipeData(data: RecipeDataInterface, propertiesToValidate: RECIPE_PROPERTY_ENUM[]) {
+        const errors: RecipeDataErrorsType = {};
+
+        propertiesToValidate.forEach((propertyName) => {
+            const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
+                <string>data[propertyName] || '',
+            );
 
             if (!isValid) {
-                // @ts-ignore
-                errors[key] = {
+                errors[propertyName] = {
                     status: true,
-                    // @ts-ignore
-                    message: RECIPE_CREATOR_ERROR_MESSAGE[key],
+                    message: RECIPE_CREATOR_ERROR_MESSAGE[propertyName],
                 };
             } else {
-                // @ts-ignore
-                errors[key] = {
+                errors[propertyName] = {
                     status: false,
                 };
             }
         });
 
-        return <RecipeDataErrors>errors;
+        return errors;
     }
 }
+
+export const validationService = new ValidationService();
