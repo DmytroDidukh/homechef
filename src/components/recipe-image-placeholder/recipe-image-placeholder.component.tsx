@@ -4,31 +4,31 @@ import classNames from 'classnames';
 import { validationService } from 'services/validation-service';
 import { FILE_CONFIG } from 'constants/app';
 
-import { CustomErrorInterface } from 'typescript/interfaces';
+import { CustomErrorInterface, FilesSaveOptionsInterface } from 'typescript/interfaces';
 
 import styles from './recipe-image-placeholder.module.scss';
 
 export interface RecipeImagePlaceholderProps {
-    initValue?: string;
+    initURL?: string;
     error?: CustomErrorInterface;
-    fileSaveHandler: (file: File) => void;
+    fileSaveHandler: (file: File, options: FilesSaveOptionsInterface) => void;
     className?: string;
 }
 
 export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
-    initValue = '',
+    initURL = '',
     error = { status: false },
     fileSaveHandler,
     className,
 }) => {
-    console.log(initValue);
+    console.log(initURL);
     const fileUploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         // @ts-ignore
         const file = e.target.files[0];
 
         if (validationService.validateImage(file)) {
             console.log('FILE IS VALID', file);
-            fileSaveHandler(file);
+            fileSaveHandler(file, { main: true });
         } else {
             console.error('FILE IS WRONG', file);
         }
@@ -48,7 +48,7 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
                 }
 
                 console.log('FILE IS VALID');
-                fileSaveHandler(file);
+                fileSaveHandler(file, { main: true });
                 break;
             }
         }

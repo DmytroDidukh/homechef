@@ -31,7 +31,10 @@ export type IngredientsGroupsById = Record<
     IngredientGroupInterface['id'],
     IngredientGroupInterface
 >;
-export type RecipeDataErrorsType = Record<string, CustomErrorInterface>;
+export type RecipeDataErrorsType = {
+    errorsFound: boolean;
+    errors: Record<string, CustomErrorInterface>;
+};
 export type ValidationRegExpType = {
     [key: string]: RegExp;
 };

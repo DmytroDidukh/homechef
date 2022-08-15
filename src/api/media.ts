@@ -1,19 +1,22 @@
-import { ref, StorageReference, uploadBytes } from 'firebase/storage';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 
 import { storage } from './index';
 
 export interface MediaApiInterface {
-    uploadFile(file: File): Promise<string>;
+    uploadFile(file: File): Promise<string | void>;
 }
 
 export class MediaApi implements MediaApiInterface {
-    private storageRef: StorageReference = ref(storage, 'images');
-
     async uploadFile(file: File) {
-        const snapshot = await uploadBytes(this.storageRef, file);
+        try {
+            const storageRef = ref(storage, `images/${file.name}`);
+            await uploadBytes(storageRef, file);
 
-        console.log('SNAPSHOT: ', snapshot);
+            const downloadURL = await getDownloadURL(storageRef);
 
-        return 'ggg';
+            return downloadURL;
+        } catch (e) {
+            console.error(e);
+        }
     }
 }

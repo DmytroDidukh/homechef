@@ -8,6 +8,7 @@ import { Button } from 'components/button/button.component';
 import { Recipe, RecipeServiceInterface } from 'services/recipe-service';
 import { RecipeFileService } from 'services/file-service';
 import { validationService } from 'services/validation-service';
+import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
 
 import {
     FilesSaveOptionsInterface,
@@ -16,6 +17,8 @@ import {
 } from 'typescript/interfaces';
 import { BUTTON_STYLE_ENUM, RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
 import type { RecipeDataErrorsType } from 'typescript/types';
+
+import { api } from 'api';
 
 import styles from './recipe-creator.module.scss';
 
@@ -27,12 +30,12 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     const [recipeState, setRecipeState] = useState<RecipeStateInterface>({
         recipe: new Recipe(),
     });
-    const [errors, setErrors] = useState<RecipeDataErrorsType>({});
+    const [errorsData, setErrorsData] = useState<RecipeDataErrorsType>(INITIAL_RECIPE_ERRORS_STATE);
 
     const files = useMemo(() => new RecipeFileService(), []);
 
     const dataChangeHandler = useCallback((property: keyof RecipeDataInterface, value: any) => {
-        setErrors({});
+        setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
         if (value) {
             recipeState.recipe.addDataProperty(property, value);
@@ -44,6 +47,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     const fileSaveHandler = useCallback((file: File, options: FilesSaveOptionsInterface = {}) => {
         if (options.main) {
+            console.log('ADDING MAIN...');
             files.addMain(file);
         }
 
@@ -61,10 +65,16 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
                 RECIPE_DATA_PROPERTY_ENUM.NAME_UK,
             ]);
 
-            if (Object.keys(_errors).length) {
-                setErrors(_errors);
+            console.log('SAVING', _errors);
+
+            if (_errors.errorsFound) {
+                setErrorsData(_errors);
+                console.log('ERRORS DETECTED');
             } else {
                 console.log('ALL FIELDS ARE VALID');
+
+                // @ts-ignore
+                api.media.uploadFile(files.main);
             }
         },
 
@@ -78,7 +88,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         <PageContainer className={styles.root}>
             <h1 className={styles.title}>ВАШ НОВИЙ РЕЦЕПТ</h1>
             <RecipeNameChangeable
-                error={errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
+                error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
                 valueSaveHandler={dataChangeHandler}
             />
             <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} />

@@ -28,7 +28,10 @@ class ValidationService implements ValidationServiceInterface {
         data: RecipeDataInterface,
         propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
     ) {
-        const errors: RecipeDataErrorsType = {};
+        const result: RecipeDataErrorsType = {
+            errorsFound: false,
+            errors: {},
+        };
 
         propertiesToValidate.forEach((propertyName) => {
             const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
@@ -36,18 +39,19 @@ class ValidationService implements ValidationServiceInterface {
             );
 
             if (!isValid) {
-                errors[propertyName] = {
+                result.errors[propertyName] = {
                     status: true,
                     message: RECIPE_CREATOR_ERROR_MESSAGE[propertyName],
                 };
+                result.errorsFound = true;
             } else {
-                errors[propertyName] = {
+                result.errors[propertyName] = {
                     status: false,
                 };
             }
         });
 
-        return errors;
+        return result;
     }
 
     validateImage(file: File) {
