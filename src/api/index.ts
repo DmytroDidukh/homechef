@@ -36,8 +36,7 @@ const firebaseConfig = {
 const app: FirebaseApp = initializeApp(firebaseConfig);
 const db: Firestore = getFirestore(app);
 const storage: FirebaseStorage = getStorage(app);
-
-export const auth = getAuth(app);
+const auth = getAuth(app);
 
 const createCollection = <T = DocumentData>(collectionName: string) => {
     return collection(db, collectionName) as CollectionReference<T>;
@@ -78,4 +77,4 @@ class Api implements ApiInterface {
 
 const api = new Api();
 
-export { db, app, api, storage };
+export { db, app, api, storage, auth };
