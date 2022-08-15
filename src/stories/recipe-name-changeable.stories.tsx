@@ -5,7 +5,7 @@ import { RecipeNameChangeable } from 'components/recipe-name-changeable/recipe-n
 
 import { RECIPE_CREATOR_ERROR_MESSAGE } from 'constants/errors';
 
-import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
+import { RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
 
 export default {
     title: 'Components/RecipeNameChangeable',
@@ -30,6 +30,6 @@ WithError.args = {
     initValue: 'SALAD DRESSING THREE WAYS: PIQUANT, HOT AND FRAGRANT',
     error: {
         status: true,
-        message: RECIPE_CREATOR_ERROR_MESSAGE[RECIPE_PROPERTY_ENUM.NAME_UK],
+        message: RECIPE_CREATOR_ERROR_MESSAGE[RECIPE_DATA_PROPERTY_ENUM.NAME_UK],
     },
 };

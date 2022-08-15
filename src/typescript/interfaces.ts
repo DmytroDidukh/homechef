@@ -146,6 +146,7 @@ export interface RecipeDataInterface {
     subcategory?: UniqueId;
     tags?: string[];
     steps?: RecipeStepsInterface[];
+    imageURL?: string;
     videoURL?: string;
     originURL?: string;
     cookingTime?: string;

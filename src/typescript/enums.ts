@@ -49,7 +49,7 @@ export enum BUTTON_STYLE_ENUM {
 /**
  * Recipe
  */
-export enum RECIPE_PROPERTY_ENUM {
+export enum RECIPE_DATA_PROPERTY_ENUM {
     NAME = 'name',
     NAME_UK = 'name_uk',
     DESCRIPTION = 'description',
@@ -59,6 +59,7 @@ export enum RECIPE_PROPERTY_ENUM {
     SUBCATEGORY = 'subcategory',
     TAGS = 'tags',
     STEPS = 'steps',
+    IMAGE_URL = 'imageURL',
     VIDEO_URL = 'videoURL',
     ORIGIN_URL = 'originURL',
     COOKING_TIME = 'cookingTime',

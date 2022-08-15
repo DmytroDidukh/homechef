@@ -6,14 +6,14 @@ import { ErrorMessage } from 'components/error-message/error-message.component';
 import { measureText } from 'utils/string';
 
 import { CustomErrorInterface } from 'typescript/interfaces';
-import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
+import { RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
 
 import styles from './recipe-name-changeable.module.scss';
 
 export interface RecipeTitleChangeableProps {
     initValue?: string;
     error?: CustomErrorInterface;
-    valueSaveHandler: (property: RECIPE_PROPERTY_ENUM.NAME_UK, value: string) => void;
+    valueSaveHandler: (property: RECIPE_DATA_PROPERTY_ENUM.NAME_UK, value: string) => void;
     className?: string;
 }
 
@@ -31,7 +31,7 @@ export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
     };
 
     const blurHandler = (): void => {
-        valueSaveHandler(RECIPE_PROPERTY_ENUM.NAME_UK, value);
+        valueSaveHandler(RECIPE_DATA_PROPERTY_ENUM.NAME_UK, value);
     };
 
     return (
