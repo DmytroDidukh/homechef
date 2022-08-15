@@ -1,6 +1,7 @@
 import { RECIPE_CREATOR_ERROR_MESSAGE } from 'constants/errors';
+import { FILE_CONFIG } from 'constants/app';
 
-import { RECIPE_PROPERTY_ENUM } from 'typescript/enums';
+import { RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
 import { RecipeDataInterface } from 'typescript/interfaces';
 import type { RecipeDataErrorsType, ValidationRegExpType } from 'typescript/types';
 
@@ -10,19 +11,23 @@ interface ValidationConfigInterface {
 
 const VALIDATION_CONFIG: ValidationConfigInterface = {
     RECIPE: {
-        [RECIPE_PROPERTY_ENUM.NAME_UK]: /^[\w\d\s-,]{2,200}$/gi,
+        [RECIPE_DATA_PROPERTY_ENUM.NAME_UK]: /^[\w\d\s-,]{2,200}$/gi,
     },
 };
 
 interface ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,
-        propertiesToValidate: RECIPE_PROPERTY_ENUM[],
+        propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
     ): RecipeDataErrorsType;
+    validateImage(file: File): boolean;
 }
 
 class ValidationService implements ValidationServiceInterface {
-    validateRecipeData(data: RecipeDataInterface, propertiesToValidate: RECIPE_PROPERTY_ENUM[]) {
+    validateRecipeData(
+        data: RecipeDataInterface,
+        propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
+    ) {
         const errors: RecipeDataErrorsType = {};
 
         propertiesToValidate.forEach((propertyName) => {
@@ -43,6 +48,23 @@ class ValidationService implements ValidationServiceInterface {
         });
 
         return errors;
+    }
+
+    validateImage(file: File) {
+        const { type, size } = file;
+
+        const isValidType = this.validateImageType(type, FILE_CONFIG.IMAGE.ACCEPT);
+        const isValidSize = this.validateImageSize(size, FILE_CONFIG.IMAGE.MAX_SIZE);
+
+        return isValidType && isValidSize;
+    }
+
+    private validateImageType(fileType: string, acceptableType: string[]) {
+        return acceptableType.some((type) => fileType === type);
+    }
+
+    private validateImageSize(fileSize: number, maxSize: number) {
+        return fileSize <= maxSize;
     }
 }
 

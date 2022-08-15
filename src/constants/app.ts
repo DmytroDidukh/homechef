@@ -35,3 +35,10 @@ export const CLOUD_IMAGES = {
     LOGO_50x50:
         'https://res.cloudinary.com/d-didukh/image/upload/v1660161952/homechef/logo_gmiqsz.png',
 };
+
+export const FILE_CONFIG = {
+    IMAGE: {
+        ACCEPT: ['image/jpeg', 'image/gif', 'image/png'],
+        MAX_SIZE: 5000000,
+    },
+};
