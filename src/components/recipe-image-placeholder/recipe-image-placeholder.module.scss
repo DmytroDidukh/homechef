@@ -40,6 +40,8 @@
 }
 
 .image {
+  margin-bottom: 30px;
+
   img {
     @include width-height(50px, 50px);
   }

@@ -1,6 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { Typography } from 'components/typography/typography.component';
+
+import { TYPOGRAPHY_STYLE_ENUM, TYPOGRAPHY_VARIANT_ENUM } from 'typescript/enums';
+
 import styles from './error-message.module.scss';
 
 export interface ErrorMessageProps {
@@ -9,5 +13,12 @@ export interface ErrorMessageProps {
 }
 
 export const ErrorMessage: React.FC<ErrorMessageProps> = ({ className, message }): JSX.Element => {
-    return <span className={classNames(styles.root, className)}>{message}</span>;
+    return (
+        <Typography
+            className={classNames(styles.root, className)}
+            style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
+            variant={TYPOGRAPHY_VARIANT_ENUM.TEXT}
+            value={message}
+        />
+    );
 };

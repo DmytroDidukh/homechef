@@ -116,7 +116,7 @@
 }
 
 .large {
-  @include font-normal();
+  @include font-regular();
   @include width-height(auto, 50px);
 
   padding: 0 45px;

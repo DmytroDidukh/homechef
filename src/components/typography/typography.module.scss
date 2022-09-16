@@ -1,0 +1,72 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+h1 {
+  @include font-3x-large();
+}
+
+h2 {
+  @include font-2x-large();
+}
+
+h3 {
+  @include font-x-large(700);
+}
+
+h4 {
+  @include font-large(700);
+}
+
+h5 {
+  @include font-regular(700);
+}
+
+h6 {
+  @include font-small(700);
+}
+
+span {
+  @include font-regular();
+
+  color: inherit;
+}
+
+.paragraph1 {
+  @include font-regular();
+}
+
+.paragraph2 {
+  @include font-regular-2();
+}
+
+.button {
+  font-size: inherit;
+  line-height: inherit;
+  font-weight: inherit;
+}
+
+.light {
+  font-weight: 100;
+}
+
+.regular {
+  font-weight: 400;
+}
+
+.semiBold {
+  font-weight: 600;
+}
+
+.bold {
+  font-weight: 700;
+}
+
+.extraBold {
+  font-weight: 900;
+}

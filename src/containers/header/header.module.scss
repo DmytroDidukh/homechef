@@ -22,7 +22,7 @@
 .logo {
   @include flex-block(flex-start, center);
 
-  #{&}_title {
+  #{&}Title {
     @include font-x-large(900);
 
     margin: 0;
@@ -36,7 +36,7 @@
   margin-left: 50px;
 
   .title {
-    @include font-normal(600);
+    @include font-regular(600);
     @include transition(color);
   }
 

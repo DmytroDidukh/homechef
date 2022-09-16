@@ -1,6 +1,8 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
 import classNames from 'classnames';
 
+import { Typography } from 'components/typography/typography.component';
+
 import UploadImage from 'icons/upload-image.svg';
 import UploadImagePrimary from 'icons/upload-image-primary.svg';
 
@@ -9,7 +11,7 @@ import { FILE_CONFIG } from 'constants/app';
 import { TRANSLATIONS } from 'constants/translations';
 
 import { CustomErrorInterface, FilesSaveOptionsInterface } from 'typescript/interfaces';
-import { LANGUAGE_ENUM } from 'typescript/enums';
+import { LANGUAGE_ENUM, TYPOGRAPHY_STYLE_ENUM, TYPOGRAPHY_VARIANT_ENUM } from 'typescript/enums';
 
 import styles from './recipe-image-placeholder.module.scss';
 
@@ -76,7 +78,11 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
                     <img src={UploadImage} alt="Upload" />
                     <img src={UploadImagePrimary} alt="Upload" />
                 </div>
-                <span>{TRANSLATIONS[language].UPLOAD_IMAGE.UPLOAD}</span>
+                <Typography
+                    value={TRANSLATIONS[language].UPLOAD_IMAGE.UPLOAD}
+                    variant={TYPOGRAPHY_VARIANT_ENUM.TEXT}
+                    style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
+                />
                 <input
                     type="file"
                     name="file-upload"

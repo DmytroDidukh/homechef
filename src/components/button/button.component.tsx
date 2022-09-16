@@ -1,7 +1,14 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import { BUTTON_STYLE_ENUM, COMPONENTS_SIZE_ENUM } from 'typescript/enums';
+import { Typography } from 'components/typography/typography.component';
+
+import {
+    BUTTON_STYLE_ENUM,
+    COMPONENTS_SIZE_ENUM,
+    TYPOGRAPHY_STYLE_ENUM,
+    TYPOGRAPHY_VARIANT_ENUM,
+} from 'typescript/enums';
 
 import styles from './button.module.scss';
 
@@ -20,7 +27,7 @@ export interface ButtonProps {
 export const Button: React.FC<ButtonProps> = ({
     style = BUTTON_STYLE_ENUM.PRIMARY,
     size = COMPONENTS_SIZE_ENUM.SMALL,
-    label,
+    label = '',
     title,
     border = true,
     children,
@@ -36,7 +43,15 @@ export const Button: React.FC<ButtonProps> = ({
             })}
             {...props}
         >
-            {children ? children : label}
+            {children ? (
+                children
+            ) : (
+                <Typography
+                    value={label}
+                    variant={TYPOGRAPHY_VARIANT_ENUM.BUTTON}
+                    style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
+                />
+            )}
         </button>
     );
 };

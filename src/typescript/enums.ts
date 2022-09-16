@@ -72,6 +72,36 @@ export enum SKELETON_ALIGN_ITEMS_ENUM {
     CENTER = 'center',
 }
 
+export enum TYPOGRAPHY_VARIANT_ENUM {
+    HEADING_1 = 'heading1',
+    HEADING_2 = 'heading2',
+    HEADING_3 = 'heading3',
+    HEADING_4 = 'heading4',
+    HEADING_5 = 'heading5',
+    HEADING_6 = 'heading6',
+    SUBTITLE_1 = 'subtitle1',
+    SUBTITLE_2 = 'subtitle2',
+    PARAGRAPH_1 = 'paragraph1',
+    PARAGRAPH_2 = 'paragraph2',
+    TEXT = 'text',
+    BUTTON = 'button',
+}
+
+export enum TYPOGRAPHY_FONT_WEIGH_ENUM {
+    LIGHT = 'light',
+    REGULAR = 'regular',
+    SEMI_BOLD = 'semiBold',
+    BOLD = 'bold',
+    EXTRA_BOLD = 'extraBold',
+}
+
+export enum TYPOGRAPHY_STYLE_ENUM {
+    LOWER_CASE_ALL = 'lowerCaseAll',
+    UPPER_CASE_ALL = 'upperCaseAll',
+    LOWER_CASE_FIRST = 'lowerCaseFirst',
+    UPPER_CASE_FIRST = 'upperCaseFirst',
+}
+
 /**
  * Recipe
  */

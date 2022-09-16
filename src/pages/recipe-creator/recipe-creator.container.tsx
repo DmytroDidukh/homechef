@@ -5,6 +5,7 @@ import { RecipeNameChangeable } from 'components/recipe-name-changeable/recipe-n
 import { RecipeImagePlaceholder } from 'components/recipe-image-placeholder/recipe-image-placeholder.component';
 import { Button } from 'components/button/button.component';
 import { Image } from 'components/image/image.component';
+import { Typography } from 'components/typography/typography.component';
 
 import { useAppSelector } from 'store/hooks';
 import { selectLanguage } from 'store/slices/app';
@@ -20,7 +21,13 @@ import {
     RecipeDataInterface,
     RecipeInterface,
 } from 'typescript/interfaces';
-import { BUTTON_STYLE_ENUM, RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
+import {
+    BUTTON_STYLE_ENUM,
+    RECIPE_DATA_PROPERTY_ENUM,
+    TYPOGRAPHY_FONT_WEIGH_ENUM,
+    TYPOGRAPHY_STYLE_ENUM,
+    TYPOGRAPHY_VARIANT_ENUM,
+} from 'typescript/enums';
 import type { RecipeDataErrorsType } from 'typescript/types';
 
 import styles from './recipe-creator.module.scss';
@@ -95,7 +102,13 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     return (
         <PageContainer className={styles.root}>
-            <h1 className={styles.title}>{TRANSLATIONS[language].RECIPE_CREATOR.NEW}</h1>
+            <Typography
+                className={styles.title}
+                value={TRANSLATIONS[language].RECIPE_CREATOR.NEW}
+                variant={TYPOGRAPHY_VARIANT_ENUM.HEADING_5}
+                style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
+                weight={TYPOGRAPHY_FONT_WEIGH_ENUM.SEMI_BOLD}
+            />
             <RecipeNameChangeable
                 error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
                 valueSaveHandler={dataChangeHandler}
