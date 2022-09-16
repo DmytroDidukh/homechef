@@ -14,6 +14,7 @@
   @include flex-block(space-between, center);
 
   max-height: $header-height;
+  min-height: $header-height;
   border: none;
   padding: 0;
 }
@@ -36,8 +37,7 @@
 
   .title {
     @include font-normal(600);
-
-    transition: color .2s ease-in;
+    @include transition(color);
   }
 
   &:hover {

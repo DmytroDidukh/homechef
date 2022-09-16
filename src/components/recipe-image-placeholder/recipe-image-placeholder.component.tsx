@@ -1,15 +1,21 @@
 import React, { ChangeEvent, SyntheticEvent } from 'react';
 import classNames from 'classnames';
 
+import UploadImage from 'icons/upload-image.svg';
+import UploadImagePrimary from 'icons/upload-image-primary.svg';
+
 import { validationService } from 'services/validation-service';
 import { FILE_CONFIG } from 'constants/app';
+import { TRANSLATIONS } from 'constants/translations';
 
 import { CustomErrorInterface, FilesSaveOptionsInterface } from 'typescript/interfaces';
+import { LANGUAGE_ENUM } from 'typescript/enums';
 
 import styles from './recipe-image-placeholder.module.scss';
 
 export interface RecipeImagePlaceholderProps {
     initURL?: string;
+    language: LANGUAGE_ENUM;
     error?: CustomErrorInterface;
     fileSaveHandler: (file: File, options: FilesSaveOptionsInterface) => void;
     className?: string;
@@ -17,6 +23,7 @@ export interface RecipeImagePlaceholderProps {
 
 export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
     initURL = '',
+    language,
     error = { status: false },
     fileSaveHandler,
     className,
@@ -56,28 +63,28 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
 
     return (
         <div
+            id="drop_zone"
+            role="presentation"
             className={classNames(styles.root, className, {
                 [styles.invalid]: error.status,
             })}
+            onDrop={dragNDropHandler}
+            onDragOver={(e: SyntheticEvent) => e.preventDefault()}
         >
-            <div
-                id="drop_zone"
-                role="presentation"
-                className={classNames(styles.root, className)}
-                onDrop={dragNDropHandler}
-                onDragOver={(e: SyntheticEvent) => e.preventDefault()}
-            >
-                <label className={styles.label}>
-                    <span>ЗАВАНТАЖТЕ ЗОБРАЖЕННЯ</span>
-                    <input
-                        type="file"
-                        name="file-upload"
-                        style={{ display: 'none' }}
-                        accept={FILE_CONFIG.IMAGE.ACCEPT.join(',')}
-                        onChange={fileUploadHandler}
-                    />
-                </label>
-            </div>
+            <label className={styles.label}>
+                <div className={styles.image}>
+                    <img src={UploadImage} alt="Upload" />
+                    <img src={UploadImagePrimary} alt="Upload" />
+                </div>
+                <span>{TRANSLATIONS[language].UPLOAD_IMAGE.UPLOAD}</span>
+                <input
+                    type="file"
+                    name="file-upload"
+                    style={{ display: 'none' }}
+                    accept={FILE_CONFIG.IMAGE.ACCEPT.join(',')}
+                    onChange={fileUploadHandler}
+                />
+            </label>
         </div>
     );
 };

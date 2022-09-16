@@ -19,6 +19,11 @@ export enum RECIPE_STATUS_ENUM {
     BLOCKED = 'blocked',
 }
 
+export enum LANGUAGE_ENUM {
+    UKRAINIAN = 'UK',
+    ENGLISH = 'EN',
+}
+
 /**
  * Common
  */
@@ -44,6 +49,27 @@ export enum BUTTON_STYLE_ENUM {
     LIGHT = 'light',
     DARK = 'dark',
     TRANSPARENT = 'transparent',
+}
+
+export enum SKELETON_VARIANT_ENUM {
+    RECT = 'rect',
+    CIRCLE = 'circle',
+    TEXT = 'text',
+}
+
+export enum SKELETON_JUSTIFY_CONTENT_ENUM {
+    START = 'flex-start',
+    END = 'flex-end',
+    CENTER = 'center',
+    BETWEEN = 'space-between',
+    EVENLY = 'space-evenly',
+    AROUND = 'space-around',
+}
+
+export enum SKELETON_ALIGN_ITEMS_ENUM {
+    START = 'flex-start',
+    END = 'flex-end',
+    CENTER = 'center',
 }
 
 /**

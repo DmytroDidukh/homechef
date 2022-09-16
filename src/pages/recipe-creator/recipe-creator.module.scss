@@ -3,7 +3,7 @@
 @import "src/styles/colors";
 
 .root {
-  @include flex-block(flex-start, flex-start, column);
+  @include flex-block(flex-start, center, column);
 
   background-color: $white;
   margin: 100px auto;
@@ -13,4 +13,16 @@
   @include font-normal(600);
 
   margin: 40px auto
+}
+
+.main-image-container {
+  @include width-height(600px, 400px);
+
+  overflow: hidden;
+  margin-bottom: 40px;
+
+  .main-image {
+    @include flex-block(center, center);
+    @include width-height(100%, 100%);
+  }
 }

@@ -1,0 +1,13 @@
+@import "src/styles/mixins";
+@import "src/styles/variables";
+@import "src/styles/colors";
+
+.root {
+  @include width-height(100%, auto);
+
+  display: block;
+}
+
+.root.rounded {
+  border-radius: 16px;
+}

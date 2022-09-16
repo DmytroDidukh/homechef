@@ -4,6 +4,7 @@
 
 .root {
   @include flex-block(center, center);
+  @include transition();
 
   display: inline-flex;
   min-width: fit-content;
@@ -11,7 +12,6 @@
   border-style: solid;
   border-width: 1px;
 
-  transition: all .1s ease-in;
   cursor: pointer;
   position: relative;
 

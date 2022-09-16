@@ -65,9 +65,16 @@
   bottom: 0;
 }
 
+@mixin transition($transition-property: all, $duration: .1s) {
+  transition-property: $transition-property;
+  transition-duration: $duration;
+  transition-timing-function: ease-in-out;
+}
+
 @mixin popup-fade-in-keyframe {
+  @include transition(transform, 6s);
+
   transform: translateY(0);
-  transition: transform 6s ease-in-out;
   animation: popup-in .2s;
 
   @keyframes popup-in {
@@ -82,8 +89,9 @@
 }
 
 @mixin popup-fade-out-keyframe {
+  @include transition(transform, 6s);
+
   transform: translateY(0);
-  transition: transform 6s ease-in-out;
   animation: popup-out .2s;
 
   @keyframes popup-out {

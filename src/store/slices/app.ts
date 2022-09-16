@@ -2,9 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import type { AppState } from 'typescript/types';
 import { AppStateInterface } from 'typescript/interfaces';
+import { LANGUAGE_ENUM } from 'typescript/enums';
 
 export const initialState: AppStateInterface = {
     adminMode: undefined,
+    language: LANGUAGE_ENUM.UKRAINIAN,
 };
 
 export const appSlice = createSlice({
@@ -23,6 +25,7 @@ export const appSlice = createSlice({
 });
 
 export const selectAdminMode = (state: AppState): boolean | undefined => state.app.adminMode;
+export const selectLanguage = (state: AppState): LANGUAGE_ENUM => state.app.language;
 
 export const { setAdminMode } = appSlice.actions;
 

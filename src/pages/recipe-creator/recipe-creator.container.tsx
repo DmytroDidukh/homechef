@@ -1,14 +1,19 @@
-import React, { useCallback, useState, useMemo } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 
 import { PageContainer } from 'components/page-container/page-container.component';
 import { RecipeNameChangeable } from 'components/recipe-name-changeable/recipe-name-changeable.component';
 import { RecipeImagePlaceholder } from 'components/recipe-image-placeholder/recipe-image-placeholder.component';
 import { Button } from 'components/button/button.component';
+import { Image } from 'components/image/image.component';
 
+import { useAppSelector } from 'store/hooks';
+import { selectLanguage } from 'store/slices/app';
 import { Recipe, RecipeServiceInterface } from 'services/recipe-service';
 import { RecipeFileService } from 'services/file-service';
 import { validationService } from 'services/validation-service';
 import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
+import { TRANSLATIONS } from 'constants/translations';
+import { api } from 'api';
 
 import {
     FilesSaveOptionsInterface,
@@ -18,8 +23,6 @@ import {
 import { BUTTON_STYLE_ENUM, RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
 import type { RecipeDataErrorsType } from 'typescript/types';
 
-import { api } from 'api';
-
 import styles from './recipe-creator.module.scss';
 
 interface RecipeStateInterface {
@@ -27,10 +30,13 @@ interface RecipeStateInterface {
 }
 
 export const RecipeCreator: React.FC = (): JSX.Element => {
+    const language = useAppSelector(selectLanguage);
+
     const [recipeState, setRecipeState] = useState<RecipeStateInterface>({
         recipe: new Recipe(),
     });
     const [errorsData, setErrorsData] = useState<RecipeDataErrorsType>(INITIAL_RECIPE_ERRORS_STATE);
+    const [mainImage, setMainImage] = useState<string>('');
 
     const files = useMemo(() => new RecipeFileService(), []);
 
@@ -55,6 +61,8 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
             files.addToSteps({ step: options.step, file });
         }
         console.log(files);
+
+        setMainImage(URL.createObjectURL(file));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
@@ -83,24 +91,42 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     );
 
     console.log('RECIPE: ', recipeState.recipe);
+    console.log('RECIPE: ', styles);
 
     return (
         <PageContainer className={styles.root}>
-            <h1 className={styles.title}>ВАШ НОВИЙ РЕЦЕПТ</h1>
+            <h1 className={styles.title}>{TRANSLATIONS[language].RECIPE_CREATOR.NEW}</h1>
             <RecipeNameChangeable
                 error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
                 valueSaveHandler={dataChangeHandler}
+                language={language}
             />
-            <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} />
+
+            <div className={styles['main-image-container']}>
+                {!mainImage ? (
+                    <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} language={language} />
+                ) : (
+                    <div className={styles['main-image']}>
+                        <Image
+                            skeletonProps={{ width: 600, height: 400 }}
+                            src={mainImage}
+                            alt="Food"
+                        />
+                    </div>
+                )}
+            </div>
 
             <div>
                 <Button
-                    label="ЗБЕРЕГТИ"
+                    label={TRANSLATIONS[language].COMMON.SAVE}
                     onClick={submitSavingHandler}
                     style={BUTTON_STYLE_ENUM.LIGHT}
                 />
                 <br />
-                <Button label="ЗАПРОПОНУВАТИ РЕЦЕПТ" style={BUTTON_STYLE_ENUM.PRIMARY} />
+                <Button
+                    label={TRANSLATIONS[language].RECIPE_CREATOR.SUGGEST}
+                    style={BUTTON_STYLE_ENUM.PRIMARY}
+                />
             </div>
         </PageContainer>
     );

@@ -4,10 +4,26 @@
 
 .root {
   @include flex-block(center, flex-start);
+  @include width-height(100%, 100%);
+
+  background-color: $bg-dark;
+  border: 4px solid $bg-dark;
 
   position: relative;
-  margin-bottom: 40px;
-  width: 100%;
+
+  &:hover {
+    border: 4px solid $border-primary;
+
+    .image {
+      img:first-child {
+        display: none;
+      }
+
+      img:last-child {
+        display: block;
+      }
+    }
+  }
 }
 
 .root.invalid {
@@ -16,30 +32,23 @@
   }
 }
 
-.textarea {
-  @include scrollbars(1px);
-  @include font-3x-large;
+.label {
+  @include width-height(100%, 100%);
+  @include flex-block(center, center, column);
 
-  font-family: $font-family;
-  text-align: center;
-  text-transform: uppercase;
-
-  max-width: 80%;
-  min-width: 500px;
-  min-height: unset;
-
-  padding: 17px 15px;
-
-  border: none;
-  outline: none;
-  resize: none;
-  background-color: transparent;
-
-  &::placeholder {
-    color: $text-secondary;
-  }
+  cursor: pointer;
 }
 
-.error {
+.image {
+  img {
+    @include width-height(50px, 50px);
+  }
 
+  img:first-child {
+    display: block;
+  }
+
+  img:last-child {
+    display: none;
+  }
 }
