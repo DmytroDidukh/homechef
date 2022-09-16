@@ -24,7 +24,7 @@ export interface SkeletonProps {
 }
 
 export const Skeleton: React.FC<SkeletonProps> = ({
-    variant = SKELETON_VARIANT_ENUM.RECT,
+    variant,
     width,
     height,
     horizontal = true,
@@ -45,6 +45,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
                         styles.root,
 
                         {
+                            // @ts-ignore
                             [styles[variant]]: variant,
                             [styles.variant]: variant,
                             [styles.vertical]: vertical,

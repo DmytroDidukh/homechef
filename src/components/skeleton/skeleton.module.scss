@@ -34,6 +34,10 @@
   border-radius: 6px;
 }
 
+.circle {
+  border-radius: 50%;
+}
+
 .pulse {
   $from: $bg-dark;
   $middle: scale-color($from, $lightness: -4%);
