@@ -4,14 +4,13 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { UserAvatar } from 'components/user-avatart/user-avatar.component';
 
-import { useActions, useAppSelector } from 'store/hooks';
-import { selectLanguage } from 'store/slices/app';
+import { useActions } from 'store/hooks';
+import { useTranslation } from 'hooks/useTranslation';
 import { ROUTES, THEME } from 'constants/app';
-import { TRANSLATIONS } from 'constants/translations';
+import { TRANSLATION_KEYS } from 'translations/keys';
 import { typographyService } from 'services/typography-service';
 
 import { SelectOption, CurrentUserInterface } from 'typescript/interfaces';
-import { LANGUAGE_ENUM } from 'typescript/enums';
 
 import styles from './profile-menu.module.scss';
 
@@ -22,31 +21,19 @@ interface ProfileMenuInterface {
 const SIGN_OUT_VALUE = 'signOut';
 const OPTIONS = [
     {
-        label: {
-            [LANGUAGE_ENUM.UKRAINIAN]: TRANSLATIONS.UK.HEADER.PROFILE_MENU.PROFILE,
-            [LANGUAGE_ENUM.ENGLISH]: TRANSLATIONS.EN.HEADER.PROFILE_MENU.PROFILE,
-        },
+        label: TRANSLATION_KEYS.PROFILE_MENU.PROFILE,
         value: ROUTES.PROFILE,
     },
     {
-        label: {
-            [LANGUAGE_ENUM.UKRAINIAN]: TRANSLATIONS.UK.HEADER.PROFILE_MENU.FAVORITES,
-            [LANGUAGE_ENUM.ENGLISH]: TRANSLATIONS.EN.HEADER.PROFILE_MENU.FAVORITES,
-        },
+        label: TRANSLATION_KEYS.PROFILE_MENU.FAVORITES,
         value: ROUTES.FAVORITES,
     },
     {
-        label: {
-            [LANGUAGE_ENUM.UKRAINIAN]: TRANSLATIONS.UK.HEADER.PROFILE_MENU.SHOPPING_LIST,
-            [LANGUAGE_ENUM.ENGLISH]: TRANSLATIONS.EN.HEADER.PROFILE_MENU.SHOPPING_LIST,
-        },
+        label: TRANSLATION_KEYS.PROFILE_MENU.SHOPPING_LIST,
         value: ROUTES.SHOPPING_LIST,
     },
     {
-        label: {
-            [LANGUAGE_ENUM.UKRAINIAN]: TRANSLATIONS.UK.HEADER.PROFILE_MENU.SIGN_OUT,
-            [LANGUAGE_ENUM.ENGLISH]: TRANSLATIONS.EN.HEADER.PROFILE_MENU.SIGN_OUT,
-        },
+        label: TRANSLATION_KEYS.PROFILE_MENU.SIGN_OUT,
         value: SIGN_OUT_VALUE,
     },
 ];
@@ -54,8 +41,7 @@ const OPTIONS = [
 export const ProfileMenu: React.FC<ProfileMenuInterface> = ({ user }): JSX.Element => {
     const { signOut } = useActions();
     const navigate = useNavigate();
-
-    const language = useAppSelector(selectLanguage);
+    const { getMessage } = useTranslation();
 
     const onMenuOptionClick = (option: SingleValue<SelectOption>) => {
         switch (option?.value) {
@@ -95,7 +81,9 @@ export const ProfileMenu: React.FC<ProfileMenuInterface> = ({ user }): JSX.Eleme
                     IndicatorsContainer: () => null,
                     Placeholder: () => null,
                     Option: (props) => {
-                        const _label = typographyService.toUpperCaseAll(props.data.label[language]);
+                        const _label = typographyService.toUpperCaseAll(
+                            getMessage({ messageKey: props.data.label }),
+                        );
 
                         return (
                             <components.Option {...props}>

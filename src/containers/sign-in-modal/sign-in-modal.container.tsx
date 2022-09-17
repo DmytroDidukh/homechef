@@ -7,9 +7,8 @@ import { Typography } from 'components/typography/typography.component';
 import FacebookIcon from 'icons/facebook.svg';
 import GoogleIcon from 'icons/google.svg';
 
-import { useActions, useAppSelector } from 'store/hooks';
-import { selectLanguage } from 'store/slices/app';
-import { TRANSLATIONS } from 'constants/translations';
+import { useActions } from 'store/hooks';
+import { TRANSLATION_KEYS } from 'translations/keys';
 
 import { CurrentUserInterface } from 'typescript/interfaces';
 import {
@@ -27,8 +26,6 @@ interface SignInModalProps {
 
 export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
     const { signInWithGoogle, signInWithFacebook } = useActions();
-
-    const language = useAppSelector(selectLanguage);
 
     const [modalOpen, setModalOpen] = useState(false);
 
@@ -52,8 +49,9 @@ export const SignInModal: React.FC<SignInModalProps> = (): JSX.Element => {
                     onClose={() => setModalOpen(false)}
                 >
                     <Typography
+                        translate
                         className={styles.title}
-                        value={TRANSLATIONS[language].SIGN_IN_MODAL.TITLE}
+                        value={TRANSLATION_KEYS.SIGN_IN_MODAL.TITLE}
                         variant={TYPOGRAPHY_VARIANT_ENUM.HEADING_6}
                         style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
                     />

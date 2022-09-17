@@ -7,13 +7,12 @@ import { Button } from 'components/button/button.component';
 import { Image } from 'components/image/image.component';
 import { Typography } from 'components/typography/typography.component';
 
-import { useAppSelector } from 'store/hooks';
-import { selectLanguage } from 'store/slices/app';
+import { useTranslation } from 'hooks/useTranslation';
 import { Recipe, RecipeServiceInterface } from 'services/recipe-service';
 import { RecipeFileService } from 'services/file-service';
 import { validationService } from 'services/validation-service';
 import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
-import { TRANSLATIONS } from 'constants/translations';
+import { TRANSLATION_KEYS } from 'translations/keys';
 import { api } from 'api';
 
 import {
@@ -37,7 +36,7 @@ interface RecipeStateInterface {
 }
 
 export const RecipeCreator: React.FC = (): JSX.Element => {
-    const language = useAppSelector(selectLanguage);
+    const { getMessage } = useTranslation();
 
     const [recipeState, setRecipeState] = useState<RecipeStateInterface>({
         recipe: new Recipe(),
@@ -98,13 +97,13 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     );
 
     console.log('RECIPE: ', recipeState.recipe);
-    console.log('RECIPE: ', styles);
 
     return (
         <PageContainer className={styles.root}>
             <Typography
+                translate
                 className={styles.title}
-                value={TRANSLATIONS[language].RECIPE_CREATOR.NEW}
+                value={TRANSLATION_KEYS.RECIPE_CREATOR.NEW}
                 variant={TYPOGRAPHY_VARIANT_ENUM.HEADING_5}
                 style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
                 weight={TYPOGRAPHY_FONT_WEIGH_ENUM.SEMI_BOLD}
@@ -112,12 +111,14 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
             <RecipeNameChangeable
                 error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
                 valueSaveHandler={dataChangeHandler}
-                language={language}
+                placeholderValue={getMessage({
+                    messageKey: TRANSLATION_KEYS.RECIPE_CREATOR.RECIPE_NAME,
+                })}
             />
 
             <div className={styles['main-image-container']}>
                 {!mainImage ? (
-                    <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} language={language} />
+                    <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} />
                 ) : (
                     <div className={styles['main-image']}>
                         <Image
@@ -131,13 +132,13 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
             <div>
                 <Button
-                    label={TRANSLATIONS[language].COMMON.SAVE}
+                    label={TRANSLATION_KEYS.COMMON.SAVE}
                     onClick={submitSavingHandler}
                     style={BUTTON_STYLE_ENUM.LIGHT}
                 />
                 <br />
                 <Button
-                    label={TRANSLATIONS[language].RECIPE_CREATOR.SUGGEST}
+                    label={TRANSLATION_KEYS.RECIPE_CREATOR.SUGGEST}
                     style={BUTTON_STYLE_ENUM.PRIMARY}
                 />
             </div>

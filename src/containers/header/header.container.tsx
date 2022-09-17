@@ -16,11 +16,11 @@ import BookmarkIcon from 'icons/bookmark.svg';
 
 import { useActions, useAppSelector } from 'store/hooks';
 import { selectCategoriesList, selectSubcategoriesList } from 'store/slices/categories';
-import { selectLanguage } from 'store/slices/app';
 import { categoriesFactory } from 'factory/category';
 import { useAuth } from 'hooks/useAuth';
+import { useTranslation } from 'hooks/useTranslation';
 import { CLOUD_IMAGES, ROUTES } from 'constants/app';
-import { TRANSLATIONS } from 'constants/translations';
+import { TRANSLATION_KEYS } from 'translations/keys';
 import { typographyService } from 'services/typography-service';
 
 import {
@@ -33,11 +33,11 @@ import styles from './header.module.scss';
 
 export const Header: React.FC = (): JSX.Element => {
     const { authenticated, user } = useAuth();
+    const { getMessage } = useTranslation();
     const { getCategories, getSubcategories } = useActions();
 
     const categories = useAppSelector(selectCategoriesList);
     const subcategories = useAppSelector(selectSubcategoriesList);
-    const language = useAppSelector(selectLanguage);
 
     const navigate = useNavigate();
 
@@ -72,8 +72,9 @@ export const Header: React.FC = (): JSX.Element => {
 
                     <div className={styles.recipes}>
                         <Typography
+                            translate
                             className={styles.title}
-                            value={TRANSLATIONS[language].HEADER.NAV.RECIPES}
+                            value={TRANSLATION_KEYS.NAV.RECIPES}
                             variant={TYPOGRAPHY_VARIANT_ENUM.HEADING_2}
                             style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
                         />
@@ -120,7 +121,7 @@ export const Header: React.FC = (): JSX.Element => {
                     {authenticated && (
                         <>
                             <Button
-                                label={TRANSLATIONS[language].HEADER.ADD_RECIPE}
+                                label={TRANSLATION_KEYS.HEADER.ADD_RECIPE}
                                 style={BUTTON_STYLE_ENUM.PRIMARY}
                                 onClick={() =>
                                     navigate(resolvePath(ROUTES.RECIPE_NEW, ROUTES.RECIPES))
@@ -129,7 +130,7 @@ export const Header: React.FC = (): JSX.Element => {
                             <TextDivider />
                             <Link
                                 title={typographyService.toUpperCaseAll(
-                                    TRANSLATIONS[language].HEADER.NAV.FAVORITES,
+                                    getMessage({ messageKey: TRANSLATION_KEYS.NAV.FAVORITES }),
                                 )}
                                 to={ROUTES.FAVORITES}
                                 className={styles.link}
@@ -138,7 +139,7 @@ export const Header: React.FC = (): JSX.Element => {
                             </Link>
                             <Link
                                 title={typographyService.toUpperCaseAll(
-                                    TRANSLATIONS[language].HEADER.NAV.SAVED,
+                                    getMessage({ messageKey: TRANSLATION_KEYS.NAV.SAVED }),
                                 )}
                                 to={ROUTES.BOOKMARKS}
                                 className={styles.link}

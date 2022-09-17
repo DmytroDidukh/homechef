@@ -19,6 +19,7 @@ export interface ButtonProps {
     title?: string;
     border?: boolean;
     active?: boolean;
+    translate?: boolean;
     disabled?: boolean;
     onClick?: () => void;
     children?: React.ReactNode;
@@ -32,6 +33,7 @@ export const Button: React.FC<ButtonProps> = ({
     title,
     border = true,
     active = false,
+    translate = true,
     children,
     className,
     ...props
@@ -50,6 +52,7 @@ export const Button: React.FC<ButtonProps> = ({
                 children
             ) : (
                 <Typography
+                    translate={translate}
                     value={label}
                     variant={TYPOGRAPHY_VARIANT_ENUM.BUTTON}
                     style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}

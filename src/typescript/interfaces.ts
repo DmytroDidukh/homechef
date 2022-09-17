@@ -1,4 +1,4 @@
-import { APP_REQUEST_STATUS_ENUM, LANGUAGE_ENUM, RECIPE_STATUS_ENUM } from './enums';
+import { APP_REQUEST_STATUS_ENUM, RECIPE_STATUS_ENUM } from './enums';
 import {
     UniqueId,
     SubcategoriesById,
@@ -25,7 +25,6 @@ export interface CustomErrorInterface {
  */
 export interface AppStateInterface {
     adminMode: boolean | undefined;
-    language: LANGUAGE_ENUM;
 }
 
 /**

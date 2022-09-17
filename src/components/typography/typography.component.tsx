@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
+import { useTranslation } from 'hooks/useTranslation';
 import { typographyService } from 'services/typography-service';
 
 import {
@@ -16,6 +17,7 @@ export interface TypographyProps {
     variant: TYPOGRAPHY_VARIANT_ENUM;
     style: TYPOGRAPHY_STYLE_ENUM;
     weight?: TYPOGRAPHY_FONT_WEIGH_ENUM;
+    translate?: boolean;
     className?: string;
 }
 
@@ -24,9 +26,11 @@ export const Typography: React.FC<TypographyProps> = ({
     variant,
     style,
     weight = '',
+    translate = false,
     className,
     ...props
 }) => {
+    const { getMessage } = useTranslation();
     const Element = typographyService.getElement(variant);
 
     return (
@@ -36,7 +40,11 @@ export const Typography: React.FC<TypographyProps> = ({
             })}
             {...props}
         >
-            {typographyService.style(variant, style, value)}
+            {typographyService.style(
+                variant,
+                style,
+                translate ? getMessage({ messageKey: value }) : value,
+            )}
         </Element>
     );
 };

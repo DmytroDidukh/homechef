@@ -4,10 +4,6 @@
 
 .root {
   @include flex-block(center, flex-start, row, wrap);
-
-  span {
-    display: block;
-  }
 }
 
 

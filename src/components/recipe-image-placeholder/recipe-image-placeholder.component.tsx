@@ -8,16 +8,15 @@ import UploadImagePrimary from 'icons/upload-image-primary.svg';
 
 import { validationService } from 'services/validation-service';
 import { FILE_CONFIG } from 'constants/app';
-import { TRANSLATIONS } from 'constants/translations';
+import { TRANSLATION_KEYS } from 'translations/keys';
 
 import { CustomErrorInterface, FilesSaveOptionsInterface } from 'typescript/interfaces';
-import { LANGUAGE_ENUM, TYPOGRAPHY_STYLE_ENUM, TYPOGRAPHY_VARIANT_ENUM } from 'typescript/enums';
+import { TYPOGRAPHY_STYLE_ENUM, TYPOGRAPHY_VARIANT_ENUM } from 'typescript/enums';
 
 import styles from './recipe-image-placeholder.module.scss';
 
 export interface RecipeImagePlaceholderProps {
     initURL?: string;
-    language: LANGUAGE_ENUM;
     error?: CustomErrorInterface;
     fileSaveHandler: (file: File, options: FilesSaveOptionsInterface) => void;
     className?: string;
@@ -25,7 +24,6 @@ export interface RecipeImagePlaceholderProps {
 
 export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
     initURL = '',
-    language,
     error = { status: false },
     fileSaveHandler,
     className,
@@ -79,7 +77,8 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
                     <img src={UploadImagePrimary} alt="Upload" />
                 </div>
                 <Typography
-                    value={TRANSLATIONS[language].UPLOAD_IMAGE.UPLOAD}
+                    translate
+                    value={TRANSLATION_KEYS.UPLOAD_IMAGE.UPLOAD}
                     variant={TYPOGRAPHY_VARIANT_ENUM.TEXT}
                     style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
                 />
