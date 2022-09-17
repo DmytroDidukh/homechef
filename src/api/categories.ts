@@ -1,5 +1,6 @@
 import { addDoc, getDocs, collection } from 'firebase/firestore';
 
+import { categoriesFactory } from 'factory/category';
 import { categoriesCollection, subcategoriesCollection } from './index';
 
 import { CategoryInterface, SubcategoryInterface } from 'typescript/interfaces';
@@ -9,6 +10,7 @@ export interface CategoriesApiInterface {
     addSubcategory(data: SubcategoryInterface): Promise<string>;
     getCategories(): Promise<CategoryInterface[]>;
     getSubcategories(): Promise<SubcategoryInterface[]>;
+    getCategoriesWithSubcategories(): Promise<CategoryInterface[]>;
 }
 
 export class CategoriesApi implements CategoriesApiInterface {
@@ -54,5 +56,12 @@ export class CategoriesApi implements CategoriesApiInterface {
         });
 
         return data;
+    }
+
+    async getCategoriesWithSubcategories() {
+        const subcategories = await this.getSubcategories();
+        const categories = await this.getCategories();
+
+        return categoriesFactory(categories, subcategories);
     }
 }

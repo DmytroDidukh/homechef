@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { resolvePath } from 'react-router';
 import classNames from 'classnames';
@@ -14,8 +14,9 @@ import FavoritesIcon from 'icons/favorites.svg';
 import BookmarkIcon from 'icons/bookmark.svg';
 
 import { useActions, useAppSelector } from 'store/hooks';
-import { selectCategoriesList } from 'store/slices/categories';
+import { selectCategoriesList, selectSubcategoriesList } from 'store/slices/categories';
 import { selectLanguage } from 'store/slices/app';
+import { categoriesFactory } from 'factory/category';
 import { useAuth } from 'hooks/useAuth';
 import { CLOUD_IMAGES, ROUTES } from 'constants/app';
 import { TRANSLATIONS } from 'constants/translations';
@@ -31,17 +32,23 @@ import styles from './header.module.scss';
 
 export const Header: React.FC = (): JSX.Element => {
     const { authenticated, user } = useAuth();
-    const { getCategories } = useActions();
+    const { getCategories, getSubcategories } = useActions();
 
     const categories = useAppSelector(selectCategoriesList);
+    const subcategories = useAppSelector(selectSubcategoriesList);
     const language = useAppSelector(selectLanguage);
 
     const navigate = useNavigate();
 
     useEffect(() => {
         getCategories();
+        getSubcategories();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const categoriesWithSubcategories = useMemo(() => {
+        return categoriesFactory(categories, subcategories);
+    }, [categories, subcategories]);
 
     return (
         <header className={styles.root}>
@@ -70,13 +77,36 @@ export const Header: React.FC = (): JSX.Element => {
                             style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
                         />
                         <ul className={styles.categories}>
-                            {categories.map((category) => (
+                            {categoriesWithSubcategories.map((category) => (
                                 <li key={category.id}>
                                     <Link
                                         to={`/${resolvePath(category.id, ROUTES.RECIPES).pathname}`}
                                     >
                                         {category.name_uk.toUpperCase()}
                                     </Link>
+
+                                    {!!category.subcategories?.length && (
+                                        <>
+                                            <ul className={styles.subcategories}>
+                                                {category.subcategories.map((subcategory) => (
+                                                    <li key={subcategory.id}>
+                                                        <Link
+                                                            to={`/${
+                                                                resolvePath(
+                                                                    subcategory.id,
+                                                                    ROUTES.RECIPES,
+                                                                ).pathname
+                                                            }`}
+                                                        >
+                                                            {subcategory.name_uk.toUpperCase()}
+                                                        </Link>
+                                                    </li>
+                                                ))}
+                                            </ul>
+
+                                            <span className={styles.triangle} />
+                                        </>
+                                    )}
                                 </li>
                             ))}
                         </ul>

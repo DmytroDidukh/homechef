@@ -87,6 +87,10 @@ export const App: React.FC = (): JSX.Element => {
                         element={<h1>Recipes by category :categoryId</h1>}
                     />
                     <Route
+                        path={ROUTES.RECIPES_SUBCATEGORY}
+                        element={<h1>Recipes by subcategory :subcategoryId</h1>}
+                    />
+                    <Route
                         path={ROUTES.RECIPE_NEW}
                         element={
                             <RequireAuth redirectTo={ROUTES.HOME}>

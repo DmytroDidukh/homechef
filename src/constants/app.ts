@@ -14,6 +14,7 @@ export const ROUTES = {
     BOOKMARKS: 'bookmarks',
     RECIPES: 'recipes',
     RECIPES_CATEGORY: ':categoryId',
+    RECIPES_SUBCATEGORY: ':subcategoryId',
     RECIPE_NEW: 'new',
     RECIPE_PREVIEW: 'preview/:recipeId',
     RECIPE_EDIT: 'edit/:recipeId',

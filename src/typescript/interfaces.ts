@@ -106,6 +106,7 @@ export interface CategoryInterface {
     id: UniqueId;
     name: string;
     name_uk: string;
+    subcategories?: SubcategoryInterface[];
 }
 
 export interface SubcategoryInterface {

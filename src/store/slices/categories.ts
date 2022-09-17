@@ -62,28 +62,42 @@ const addSubcategory = createAsyncThunk<
 const getCategories = createAsyncThunk<
     CategoryInterface[]
     // @ts-ignore
->('categories/getCategories', async () => {
+>('categories/getCategories', async (_, { rejectWithValue }) => {
     try {
         const data = await api.categories.getCategories();
 
         return data;
     } catch (e) {
         console.error(e);
-        return 'getCategories ERROR';
+        return rejectWithValue('getSubcategories ERROR');
     }
 });
 
 const getSubcategories = createAsyncThunk<
     SubcategoryInterface[]
     // @ts-ignore
->('categories/getSubcategories', async () => {
+>('categories/getSubcategories', async (_, { rejectWithValue }) => {
     try {
         const data = await api.categories.getSubcategories();
 
         return data;
     } catch (e) {
         console.error(e);
-        return 'getSubcategories ERROR';
+        return rejectWithValue('getSubcategories ERROR');
+    }
+});
+
+const getCategoriesWithSubcategories = createAsyncThunk<
+    CategoryInterface[]
+    // @ts-ignore
+>('categories/getCategoriesWithSubcategories', async (_, { rejectWithValue }) => {
+    try {
+        const data = await api.categories.getCategoriesWithSubcategories();
+
+        return data;
+    } catch (e) {
+        console.error(e);
+        return rejectWithValue('getCategoriesWithSubcategories ERROR');
     }
 });
 
@@ -134,9 +148,38 @@ export const categoriesSlice = createSlice({
                 state.subcategories.byId = entries;
 
                 state.loading = false;
+            })
+            .addCase(getCategoriesWithSubcategories.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(getCategoriesWithSubcategories.fulfilled, (state, action) => {
+                const { entries, ids } = normalize(action.payload, 'id');
+
+                state.categories.ids = ids;
+                state.categories.byId = entries;
+
+                state.loading = false;
             });
     },
 });
+
+/**
+ * Subcategories
+ */
+export const selectSubcategoriesIds = (state: AppState): UniqueId[] =>
+    state.categories.subcategories.ids;
+export const selectSubcategories = (state: AppState): SubcategoriesById =>
+    state.categories.subcategories.byId;
+export const selectSubcategoriesList = createSelector(
+    [selectSubcategoriesIds, selectSubcategories],
+    (ids, data) => {
+        if (ids && data) {
+            return ids.map((id) => data[id]);
+        }
+
+        return [];
+    },
+);
 
 /**
  * Categories
@@ -155,14 +198,6 @@ export const selectCategoriesList = createSelector(
     },
 );
 
-/**
- * Subcategories
- */
-export const selectSubcategoriesIds = (state: AppState): UniqueId[] =>
-    state.categories.subcategories.ids;
-export const selectSubcategories = (state: AppState): SubcategoriesById =>
-    state.categories.subcategories.byId;
-
 export const categoriesReducer = categoriesSlice.reducer;
 export const categoriesActions = {
     ...categoriesSlice.actions,
@@ -170,4 +205,5 @@ export const categoriesActions = {
     addSubcategory,
     getCategories,
     getSubcategories,
+    getCategoriesWithSubcategories,
 };
