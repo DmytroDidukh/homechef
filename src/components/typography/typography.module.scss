@@ -1,40 +1,51 @@
 @import "src/styles/mixins";
 @import "src/styles/variables";
 @import "src/styles/colors";
+@import "src/styles/fonts";
 
+.root {
+  font-family: $font-family;
+}
 
-h1, h2, h3, h4, h5, h6 {
+.heading1,
+.heading2,
+.heading3,
+.heading4,
+.heading5,
+.heading6 {
   margin: 0;
 }
 
-h1 {
+.heading1 {
   @include font-3x-large();
 }
 
-h2 {
+.heading2 {
   @include font-2x-large();
 }
 
-h3 {
+.heading3 {
   @include font-x-large(700);
 }
 
-h4 {
+.heading4 {
   @include font-large(700);
 }
 
-h5 {
+.heading5 {
   @include font-regular(700);
 }
 
-h6 {
+.heading6 {
   @include font-small(700);
 }
 
-span {
-  @include font-regular();
+.subtitle1 {
+  @include font-x-large(700);
+}
 
-  color: inherit;
+.subtitle2 {
+  @include font-regular(600);
 }
 
 .paragraph1 {
@@ -49,6 +60,13 @@ span {
   font-size: inherit;
   line-height: inherit;
   font-weight: inherit;
+  color: inherit;
+}
+
+.text {
+  @include font-regular();
+
+  color: inherit;
 }
 
 .light {

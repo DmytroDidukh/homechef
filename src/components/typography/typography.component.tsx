@@ -31,7 +31,7 @@ export const Typography: React.FC<TypographyProps> = ({
 
     return (
         <Element
-            className={classNames(styles.root, styles[weight], className, {
+            className={classNames(styles.root, styles[variant], styles[weight], className, {
                 [styles.button]: variant === TYPOGRAPHY_VARIANT_ENUM.BUTTON,
             })}
             {...props}
