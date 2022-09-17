@@ -101,6 +101,23 @@
   }
 }
 
+.toggle {
+  color: $text-dark;
+  background-color: transparent;
+  padding: 0 10px !important;
+
+  &:hover {
+    color: $primary;
+    background-color: transparent;
+  }
+
+  &.active {
+    color: $primary;
+    font-weight: 700;
+    cursor: default;
+  }
+}
+
 .small {
   @include font-x-small();
   @include width-height(auto, 34px);

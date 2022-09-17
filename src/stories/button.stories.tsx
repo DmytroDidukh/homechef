@@ -60,6 +60,21 @@ Transparent.args = {
     border: false,
 };
 
+export const Toggle: any = Template.bind({});
+Toggle.args = {
+    label: 'UK',
+    style: BUTTON_STYLE_ENUM.TOGGLE,
+    border: false,
+};
+
+export const ToggleActive: any = Template.bind({});
+ToggleActive.args = {
+    label: 'UK',
+    style: BUTTON_STYLE_ENUM.TOGGLE,
+    border: false,
+    active: true,
+};
+
 export const Large: any = Template.bind({});
 Large.args = {
     size: COMPONENTS_SIZE_ENUM.LARGE,

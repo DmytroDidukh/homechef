@@ -18,6 +18,7 @@ export interface ButtonProps {
     label?: string;
     title?: string;
     border?: boolean;
+    active?: boolean;
     disabled?: boolean;
     onClick?: () => void;
     children?: React.ReactNode;
@@ -30,6 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
     label = '',
     title,
     border = true,
+    active = false,
     children,
     className,
     ...props
@@ -40,6 +42,7 @@ export const Button: React.FC<ButtonProps> = ({
             title={title}
             className={classNames(styles.root, styles[size], styles[style], className, {
                 [styles.borderless]: !border,
+                [styles.active]: active,
             })}
             {...props}
         >
