@@ -1,12 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+import { getItemFromLocalStorage } from 'services/storage-service';
+import { STORAGE_KEYS } from 'constants/app';
+
 import type { AppState } from 'typescript/types';
 import { AppStateInterface } from 'typescript/interfaces';
 import { LANGUAGE_ENUM } from 'typescript/enums';
 
 export const initialState: AppStateInterface = {
     adminMode: undefined,
-    language: LANGUAGE_ENUM.UKRAINIAN,
+    // @ts-ignore
+    language: getItemFromLocalStorage(STORAGE_KEYS.LANGUAGE) || LANGUAGE_ENUM.UKRAINIAN,
 };
 
 export const appSlice = createSlice({
@@ -15,6 +19,9 @@ export const appSlice = createSlice({
     reducers: {
         setAdminMode: (state, action) => {
             state.adminMode = action.payload;
+        },
+        setLanguage: (state, action) => {
+            state.language = action.payload;
         },
     },
     // extraReducers: (builder) => {

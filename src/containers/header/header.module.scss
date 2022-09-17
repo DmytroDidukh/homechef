@@ -128,6 +128,11 @@
 
 .nav:last-child {
   padding: 10px 0;
+
+  // Add recipe button
+  > button:first-of-type {
+    min-width: 155px;
+  }
 }
 
 .link {

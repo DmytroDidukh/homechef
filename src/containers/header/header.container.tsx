@@ -5,6 +5,7 @@ import classNames from 'classnames';
 
 import { ProfileMenu } from 'containers/profile-menu/profile-menu.container';
 import { SignInModal } from 'containers/sign-in-modal/sign-in-modal.container';
+import { LanguageSwitch } from 'containers/language-switch/language-switch.container';
 import { PageContainer } from 'components/page-container/page-container.component';
 import { TextDivider } from 'components/text-divider/text-divider.component';
 import { Button } from 'components/button/button.component';
@@ -114,6 +115,8 @@ export const Header: React.FC = (): JSX.Element => {
                 </div>
 
                 <div className={styles.nav}>
+                    <LanguageSwitch />
+
                     {authenticated && (
                         <>
                             <Button

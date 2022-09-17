@@ -49,6 +49,7 @@ export enum BUTTON_STYLE_ENUM {
     LIGHT = 'light',
     DARK = 'dark',
     TRANSPARENT = 'transparent',
+    TOGGLE = 'toggle',
 }
 
 export enum SKELETON_VARIANT_ENUM {
