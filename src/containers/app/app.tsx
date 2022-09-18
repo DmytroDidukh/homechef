@@ -17,13 +17,14 @@ import { auth } from 'api';
 import type { FirebaseUser } from 'typescript/types';
 
 export const App: React.FC = (): JSX.Element => {
-    const { setAuthenticated, saveUserToDatabase } = useActions();
+    const { setAuthenticated, saveUserToDatabase, getCategories, getSubcategories } = useActions();
 
     const authenticated = useAppSelector(selectAuthenticated);
 
     // const [initializing, setInitializing] = useState(true);
 
     const onAuthStateChanges = (user: FirebaseUser): void => {
+        console.log('APP');
         if (user) {
             saveUserToDatabase(user);
         } else {
@@ -36,6 +37,10 @@ export const App: React.FC = (): JSX.Element => {
     useEffect(() => {
         // @ts-ignore
         const subscriber = onAuthStateChanged(auth, onAuthStateChanges);
+
+        // Init data
+        getCategories();
+        getSubcategories();
 
         return subscriber;
         // eslint-disable-next-line react-hooks/exhaustive-deps

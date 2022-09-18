@@ -23,8 +23,6 @@ interface ValidationServiceInterface {
     validateImage(file: File): boolean;
 }
 
-console.log('GGGG');
-
 class ValidationService implements ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,

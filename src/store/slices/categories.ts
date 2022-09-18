@@ -163,6 +163,8 @@ export const categoriesSlice = createSlice({
     },
 });
 
+export const selectCategoriesLoading = (state: AppState): boolean => state.categories.loading;
+
 /**
  * Subcategories
  */

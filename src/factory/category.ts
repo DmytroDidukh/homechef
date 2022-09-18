@@ -20,5 +20,5 @@ export const categoriesFactory = (
         });
     });
 
-    return data;
+    return data.sort((a, b) => a.priority - b.priority);
 };

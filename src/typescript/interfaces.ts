@@ -5,6 +5,8 @@ import {
     CategoriesById,
     IngredientsGroupsById,
     IngredientsById,
+    CategoryTranslations,
+    SubcategoryTranslations,
 } from './types';
 
 /**
@@ -101,17 +103,24 @@ export interface IngredientInterface {
 /**
  * Categories & Subcategories
  */
+export interface CategoryTranslationsInterface {
+    name: string;
+}
+
 export interface CategoryInterface {
     id: UniqueId;
-    name: string;
-    name_uk: string;
+    priority: number;
+    translations: CategoryTranslations;
     subcategories?: SubcategoryInterface[];
+}
+
+export interface SubcategoryTranslationsInterface {
+    name: string;
 }
 
 export interface SubcategoryInterface {
     id: UniqueId;
-    name: string;
-    name_uk: string;
+    translations: SubcategoryTranslations;
     categoryId: string;
 }
 

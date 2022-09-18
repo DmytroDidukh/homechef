@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { resolvePath } from 'react-router';
 import classNames from 'classnames';
@@ -14,7 +14,7 @@ import { Typography } from 'components/typography/typography.component';
 import FavoritesIcon from 'icons/favorites.svg';
 import BookmarkIcon from 'icons/bookmark.svg';
 
-import { useActions, useAppSelector } from 'store/hooks';
+import { useAppSelector } from 'store/hooks';
 import { selectCategoriesList, selectSubcategoriesList } from 'store/slices/categories';
 import { categoriesFactory } from 'factory/category';
 import { useAuth } from 'hooks/useAuth';
@@ -33,19 +33,12 @@ import styles from './header.module.scss';
 
 export const Header: React.FC = (): JSX.Element => {
     const { authenticated, user } = useAuth();
-    const { getMessage } = useTranslation();
-    const { getCategories, getSubcategories } = useActions();
+    const { getMessage, locale } = useTranslation();
 
     const categories = useAppSelector(selectCategoriesList);
     const subcategories = useAppSelector(selectSubcategoriesList);
 
     const navigate = useNavigate();
-
-    useEffect(() => {
-        getCategories();
-        getSubcategories();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
 
     const categoriesWithSubcategories = useMemo(() => {
         return categoriesFactory(categories, subcategories);
@@ -84,7 +77,7 @@ export const Header: React.FC = (): JSX.Element => {
                                     <Link
                                         to={`/${resolvePath(category.id, ROUTES.RECIPES).pathname}`}
                                     >
-                                        {category.name_uk.toUpperCase()}
+                                        {category.translations[locale].name.toUpperCase()}
                                     </Link>
 
                                     {!!category.subcategories?.length && (
@@ -100,7 +93,9 @@ export const Header: React.FC = (): JSX.Element => {
                                                                 ).pathname
                                                             }`}
                                                         >
-                                                            {subcategory.name_uk.toUpperCase()}
+                                                            {subcategory.translations[
+                                                                locale
+                                                            ].name.toUpperCase()}
                                                         </Link>
                                                     </li>
                                                 ))}

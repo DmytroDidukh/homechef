@@ -4,12 +4,15 @@ import { User } from '@firebase/auth';
 import { store } from 'store/store';
 import {
     CategoryInterface,
+    CategoryTranslationsInterface,
     CustomErrorInterface,
     IngredientGroupInterface,
     IngredientInterface,
     RecipeInterface,
     SubcategoryInterface,
+    SubcategoryTranslationsInterface,
 } from './interfaces';
+import { LANGUAGE_ENUM } from './enums';
 
 export type AppState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
@@ -23,6 +26,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
 export type FirebaseUser = User;
 export type UniqueId = string;
 
+export type CategoryTranslations = Record<LANGUAGE_ENUM, CategoryTranslationsInterface>;
+export type SubcategoryTranslations = Record<LANGUAGE_ENUM, SubcategoryTranslationsInterface>;
 export type CategoriesById = Record<CategoryInterface['id'], CategoryInterface>;
 export type SubcategoriesById = Record<SubcategoryInterface['id'], SubcategoryInterface>;
 export type RecipesById = Record<RecipeInterface['id'], RecipeInterface>;
