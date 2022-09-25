@@ -37,13 +37,14 @@ const Template: ComponentStory<typeof ModalBase> = (args) => {
 
     return (
         <div>
-            <Button label="Open" onClick={handleOpen} />
+            <Button label="Open" onClick={handleOpen} translate={false} />
 
             {open && (
                 <ModalBase {...args} onClose={handleClose}>
                     <Button
                         label="Google sign in"
                         onClick={() => handleClick(SIGN_IN_ENUM.GOOGLE)}
+                        translate={false}
                     />
                 </ModalBase>
             )}

@@ -20,6 +20,7 @@ const Template: ComponentStory<typeof RecipeNameChangeable> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
     initValue: '',
+    placeholderValue: 'name',
     error: {
         status: false,
     },
@@ -28,6 +29,7 @@ Default.args = {
 export const WithError: any = Template.bind({});
 WithError.args = {
     initValue: 'SALAD DRESSING THREE WAYS: PIQUANT, HOT AND FRAGRANT',
+    placeholderValue: 'name',
     error: {
         status: true,
         message: RECIPE_CREATOR_ERROR_MESSAGE[RECIPE_DATA_PROPERTY_ENUM.NAME_UK],
