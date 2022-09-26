@@ -27,4 +27,9 @@ export const TRANSLATION_KEYS = {
     SIGN_IN_MODAL: {
         TITLE: 'signInModal.title',
     },
+    ERRORS: {
+        RECIPE_CREATOR: {
+            INVALID_NAME: 'errors.recipeCreator.invalidName',
+        },
+    },
 };

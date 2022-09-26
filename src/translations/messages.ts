@@ -18,6 +18,8 @@ export const TRANSLATION_MESSAGES = {
         [TRANSLATION_KEYS.PROFILE_MENU.SHOPPING_LIST]: 'Список покупок',
         [TRANSLATION_KEYS.PROFILE_MENU.SIGN_OUT]: 'Вийти',
         [TRANSLATION_KEYS.SIGN_IN_MODAL.TITLE]: 'Увійти за допомогою',
+        [TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME]:
+            "Назва рецепту є обов'язковою для заповнення",
     },
     [LANGUAGE_ENUM.ENGLISH]: {
         [TRANSLATION_KEYS.UPLOAD_IMAGE.UPLOAD]: 'Upload image',
@@ -34,5 +36,6 @@ export const TRANSLATION_MESSAGES = {
         [TRANSLATION_KEYS.PROFILE_MENU.SHOPPING_LIST]: 'Shopping list',
         [TRANSLATION_KEYS.PROFILE_MENU.SIGN_OUT]: 'Sign out',
         [TRANSLATION_KEYS.SIGN_IN_MODAL.TITLE]: 'Sign in with',
+        [TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME]: 'Recipe name is required',
     },
 };

@@ -1,4 +1,4 @@
-import { APP_REQUEST_STATUS_ENUM, RECIPE_STATUS_ENUM } from './enums';
+import { APP_REQUEST_STATUS_ENUM, RECIPE_COMPLEXITY_ENUM, RECIPE_STATUS_ENUM } from './enums';
 import {
     UniqueId,
     SubcategoriesById,
@@ -7,6 +7,7 @@ import {
     IngredientsById,
     CategoryTranslations,
     SubcategoryTranslations,
+    RecipeDataTranslations,
 } from './types';
 
 /**
@@ -145,23 +146,25 @@ export interface RecipeStepsInterface {
     imageURL?: string;
 }
 
+export interface RecipeDataTranslationsInterface {
+    name?: string;
+    description?: string;
+    steps?: RecipeStepsInterface[];
+}
+
 export interface RecipeDataInterface {
     id?: UniqueId;
-    name?: string;
-    name_uk?: string;
-    description?: string;
-    description_uk?: string;
+    translations?: RecipeDataTranslations;
     slug?: string;
     category?: UniqueId;
     subcategory?: UniqueId;
     tags?: string[];
-    steps?: RecipeStepsInterface[];
     imageURL?: string;
     videoURL?: string;
     originURL?: string;
     cookingTime?: string;
     preparationTime?: string;
-    complexity?: string;
+    complexity?: RECIPE_COMPLEXITY_ENUM;
     author?: UniqueId;
     rating?: number;
     createdAt?: string;
@@ -181,6 +184,11 @@ export interface RecipeInterface {
 export interface FilesSaveOptionsInterface {
     main?: boolean;
     step?: number;
+}
+
+export interface RecipeDataChangeProps {
+    property?: keyof RecipeDataInterface;
+    translatedProperty?: keyof RecipeDataTranslationsInterface;
 }
 
 export interface StepFileInterface {

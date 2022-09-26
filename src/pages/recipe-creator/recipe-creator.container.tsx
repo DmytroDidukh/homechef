@@ -17,12 +17,13 @@ import { api } from 'api';
 
 import {
     FilesSaveOptionsInterface,
-    RecipeDataInterface,
+    RecipeDataChangeProps,
     RecipeInterface,
 } from 'typescript/interfaces';
 import {
     BUTTON_STYLE_ENUM,
     RECIPE_DATA_PROPERTY_ENUM,
+    RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
     TYPOGRAPHY_FONT_WEIGH_ENUM,
     TYPOGRAPHY_STYLE_ENUM,
     TYPOGRAPHY_VARIANT_ENUM,
@@ -36,7 +37,7 @@ interface RecipeStateInterface {
 }
 
 export const RecipeCreator: React.FC = (): JSX.Element => {
-    const { getMessage } = useTranslation();
+    const { getMessage, locale } = useTranslation();
 
     const [recipeState, setRecipeState] = useState<RecipeStateInterface>({
         recipe: new Recipe(),
@@ -46,16 +47,23 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     const files = useMemo(() => new RecipeFileService(), []);
 
-    const dataChangeHandler = useCallback((property: keyof RecipeDataInterface, value: any) => {
-        setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
+    const dataChangeHandler = useCallback(
+        ({ property, translatedProperty }: RecipeDataChangeProps, value: any) => {
+            setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
-        if (value) {
-            recipeState.recipe.addDataProperty(property, value);
+            if (value) {
+                if (translatedProperty) {
+                    recipeState.recipe.addTranslatedDataProperty(translatedProperty, value, locale);
+                } else if (property) {
+                    recipeState.recipe.addDataProperty(property, value);
+                }
 
-            setRecipeState({ recipe: recipeState.recipe });
-        }
+                setRecipeState({ recipe: recipeState.recipe });
+            }
+        },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+        [locale],
+    );
 
     const fileSaveHandler = useCallback((file: File, options: FilesSaveOptionsInterface = {}) => {
         if (options.main) {
@@ -75,8 +83,8 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     const submitSavingHandler = useCallback(
         () => {
-            const _errors = validationService.validateRecipeData(recipeState.recipe.data, [
-                RECIPE_DATA_PROPERTY_ENUM.NAME_UK,
+            const _errors = validationService.validateRecipeData(recipeState.recipe.data, locale, [
+                RECIPE_DATA_PROPERTY_ENUM.TRANSLATIONS,
             ]);
 
             console.log('SAVING', _errors);
@@ -109,7 +117,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
                 weight={TYPOGRAPHY_FONT_WEIGH_ENUM.SEMI_BOLD}
             />
             <RecipeNameChangeable
-                error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.NAME_UK]}
+                error={errorsData.errors[RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]}
                 valueSaveHandler={dataChangeHandler}
                 placeholderValue={getMessage({
                     messageKey: TRANSLATION_KEYS.RECIPE_CREATOR.RECIPE_NAME,

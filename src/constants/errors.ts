@@ -1,4 +1,6 @@
-import { RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
+import { TRANSLATION_KEYS } from 'translations/keys';
+
+import { RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM } from 'typescript/enums';
 import { DefaultObjectValueStingType, RecipeDataErrorsType } from 'typescript/types';
 
 export const INITIAL_RECIPE_ERRORS_STATE: RecipeDataErrorsType = {
@@ -6,6 +8,7 @@ export const INITIAL_RECIPE_ERRORS_STATE: RecipeDataErrorsType = {
     errorsFound: false,
 };
 
-export const RECIPE_CREATOR_ERROR_MESSAGE: DefaultObjectValueStingType = {
-    [RECIPE_DATA_PROPERTY_ENUM.NAME_UK]: 'Поле є обов’язковим для заповнення.',
+export const RECIPE_CREATOR_ERROR_MESSAGE_KEYS: DefaultObjectValueStingType = {
+    [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]:
+        TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME,
 };

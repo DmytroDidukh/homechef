@@ -1,7 +1,11 @@
-import { RECIPE_CREATOR_ERROR_MESSAGE } from 'constants/errors';
+import { RECIPE_CREATOR_ERROR_MESSAGE_KEYS } from 'constants/errors';
 import { FILE_CONFIG } from 'constants/app';
 
-import { RECIPE_DATA_PROPERTY_ENUM } from 'typescript/enums';
+import {
+    LANGUAGE_ENUM,
+    RECIPE_DATA_PROPERTY_ENUM,
+    RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
+} from 'typescript/enums';
 import { RecipeDataInterface } from 'typescript/interfaces';
 import type { RecipeDataErrorsType, ValidationRegExpType } from 'typescript/types';
 
@@ -11,13 +15,14 @@ interface ValidationConfigInterface {
 
 const VALIDATION_CONFIG: ValidationConfigInterface = {
     RECIPE: {
-        [RECIPE_DATA_PROPERTY_ENUM.NAME_UK]: /^[\w\d\s-,]{2,200}$/gi,
+        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]: /^[\w\d\s-,]{2,200}$/gi,
     },
 };
 
 interface ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,
+        language: LANGUAGE_ENUM,
         propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
     ): RecipeDataErrorsType;
     validateImage(file: File): boolean;
@@ -26,6 +31,7 @@ interface ValidationServiceInterface {
 class ValidationService implements ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,
+        language: LANGUAGE_ENUM,
         propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
     ) {
         const result: RecipeDataErrorsType = {
@@ -34,6 +40,9 @@ class ValidationService implements ValidationServiceInterface {
         };
 
         propertiesToValidate.forEach((propertyName) => {
+            if (propertyName === RECIPE_DATA_PROPERTY_ENUM.TRANSLATIONS) {
+                console.log('hi');
+            }
             const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
                 <string>data[propertyName] || '',
             );
@@ -41,7 +50,7 @@ class ValidationService implements ValidationServiceInterface {
             if (!isValid) {
                 result.errors[propertyName] = {
                     status: true,
-                    message: RECIPE_CREATOR_ERROR_MESSAGE[propertyName],
+                    message: RECIPE_CREATOR_ERROR_MESSAGE_KEYS[propertyName],
                 };
                 result.errorsFound = true;
             } else {

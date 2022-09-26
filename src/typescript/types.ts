@@ -9,6 +9,7 @@ import {
     IngredientGroupInterface,
     IngredientInterface,
     RecipeInterface,
+    RecipeDataTranslationsInterface,
     SubcategoryInterface,
     SubcategoryTranslationsInterface,
 } from './interfaces';
@@ -28,6 +29,7 @@ export type UniqueId = string;
 
 export type CategoryTranslations = Record<LANGUAGE_ENUM, CategoryTranslationsInterface>;
 export type SubcategoryTranslations = Record<LANGUAGE_ENUM, SubcategoryTranslationsInterface>;
+export type RecipeDataTranslations = Record<LANGUAGE_ENUM, RecipeDataTranslationsInterface>;
 export type CategoriesById = Record<CategoryInterface['id'], CategoryInterface>;
 export type SubcategoriesById = Record<SubcategoryInterface['id'], SubcategoryInterface>;
 export type RecipesById = Record<RecipeInterface['id'], RecipeInterface>;

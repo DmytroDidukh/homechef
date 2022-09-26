@@ -106,16 +106,18 @@ export enum TYPOGRAPHY_STYLE_ENUM {
 /**
  * Recipe
  */
-export enum RECIPE_DATA_PROPERTY_ENUM {
+export enum RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM {
     NAME = 'name',
-    NAME_UK = 'name_uk',
     DESCRIPTION = 'description',
-    DESCRIPTION_UK = 'description_uk',
+    STEPS = 'steps',
+}
+
+export enum RECIPE_DATA_PROPERTY_ENUM {
+    TRANSLATIONS = 'translations',
     SLUG = 'slug',
     CATEGORY = 'category',
     SUBCATEGORY = 'subcategory',
     TAGS = 'tags',
-    STEPS = 'steps',
     IMAGE_URL = 'imageURL',
     VIDEO_URL = 'videoURL',
     ORIGIN_URL = 'originURL',
@@ -124,4 +126,10 @@ export enum RECIPE_DATA_PROPERTY_ENUM {
     COMPLEXITY = 'complexity',
     AUTHOR = 'author',
     CREATED_AT = 'createdAt',
+}
+
+export enum RECIPE_COMPLEXITY_ENUM {
+    LOW = 'LOW',
+    MEDIUM = 'MEDIUM',
+    HIGH = 'HIGH',
 }
