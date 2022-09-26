@@ -19,7 +19,7 @@ interface ValidationConfigInterface {
 
 const VALIDATION_CONFIG: ValidationConfigInterface = {
     RECIPE: {
-        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]: /^[\w\d\s-,]{2,200}$/gi,
+        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]: /^[\w\d\s-,;]{2,200}$/gi,
     },
 };
 
