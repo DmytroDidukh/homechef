@@ -9,16 +9,20 @@ import styles from './error-message.module.scss';
 
 export interface ErrorMessageProps {
     className?: string;
-    message: string;
+    messageKey: string;
 }
 
-export const ErrorMessage: React.FC<ErrorMessageProps> = ({ className, message }): JSX.Element => {
+export const ErrorMessage: React.FC<ErrorMessageProps> = ({
+    className,
+    messageKey,
+}): JSX.Element => {
     return (
         <Typography
+            translate
             className={classNames(styles.root, className)}
             style={TYPOGRAPHY_STYLE_ENUM.UPPER_CASE_ALL}
             variant={TYPOGRAPHY_VARIANT_ENUM.TEXT}
-            value={message}
+            value={messageKey}
         />
     );
 };

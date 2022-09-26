@@ -5,7 +5,7 @@ import { ErrorMessage } from 'components/error-message/error-message.component';
 
 import { measureText } from 'utils/string';
 
-import { CustomErrorInterface, RecipeDataChangeProps } from 'typescript/interfaces';
+import { CustomErrorInterface, RecipeDataChangePropsinterface } from 'typescript/interfaces';
 import { RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM } from 'typescript/enums';
 
 import styles from './recipe-name-changeable.module.scss';
@@ -14,7 +14,7 @@ export interface RecipeTitleChangeableProps {
     initValue?: string;
     placeholderValue: string;
     error?: CustomErrorInterface;
-    valueSaveHandler: (data: RecipeDataChangeProps, value: string) => void;
+    valueSaveHandler: (data: RecipeDataChangePropsinterface, value: string) => void;
     className?: string;
 }
 
@@ -54,7 +54,7 @@ export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
                 onBlur={blurHandler}
                 {...props}
             />
-            {error.status && error.message && <ErrorMessage message={error.message} />}
+            {error.status && error.messageKey && <ErrorMessage messageKey={error.messageKey} />}
         </div>
     );
 };

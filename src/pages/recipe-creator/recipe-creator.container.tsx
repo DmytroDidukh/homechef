@@ -17,18 +17,17 @@ import { api } from 'api';
 
 import {
     FilesSaveOptionsInterface,
-    RecipeDataChangeProps,
+    RecipeDataChangePropsinterface,
     RecipeInterface,
+    RecipeDataErrorsInterface,
 } from 'typescript/interfaces';
 import {
     BUTTON_STYLE_ENUM,
-    RECIPE_DATA_PROPERTY_ENUM,
     RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
     TYPOGRAPHY_FONT_WEIGH_ENUM,
     TYPOGRAPHY_STYLE_ENUM,
     TYPOGRAPHY_VARIANT_ENUM,
 } from 'typescript/enums';
-import type { RecipeDataErrorsType } from 'typescript/types';
 
 import styles from './recipe-creator.module.scss';
 
@@ -42,13 +41,15 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     const [recipeState, setRecipeState] = useState<RecipeStateInterface>({
         recipe: new Recipe(),
     });
-    const [errorsData, setErrorsData] = useState<RecipeDataErrorsType>(INITIAL_RECIPE_ERRORS_STATE);
+    const [errorsData, setErrorsData] = useState<RecipeDataErrorsInterface>(
+        INITIAL_RECIPE_ERRORS_STATE,
+    );
     const [mainImage, setMainImage] = useState<string>('');
 
     const files = useMemo(() => new RecipeFileService(), []);
 
     const dataChangeHandler = useCallback(
-        ({ property, translatedProperty }: RecipeDataChangeProps, value: any) => {
+        ({ property, translatedProperty }: RecipeDataChangePropsinterface, value: any) => {
             setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
             if (value) {
@@ -83,9 +84,10 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     const submitSavingHandler = useCallback(
         () => {
-            const _errors = validationService.validateRecipeData(recipeState.recipe.data, locale, [
-                RECIPE_DATA_PROPERTY_ENUM.TRANSLATIONS,
-            ]);
+            const _errors = validationService.validateRecipeData(recipeState.recipe.data, locale, {
+                translatedPropertiesToValidate: [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME],
+                propertiesToValidate: [],
+            });
 
             console.log('SAVING', _errors);
 

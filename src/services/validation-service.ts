@@ -1,4 +1,4 @@
-import { RECIPE_CREATOR_ERROR_MESSAGE_KEYS } from 'constants/errors';
+import { INITIAL_RECIPE_ERRORS_STATE, RECIPE_CREATOR_ERROR_MESSAGE_KEYS } from 'constants/errors';
 import { FILE_CONFIG } from 'constants/app';
 
 import {
@@ -6,8 +6,12 @@ import {
     RECIPE_DATA_PROPERTY_ENUM,
     RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
 } from 'typescript/enums';
-import { RecipeDataInterface } from 'typescript/interfaces';
-import type { RecipeDataErrorsType, ValidationRegExpType } from 'typescript/types';
+import {
+    RecipeDataInterface,
+    RecipeDataValidationConfigInterface,
+    RecipeDataErrorsInterface,
+} from 'typescript/interfaces';
+import type { ValidationRegExpType } from 'typescript/types';
 
 interface ValidationConfigInterface {
     RECIPE: ValidationRegExpType;
@@ -23,8 +27,8 @@ interface ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,
         language: LANGUAGE_ENUM,
-        propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
-    ): RecipeDataErrorsType;
+        config: RecipeDataValidationConfigInterface,
+    ): RecipeDataErrorsInterface;
     validateImage(file: File): boolean;
 }
 
@@ -32,35 +36,36 @@ class ValidationService implements ValidationServiceInterface {
     validateRecipeData(
         data: RecipeDataInterface,
         language: LANGUAGE_ENUM,
-        propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[],
+        config: RecipeDataValidationConfigInterface,
     ) {
-        const result: RecipeDataErrorsType = {
-            errorsFound: false,
-            errors: {},
-        };
+        let errors = INITIAL_RECIPE_ERRORS_STATE;
 
-        propertiesToValidate.forEach((propertyName) => {
-            if (propertyName === RECIPE_DATA_PROPERTY_ENUM.TRANSLATIONS) {
-                console.log('hi');
-            }
+        config.propertiesToValidate.forEach((propertyName) => {
             const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
                 <string>data[propertyName] || '',
             );
 
-            if (!isValid) {
-                result.errors[propertyName] = {
-                    status: true,
-                    message: RECIPE_CREATOR_ERROR_MESSAGE_KEYS[propertyName],
-                };
-                result.errorsFound = true;
-            } else {
-                result.errors[propertyName] = {
-                    status: false,
+            const result = this.setErrors(isValid, propertyName);
+            errors = {
+                ...result,
+            };
+        });
+
+        config.translatedPropertiesToValidate.forEach((propertyName) => {
+            if (data.translations) {
+                const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
+                    <string>data.translations[language][propertyName] || '',
+                );
+
+                const result = this.setErrors(isValid, propertyName);
+                errors = {
+                    ...errors,
+                    ...result,
                 };
             }
         });
 
-        return result;
+        return errors;
     }
 
     validateImage(file: File) {
@@ -78,6 +83,26 @@ class ValidationService implements ValidationServiceInterface {
 
     private validateImageSize(fileSize: number, maxSize: number) {
         return fileSize <= maxSize;
+    }
+
+    private setErrors(
+        isValid: boolean,
+        propertyName: RECIPE_DATA_PROPERTY_ENUM | RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
+    ): RecipeDataErrorsInterface {
+        const result = INITIAL_RECIPE_ERRORS_STATE;
+
+        if (!isValid) {
+            result.errors[propertyName] = {
+                status: true,
+                messageKey: RECIPE_CREATOR_ERROR_MESSAGE_KEYS[propertyName],
+            };
+            result.errorsFound = true;
+        } else {
+            result.errors[propertyName] = {
+                status: false,
+            };
+        }
+        return result;
     }
 }
 

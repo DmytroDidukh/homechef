@@ -1,9 +1,10 @@
 import { TRANSLATION_KEYS } from 'translations/keys';
 
 import { RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM } from 'typescript/enums';
-import { DefaultObjectValueStingType, RecipeDataErrorsType } from 'typescript/types';
+import { DefaultObjectValueStingType } from 'typescript/types';
+import { RecipeDataErrorsInterface } from 'typescript/interfaces';
 
-export const INITIAL_RECIPE_ERRORS_STATE: RecipeDataErrorsType = {
+export const INITIAL_RECIPE_ERRORS_STATE: RecipeDataErrorsInterface = {
     errors: {},
     errorsFound: false,
 };

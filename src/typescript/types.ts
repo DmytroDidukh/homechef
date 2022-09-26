@@ -5,7 +5,6 @@ import { store } from 'store/store';
 import {
     CategoryInterface,
     CategoryTranslationsInterface,
-    CustomErrorInterface,
     IngredientGroupInterface,
     IngredientInterface,
     RecipeInterface,
@@ -38,10 +37,7 @@ export type IngredientsGroupsById = Record<
     IngredientGroupInterface['id'],
     IngredientGroupInterface
 >;
-export type RecipeDataErrorsType = {
-    errorsFound: boolean;
-    errors: Record<string, CustomErrorInterface>;
-};
+
 export type ValidationRegExpType = {
     [key: string]: RegExp;
 };
