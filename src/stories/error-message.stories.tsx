@@ -3,6 +3,8 @@ import { ComponentMeta, ComponentStory } from '@storybook/react';
 
 import { ErrorMessage } from 'components/error-message/error-message.component';
 
+import { TRANSLATION_KEYS } from 'translations/keys';
+
 export default {
     title: 'Components/ErrorMessage',
     component: ErrorMessage,
@@ -18,5 +20,5 @@ export default {
 } as ComponentMeta<typeof ErrorMessage>;
 
 export const Default: ComponentStory<typeof ErrorMessage> = () => (
-    <ErrorMessage message="Error occurred" />
+    <ErrorMessage messageKey={TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME} />
 );
