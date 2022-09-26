@@ -30,7 +30,6 @@ export const Typography: React.FC<TypographyProps> = ({
     className,
     ...props
 }) => {
-    console.log(value);
     const { getMessage } = useTranslation();
     const Element = typographyService.getElement(variant);
 
