@@ -5,7 +5,7 @@ import { ErrorMessage } from 'components/error-message/error-message.component';
 
 import { measureText } from 'utils/string';
 
-import { CustomErrorInterface, RecipeDataChangePropsinterface } from 'typescript/interfaces';
+import { CustomErrorInterface, RecipeDataChangePropsInterface } from 'typescript/interfaces';
 import { RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM } from 'typescript/enums';
 
 import styles from './recipe-name-changeable.module.scss';
@@ -14,7 +14,7 @@ export interface RecipeTitleChangeableProps {
     initValue?: string;
     placeholderValue: string;
     error?: CustomErrorInterface;
-    valueSaveHandler: (data: RecipeDataChangePropsinterface, value: string) => void;
+    valueSaveHandler: (data: RecipeDataChangePropsInterface, value: string) => void;
     className?: string;
 }
 

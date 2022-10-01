@@ -1,10 +1,4 @@
-import {
-    APP_REQUEST_STATUS_ENUM,
-    RECIPE_COMPLEXITY_ENUM,
-    RECIPE_DATA_PROPERTY_ENUM,
-    RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
-    RECIPE_STATUS_ENUM,
-} from './enums';
+import { APP_REQUEST_STATUS_ENUM, RECIPE_COMPLEXITY_ENUM, RECIPE_STATUS_ENUM } from './enums';
 import {
     UniqueId,
     SubcategoriesById,
@@ -192,14 +186,14 @@ export interface FilesSaveOptionsInterface {
     step?: number;
 }
 
-export interface RecipeDataChangePropsinterface {
+export interface RecipeDataChangePropsInterface {
     property?: keyof RecipeDataInterface;
     translatedProperty?: keyof RecipeDataTranslationsInterface;
 }
 
 export interface RecipeDataValidationConfigInterface {
-    propertiesToValidate: RECIPE_DATA_PROPERTY_ENUM[];
-    translatedPropertiesToValidate: RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM[];
+    saving: boolean;
+    suggesting: boolean;
 }
 
 export interface StepFileInterface {

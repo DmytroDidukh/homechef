@@ -30,3 +30,7 @@ export const generateId = (): string => {
     }
     return autoId;
 };
+
+export const isNotEmptyString = (value?: string) => typeof value === 'string' && value.length;
+export const testStringByRegExp = (value: string, regExp: RegExp, flags?: string) =>
+    isNotEmptyString(value) && new RegExp(regExp, flags || '').test(value || '');

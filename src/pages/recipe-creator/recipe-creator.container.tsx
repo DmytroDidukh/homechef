@@ -13,16 +13,17 @@ import { RecipeFileService } from 'services/file-service';
 import { validationService } from 'services/validation-service';
 import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
 import { TRANSLATION_KEYS } from 'translations/keys';
-import { api } from 'api';
+// import { api } from 'api';
 
 import {
     FilesSaveOptionsInterface,
-    RecipeDataChangePropsinterface,
+    RecipeDataChangePropsInterface,
     RecipeInterface,
     RecipeDataErrorsInterface,
 } from 'typescript/interfaces';
 import {
     BUTTON_STYLE_ENUM,
+    RECIPE_DATA_PROPERTY_ENUM,
     RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
     TYPOGRAPHY_FONT_WEIGH_ENUM,
     TYPOGRAPHY_STYLE_ENUM,
@@ -44,12 +45,11 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     const [errorsData, setErrorsData] = useState<RecipeDataErrorsInterface>(
         INITIAL_RECIPE_ERRORS_STATE,
     );
-    const [mainImage, setMainImage] = useState<string>('');
 
     const files = useMemo(() => new RecipeFileService(), []);
 
     const dataChangeHandler = useCallback(
-        ({ property, translatedProperty }: RecipeDataChangePropsinterface, value: any) => {
+        ({ property, translatedProperty }: RecipeDataChangePropsInterface, value: any) => {
             setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
             if (value) {
@@ -70,6 +70,13 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         if (options.main) {
             console.log('ADDING MAIN...');
             files.addMain(file);
+
+            recipeState.recipe.addDataProperty(
+                RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL,
+                URL.createObjectURL(file),
+            );
+            setRecipeState({ recipe: recipeState.recipe });
+            // setMainImage(URL.createObjectURL(file));
         }
 
         if (typeof options.step === 'number') {
@@ -77,36 +84,38 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         }
         console.log(files);
 
-        setMainImage(URL.createObjectURL(file));
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const submitSavingHandler = useCallback(
         () => {
-            const _errors = validationService.validateRecipeData(recipeState.recipe.data, locale, {
-                translatedPropertiesToValidate: [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME],
-                propertiesToValidate: [],
+            validationService.validateRecipeData(recipeState.recipe.data, locale, {
+                saving: true,
+                suggesting: false,
             });
 
-            console.log('SAVING', _errors);
+            const _errors = validationService.errors;
+
+            console.log('SAVING ERRORS: ', _errors);
+            console.log('SAVING DATA: ', recipeState.recipe.data);
 
             if (_errors.errorsFound) {
-                setErrorsData(_errors);
+                setErrorsData({ ..._errors });
                 console.log('ERRORS DETECTED');
             } else {
                 console.log('ALL FIELDS ARE VALID');
 
                 // @ts-ignore
-                api.media.uploadFile(files.main);
+                // api.media.uploadFile(files.main);
             }
         },
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [],
+        [recipeState.recipe],
     );
 
     console.log('RECIPE: ', recipeState.recipe);
+    console.log('ERRORS: ', errorsData.errors);
 
     return (
         <PageContainer className={styles.root}>
@@ -127,13 +136,13 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
             />
 
             <div className={styles['main-image-container']}>
-                {!mainImage ? (
+                {!recipeState.recipe.data.imageURL ? (
                     <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} />
                 ) : (
                     <div className={styles['main-image']}>
                         <Image
                             skeletonProps={{ width: 600, height: 400 }}
-                            src={mainImage}
+                            src={recipeState.recipe.data.imageURL}
                             alt="Food"
                         />
                     </div>

@@ -1,25 +1,27 @@
-import { INITIAL_RECIPE_ERRORS_STATE, RECIPE_CREATOR_ERROR_MESSAGE_KEYS } from 'constants/errors';
+import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
 import { FILE_CONFIG } from 'constants/app';
+import { TRANSLATION_KEYS } from 'translations/keys';
+import { isNotEmptyString, testStringByRegExp } from 'utils/string';
 
 import {
     LANGUAGE_ENUM,
     RECIPE_DATA_PROPERTY_ENUM,
     RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
 } from 'typescript/enums';
-import {
-    RecipeDataInterface,
-    RecipeDataValidationConfigInterface,
-    RecipeDataErrorsInterface,
-} from 'typescript/interfaces';
-import type { ValidationRegExpType } from 'typescript/types';
+import { RecipeDataInterface, RecipeDataValidationConfigInterface } from 'typescript/interfaces';
+
+interface RecipeValidation {
+    [key: string]: RegExp;
+}
 
 interface ValidationConfigInterface {
-    RECIPE: ValidationRegExpType;
+    RECIPE: RecipeValidation;
 }
 
 const VALIDATION_CONFIG: ValidationConfigInterface = {
     RECIPE: {
-        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]: /^[\w\d\s-,;]{2,200}$/gi,
+        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]: /^[\w\d\s-,;:]{2,200}$/,
+        [RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.DESCRIPTION]: /^[\w\d\s-,;:!?]{2,1000}$/,
     },
 };
 
@@ -28,44 +30,91 @@ interface ValidationServiceInterface {
         data: RecipeDataInterface,
         language: LANGUAGE_ENUM,
         config: RecipeDataValidationConfigInterface,
-    ): RecipeDataErrorsInterface;
+    ): this;
+
     validateImage(file: File): boolean;
 }
 
 class ValidationService implements ValidationServiceInterface {
+    errors = INITIAL_RECIPE_ERRORS_STATE;
+
     validateRecipeData(
         data: RecipeDataInterface,
         language: LANGUAGE_ENUM,
         config: RecipeDataValidationConfigInterface,
     ) {
-        let errors = INITIAL_RECIPE_ERRORS_STATE;
+        this.errors = INITIAL_RECIPE_ERRORS_STATE;
 
-        config.propertiesToValidate.forEach((propertyName) => {
-            const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
-                <string>data[propertyName] || '',
-            );
+        // data.translations ALWAYS true
+        if (config.saving && data.translations) {
+            console.log(data.translations);
+            this.validateRecipeName(data.translations[language].name)
+                .validateRecipeDescription(data.translations[language].description)
+                .validateRecipeImageURL(data.imageURL);
+        }
 
-            const result = this.setErrors(isValid, propertyName);
-            errors = {
-                ...result,
-            };
-        });
+        if (config.suggesting) {
+            console.log('SUGGESTING...');
+        }
 
-        config.translatedPropertiesToValidate.forEach((propertyName) => {
-            if (data.translations) {
-                const isValid = VALIDATION_CONFIG.RECIPE[propertyName].test(
-                    <string>data.translations[language][propertyName] || '',
-                );
+        return this;
+    }
 
-                const result = this.setErrors(isValid, propertyName);
-                errors = {
-                    ...errors,
-                    ...result,
-                };
+    validateRecipeName(value?: string) {
+        let isError = false;
+        let messageKey = '';
+
+        if (!isNotEmptyString(value)) {
+            isError = true;
+            messageKey = TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.EMPTY_NAME;
+        } else if (
+            !testStringByRegExp(
+                value || '',
+                VALIDATION_CONFIG.RECIPE[RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME],
+            )
+        ) {
+            console.log(value);
+            isError = true;
+            messageKey = TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME;
+        }
+
+        this.setErrors(isError, messageKey, RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME);
+
+        return this;
+    }
+
+    validateRecipeDescription(value?: string) {
+        if (value !== undefined) {
+            let isError = false;
+            let messageKey = '';
+
+            if (!isNotEmptyString(value)) {
+                isError = true;
+                messageKey = TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.EMPTY_NAME;
+            } else if (
+                !testStringByRegExp(
+                    value,
+                    VALIDATION_CONFIG.RECIPE[RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.DESCRIPTION],
+                )
+            ) {
+                isError = true;
+                messageKey = TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.INVALID_NAME;
             }
-        });
 
-        return errors;
+            this.setErrors(isError, messageKey, RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.DESCRIPTION);
+        }
+
+        return this;
+    }
+
+    validateRecipeImageURL(value?: string) {
+        this.setErrors(
+            !value,
+            TRANSLATION_KEYS.ERRORS.RECIPE_CREATOR.EMPTY_IMAGE,
+            RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL,
+        );
+
+        return this;
     }
 
     validateImage(file: File) {
@@ -86,23 +135,22 @@ class ValidationService implements ValidationServiceInterface {
     }
 
     private setErrors(
-        isValid: boolean,
+        isError: boolean,
+        messageKey: string,
         propertyName: RECIPE_DATA_PROPERTY_ENUM | RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
-    ): RecipeDataErrorsInterface {
-        const result = INITIAL_RECIPE_ERRORS_STATE;
-
-        if (!isValid) {
-            result.errors[propertyName] = {
+    ): void {
+        if (isError) {
+            this.errors.errors[propertyName] = {
                 status: true,
-                messageKey: RECIPE_CREATOR_ERROR_MESSAGE_KEYS[propertyName],
+                messageKey: messageKey,
             };
-            result.errorsFound = true;
+            this.errors.errorsFound = true;
         } else {
-            result.errors[propertyName] = {
+            this.errors.errors[propertyName] = {
                 status: false,
             };
+            // this.errors.errorsFound = false;
         }
-        return result;
     }
 }
 

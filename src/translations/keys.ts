@@ -30,6 +30,9 @@ export const TRANSLATION_KEYS = {
     ERRORS: {
         RECIPE_CREATOR: {
             INVALID_NAME: 'errors.recipeCreator.invalidName',
+            EMPTY_NAME: 'errors.recipeCreator.emptyName',
+            INVALID_IMAGE: 'errors.recipeCreator.invalidImage',
+            EMPTY_IMAGE: 'errors.recipeCreator.emptyImage',
         },
     },
 };
