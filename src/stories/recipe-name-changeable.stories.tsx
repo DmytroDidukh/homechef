@@ -28,7 +28,7 @@ export default {
 } as ComponentMeta<typeof RecipeNameChangeable>;
 
 const Template: ComponentStory<typeof RecipeNameChangeable> = (args) => (
-    <RecipeNameChangeable {...args} valueSaveHandler={() => {}} />
+    <RecipeNameChangeable {...args} onDelete={() => {}} onSave={() => {}} />
 );
 
 export const Default = Template.bind({});
