@@ -3,7 +3,7 @@ import classNames from 'classnames';
 
 import { ErrorMessage } from 'components/error-message/error-message.component';
 
-import { measureText } from 'utils/string';
+import { isNotEmptyString, measureText } from 'utils/string';
 
 import { CustomErrorInterface, RecipeDataChangePropsInterface } from 'typescript/interfaces';
 import { RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM } from 'typescript/enums';
@@ -14,7 +14,8 @@ export interface RecipeTitleChangeableProps {
     initValue?: string;
     placeholderValue: string;
     error?: CustomErrorInterface;
-    valueSaveHandler: (data: RecipeDataChangePropsInterface, value: string) => void;
+    onSave: (data: RecipeDataChangePropsInterface, value: string) => void;
+    onDelete: (data: RecipeDataChangePropsInterface) => void;
     className?: string;
 }
 
@@ -22,7 +23,8 @@ export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
     initValue = '',
     placeholderValue,
     error = { status: false },
-    valueSaveHandler,
+    onSave,
+    onDelete,
     className,
     ...props
 }) => {
@@ -33,10 +35,11 @@ export const RecipeNameChangeable: React.FC<RecipeTitleChangeableProps> = ({
     };
 
     const blurHandler = (): void => {
-        valueSaveHandler(
-            { translatedProperty: RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME },
-            value,
-        );
+        if (isNotEmptyString(value)) {
+            onSave({ translatedProperty: RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME }, value);
+        } else {
+            onDelete({ translatedProperty: RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME });
+        }
     };
 
     return (

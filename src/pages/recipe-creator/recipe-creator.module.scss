@@ -12,15 +12,3 @@
 .title {
   margin: 40px auto
 }
-
-.mainImageContainer {
-  @include width-height(600px, 400px);
-
-  overflow: hidden;
-  margin-bottom: 40px;
-
-  .mainImage {
-    @include flex-block(center, center);
-    @include width-height(100%, 100%);
-  }
-}

@@ -2,9 +2,8 @@ import React, { useCallback, useMemo, useState } from 'react';
 
 import { PageContainer } from 'components/page-container/page-container.component';
 import { RecipeNameChangeable } from 'components/recipe-name-changeable/recipe-name-changeable.component';
-import { RecipeImagePlaceholder } from 'components/recipe-image-placeholder/recipe-image-placeholder.component';
+import { RecipeImage } from 'components/recipe-image/recipe-image.component';
 import { Button } from 'components/button/button.component';
-import { Image } from 'components/image/image.component';
 import { Typography } from 'components/typography/typography.component';
 
 import { useTranslation } from 'hooks/useTranslation';
@@ -48,7 +47,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
 
     const files = useMemo(() => new RecipeFileService(), []);
 
-    const dataChangeHandler = useCallback(
+    const onAddData = useCallback(
         ({ property, translatedProperty }: RecipeDataChangePropsInterface, value: any) => {
             setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
@@ -64,17 +63,28 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         [],
     );
 
+    const onDeleteData = useCallback(
+        ({ property, translatedProperty }: RecipeDataChangePropsInterface) => {
+            setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
+
+            if (translatedProperty) {
+                recipeState.recipe.deleteTranslatedDataProperty(translatedProperty, locale);
+            } else if (property) {
+                recipeState.recipe.deleteDataProperty(property);
+            }
+
+            setRecipeState({ recipe: recipeState.recipe });
+        },
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+        [],
+    );
+
     const fileSaveHandler = useCallback((file: File, options: FilesSaveOptionsInterface = {}) => {
         if (options.main) {
             console.log('ADDING MAIN...');
             files.addMain(file);
 
-            recipeState.recipe.addDataProperty(
-                RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL,
-                URL.createObjectURL(file),
-            );
-            setRecipeState({ recipe: recipeState.recipe });
-            // setMainImage(URL.createObjectURL(file));
+            onAddData({ property: RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL }, URL.createObjectURL(file));
         }
 
         if (typeof options.step === 'number') {
@@ -86,7 +96,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
     }, []);
 
     const submitSavingHandler = useCallback(
-        () => {
+        async () => {
             validationService.validateRecipeData(recipeState.recipe.data, locale, {
                 saving: true,
                 suggesting: false,
@@ -104,7 +114,9 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
                 console.log('ALL FIELDS ARE VALID');
 
                 // @ts-ignore
-                // api.media.uploadFile(files.main);
+                // const imageURL = await api.media.uploadFile(files.main);
+                const imageURL = 'test';
+                console.log('IMAGE URL: ', imageURL);
             }
         },
 
@@ -127,28 +139,19 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
             />
             <RecipeNameChangeable
                 error={errorsData.errors[RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM.NAME]}
-                valueSaveHandler={dataChangeHandler}
+                onSave={onAddData}
+                onDelete={onDeleteData}
                 placeholderValue={getMessage({
                     messageKey: TRANSLATION_KEYS.RECIPE_CREATOR.RECIPE_NAME,
                 })}
             />
 
-            <div className={styles.mainImageContainer}>
-                {!recipeState.recipe.data.imageURL ? (
-                    <RecipeImagePlaceholder
-                        fileSaveHandler={fileSaveHandler}
-                        error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL]}
-                    />
-                ) : (
-                    <div className={styles.mainImage}>
-                        <Image
-                            skeletonProps={{ width: 600, height: 400 }}
-                            src={recipeState.recipe.data.imageURL}
-                            alt="Food"
-                        />
-                    </div>
-                )}
-            </div>
+            <RecipeImage
+                fileSaveHandler={fileSaveHandler}
+                onDelete={onDeleteData}
+                imageURL={recipeState.recipe.data.imageURL}
+                error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL]}
+            />
 
             <div>
                 <Button
