@@ -11,6 +11,6 @@ button {
   padding: 10px;
 }
 
-button:first-of-type {
+.root > button:first-of-type {
   margin-right: 14px;
 }

@@ -121,7 +121,7 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         },
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [recipeState.recipe],
+        [recipeState.recipe, locale],
     );
 
     console.log('RECIPE: ', recipeState.recipe);

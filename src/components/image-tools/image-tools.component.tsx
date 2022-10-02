@@ -16,7 +16,7 @@ export const ImageTools: React.FC<RecipeImagePlaceholderProps> = ({ onDelete, cl
     return (
         <div className={classNames(styles.root, className)}>
             <Button
-                className={styles.close}
+                className={styles.button}
                 border={false}
                 title="Delete"
                 onClick={onDelete}
