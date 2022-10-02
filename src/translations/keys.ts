@@ -1,6 +1,7 @@
 export const TRANSLATION_KEYS = {
     UPLOAD_IMAGE: {
         UPLOAD: 'uploadImage.upload',
+        HINT: 'uploadImage.hint',
     },
     RECIPE_CREATOR: {
         NEW: 'recipeCreator.new',

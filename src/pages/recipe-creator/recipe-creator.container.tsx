@@ -52,18 +52,16 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
         ({ property, translatedProperty }: RecipeDataChangePropsInterface, value: any) => {
             setErrorsData(INITIAL_RECIPE_ERRORS_STATE);
 
-            if (value) {
-                if (translatedProperty) {
-                    recipeState.recipe.addTranslatedDataProperty(translatedProperty, value, locale);
-                } else if (property) {
-                    recipeState.recipe.addDataProperty(property, value);
-                }
-
-                setRecipeState({ recipe: recipeState.recipe });
+            if (translatedProperty) {
+                recipeState.recipe.addTranslatedDataProperty(translatedProperty, value, locale);
+            } else if (property) {
+                recipeState.recipe.addDataProperty(property, value);
             }
+
+            setRecipeState({ recipe: recipeState.recipe });
         },
         // eslint-disable-next-line react-hooks/exhaustive-deps
-        [locale],
+        [],
     );
 
     const fileSaveHandler = useCallback((file: File, options: FilesSaveOptionsInterface = {}) => {
@@ -135,11 +133,14 @@ export const RecipeCreator: React.FC = (): JSX.Element => {
                 })}
             />
 
-            <div className={styles['main-image-container']}>
+            <div className={styles.mainImageContainer}>
                 {!recipeState.recipe.data.imageURL ? (
-                    <RecipeImagePlaceholder fileSaveHandler={fileSaveHandler} />
+                    <RecipeImagePlaceholder
+                        fileSaveHandler={fileSaveHandler}
+                        error={errorsData.errors[RECIPE_DATA_PROPERTY_ENUM.IMAGE_URL]}
+                    />
                 ) : (
-                    <div className={styles['main-image']}>
+                    <div className={styles.mainImage}>
                         <Image
                             skeletonProps={{ width: 600, height: 400 }}
                             src={recipeState.recipe.data.imageURL}

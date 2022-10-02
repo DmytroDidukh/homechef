@@ -2,6 +2,7 @@ import { INITIAL_RECIPE_ERRORS_STATE } from 'constants/errors';
 import { FILE_CONFIG } from 'constants/app';
 import { TRANSLATION_KEYS } from 'translations/keys';
 import { isNotEmptyString, testStringByRegExp } from 'utils/string';
+import { deepCloneObject } from 'utils/object';
 
 import {
     LANGUAGE_ENUM,
@@ -9,13 +10,10 @@ import {
     RECIPE_DATA_TRANSLATIONS_PROPERTY_ENUM,
 } from 'typescript/enums';
 import { RecipeDataInterface, RecipeDataValidationConfigInterface } from 'typescript/interfaces';
-
-interface RecipeValidation {
-    [key: string]: RegExp;
-}
+import type { ValidationRegExpType } from 'typescript/types';
 
 interface ValidationConfigInterface {
-    RECIPE: RecipeValidation;
+    RECIPE: ValidationRegExpType;
 }
 
 const VALIDATION_CONFIG: ValidationConfigInterface = {
@@ -36,14 +34,14 @@ interface ValidationServiceInterface {
 }
 
 class ValidationService implements ValidationServiceInterface {
-    errors = INITIAL_RECIPE_ERRORS_STATE;
+    errors = deepCloneObject(INITIAL_RECIPE_ERRORS_STATE);
 
     validateRecipeData(
         data: RecipeDataInterface,
         language: LANGUAGE_ENUM,
         config: RecipeDataValidationConfigInterface,
     ) {
-        this.errors = INITIAL_RECIPE_ERRORS_STATE;
+        this.errors = deepCloneObject(INITIAL_RECIPE_ERRORS_STATE);
 
         // data.translations ALWAYS true
         if (config.saving && data.translations) {
@@ -149,7 +147,6 @@ class ValidationService implements ValidationServiceInterface {
             this.errors.errors[propertyName] = {
                 status: false,
             };
-            // this.errors.errorsFound = false;
         }
     }
 }

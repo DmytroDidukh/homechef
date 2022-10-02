@@ -1,1 +1,1 @@
-export const convertBytesToMegabytes = (value: number) => value / 100000;
+export const convertBytesToMegabytes = (value: number) => value / 1000000;

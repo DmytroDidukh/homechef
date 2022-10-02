@@ -1,7 +1,8 @@
-import React, { ChangeEvent, SyntheticEvent } from 'react';
+import React, { ChangeEvent, SyntheticEvent, useState } from 'react';
 import classNames from 'classnames';
 
 import { Typography } from 'components/typography/typography.component';
+import { ErrorMessage } from 'components/error-message/error-message.component';
 
 import UploadImage from 'icons/upload-image.svg';
 import UploadImagePrimary from 'icons/upload-image-primary.svg';
@@ -28,6 +29,7 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
     fileSaveHandler,
     className,
 }) => {
+    const [uploadError, setUploadError] = useState(false);
     console.log(initURL);
     const fileUploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
         // @ts-ignore
@@ -36,7 +38,9 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
         if (validationService.validateImage(file)) {
             console.log('FILE IS VALID', file);
             fileSaveHandler(file, { main: true });
+            setUploadError(false);
         } else {
+            setUploadError(true);
             console.error('FILE IS WRONG', file);
         }
     };
@@ -51,11 +55,13 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
                 const isValid = validationService.validateImage(file);
 
                 if (e.dataTransfer.items[i].kind === 'file' && !isValid) {
+                    setUploadError(true);
                     continue;
                 }
 
                 console.log('FILE IS VALID');
                 fileSaveHandler(file, { main: true });
+                setUploadError(false);
                 break;
             }
         }
@@ -66,7 +72,7 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
             id="drop_zone"
             role="presentation"
             className={classNames(styles.root, className, {
-                [styles.invalid]: error.status,
+                [styles.invalid]: uploadError || error.status,
             })}
             onDrop={dragNDropHandler}
             onDragOver={(e: SyntheticEvent) => e.preventDefault()}
@@ -89,7 +95,17 @@ export const RecipeImagePlaceholder: React.FC<RecipeImagePlaceholderProps> = ({
                     accept={FILE_CONFIG.IMAGE.ACCEPT.join(',')}
                     onChange={fileUploadHandler}
                 />
+
+                <Typography
+                    translate
+                    className={styles.hint}
+                    value={TRANSLATION_KEYS.UPLOAD_IMAGE.HINT}
+                    variant={TYPOGRAPHY_VARIANT_ENUM.HINT}
+                    style={TYPOGRAPHY_STYLE_ENUM.NONE}
+                />
             </label>
+
+            {error.status && error.messageKey && <ErrorMessage messageKey={error.messageKey} />}
         </div>
     );
 };

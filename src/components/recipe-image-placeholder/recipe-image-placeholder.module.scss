@@ -10,6 +10,7 @@
   border: 4px solid $bg-dark;
 
   position: relative;
+  overflow: hidden;
 
   &:hover {
     border: 4px solid $border-primary;
@@ -27,8 +28,11 @@
 }
 
 .root.invalid {
-  .textarea {
-    border-bottom: 1px solid $border-warning;
+
+  border: 4px solid $border-warning;
+
+  &:hover {
+    border: 4px solid $border-warning;
   }
 }
 
@@ -53,4 +57,11 @@
   img:last-child {
     display: none;
   }
+}
+
+.hint {
+  max-width: 400px;
+
+  position: absolute;
+  bottom: 20px;
 }

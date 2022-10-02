@@ -7,6 +7,10 @@ import { LANGUAGE_ENUM } from 'typescript/enums';
 export const TRANSLATION_MESSAGES = {
     [LANGUAGE_ENUM.UKRAINIAN]: {
         [TRANSLATION_KEYS.UPLOAD_IMAGE.UPLOAD]: 'Завантажте зображення',
+        [TRANSLATION_KEYS.UPLOAD_IMAGE
+            .HINT]: `Максимальний розмір зображення ${convertBytesToMegabytes(
+            FILE_CONFIG.IMAGE.MAX_SIZE,
+        )} MB. Можливі формати: ${FILE_CONFIG.IMAGE.ACCEPT.join(', ')}`,
         [TRANSLATION_KEYS.RECIPE_CREATOR.NEW]: 'Ваш новий рецепт',
         [TRANSLATION_KEYS.RECIPE_CREATOR.SUGGEST]: 'Запропонувати рецепт',
         [TRANSLATION_KEYS.RECIPE_CREATOR.RECIPE_NAME]: 'Назва рецепту',
@@ -32,6 +36,9 @@ export const TRANSLATION_MESSAGES = {
     },
     [LANGUAGE_ENUM.ENGLISH]: {
         [TRANSLATION_KEYS.UPLOAD_IMAGE.UPLOAD]: 'Upload image',
+        [TRANSLATION_KEYS.UPLOAD_IMAGE.HINT]: `Max image size ${convertBytesToMegabytes(
+            FILE_CONFIG.IMAGE.MAX_SIZE,
+        )} MB. Supported formats: ${FILE_CONFIG.IMAGE.ACCEPT.join(', ')}`,
         [TRANSLATION_KEYS.RECIPE_CREATOR.NEW]: 'Your new recipe',
         [TRANSLATION_KEYS.RECIPE_CREATOR.SUGGEST]: 'Suggest recipe',
         [TRANSLATION_KEYS.RECIPE_CREATOR.RECIPE_NAME]: 'Recipe title',

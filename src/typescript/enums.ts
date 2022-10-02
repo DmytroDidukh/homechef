@@ -85,6 +85,7 @@ export enum TYPOGRAPHY_VARIANT_ENUM {
     PARAGRAPH_1 = 'paragraph1',
     PARAGRAPH_2 = 'paragraph2',
     TEXT = 'text',
+    HINT = 'hint',
     BUTTON = 'button',
 }
 
@@ -101,6 +102,7 @@ export enum TYPOGRAPHY_STYLE_ENUM {
     UPPER_CASE_ALL = 'upperCaseAll',
     LOWER_CASE_FIRST = 'lowerCaseFirst',
     UPPER_CASE_FIRST = 'upperCaseFirst',
+    NONE = 'none',
 }
 
 /**
