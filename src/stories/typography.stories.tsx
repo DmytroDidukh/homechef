@@ -14,7 +14,6 @@ const TypographyList: React.FC<TypographyListInterface> = ({ children }) => <div
 export default {
     title: 'Components/Typography',
     component: Typography,
-    // subcomponents: { Typography },
 } as ComponentMeta<typeof Typography>;
 
 const Template: ComponentStory<typeof Typography> = (args) => {
@@ -87,6 +86,12 @@ Text.args = {
     variant: TYPOGRAPHY_VARIANT_ENUM.TEXT,
 };
 
+export const Hint = Template.bind({});
+Hint.args = {
+    variant: TYPOGRAPHY_VARIANT_ENUM.HINT,
+    style: TYPOGRAPHY_STYLE_ENUM.NONE,
+};
+
 export const Button = Template.bind({});
 Button.args = {
     variant: TYPOGRAPHY_VARIANT_ENUM.BUTTON,
@@ -116,6 +121,8 @@ export const List: ComponentStory<typeof TypographyList> = (args) => (
         <Paragraph2 {...Paragraph2.args} />
         {/* @ts-ignore */}
         <Text {...Text.args} />
+        {/* @ts-ignore */}
+        <Hint {...Text.args} />
         {/* @ts-ignore */}
         <Button {...Button.args} />
     </TypographyList>

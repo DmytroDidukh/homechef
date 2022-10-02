@@ -69,6 +69,13 @@
   color: inherit;
 }
 
+.hint {
+  @include font-small();
+
+  color: $text-secondary;
+  text-align: center;
+}
+
 .light {
   font-weight: 100;
 }
